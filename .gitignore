@@ -1,0 +1,6 @@
+*.db
+
+# Folders
+__pycache__
+.venv
+.vscode
