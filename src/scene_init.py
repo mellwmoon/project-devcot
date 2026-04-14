@@ -7,7 +7,7 @@ def web_manager(page: ft.Page):
     }
 
     # Settings and such
-    ## No variables yet
+
 
     # Scenes Manager
     def change_route():
