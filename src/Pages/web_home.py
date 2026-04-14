@@ -10,7 +10,6 @@ class Home(ft.View):
     DEFAULT_SUBTITLE_SIZE = 14
 
     def __init__(self):
-
         top_text = ft.Text(
             value="DEVCOT", 
             font_family="JetBrains Mono",

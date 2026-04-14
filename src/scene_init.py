@@ -3,7 +3,7 @@ from Pages import web_scenes as ws
 
 def web_manager(page: ft.Page):
     page.fonts = {
-        "JetBrains Mono" : "/Assets/JetBrainsMono[wght].ttf"
+        "JetBrains Mono" : "/fonts/JetBrainsMono[wght].ttf"
     }
 
     # Settings and such
