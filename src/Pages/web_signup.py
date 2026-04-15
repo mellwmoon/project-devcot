@@ -2,7 +2,7 @@ import flet as ft
 from Utilities import effect_util as efutil
 
 
-class Signup(ft.Views):
+class Signup(ft.View):
 
 
 
@@ -31,7 +31,7 @@ class Signup(ft.Views):
   
     super().__init__(
       route="/signup",
-      controls[
+      controls=[
         
       ]
     )
