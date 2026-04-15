@@ -1,4 +1,5 @@
 import flet as ft
+import datetime
 from Utilities import effect_util as efutil
 
 
@@ -8,9 +9,25 @@ class Signup(ft.View):
   INPUT_ROUNDED_BORDER_RAD = 5
 
   def __init__(self):
-
-    m_anim_title = efutil.Fun("> Sign_up", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
+       
     
+    m_anim_title = efutil.Fun("> Sign_up", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
+
+    def date_changed(e) -> None:
+        field_date.value = e.control.value.astimezone().strftime("%B %d, %Y")
+
+    input_date = ft.DatePicker(
+        on_change=date_changed,
+        first_date=datetime.datetime(1950, 1, 1),
+        last_date=datetime.datetime(2023, 12, 31),
+    )
+
+    field_date = self.create_field(
+      "Birthdate",
+      on_click=lambda _:self.page.show_dialog(input_date),
+      is_readonly=True
+    )
+
     input_fields_container = ft.Container(
         width=self.INPUT_CONTAINER_WIDTH,
         content=ft.Row(
@@ -21,22 +38,68 @@ class Signup(ft.View):
                     alignment=ft.MainAxisAlignment.CENTER,
                     margin=10,
                     controls=[
-                        ft.Text("Display Name", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
+                        ft.Text(
+                          "Display Name", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
                         self.create_field("Username"),                        
-                        ft.Text("Email", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
+                        ft.Text(
+                          "Email", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
                         self.create_field("Email"),
-                        ft.Text("Password ", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
+                        ft.Text(
+                          "Password ", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
                         self.create_field("Password", True),
-                        ft.Text("Age ", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-                        self.create_field("Age"),
-                        ft.Text("Birthday", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-                        self.create_field("01/03/12"),
-                        ft.Text("University Email (Optional)", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
+                        ft.Text(
+                          "Age ", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
+                        self.create_field("Age", is_numerical=True),
+                        ft.Text(
+                          "Birthday", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
+                        field_date, # This is the only exception lol
+                        ft.Text(
+                          "University Email (Optional)", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
                         self.create_field("reichard@univeristy.org"),
                     ]
                 )
             ]
         )
+    )
+
+    button_submit = ft.FilledButton(
+       height=40,
+       width=200,
+        content=ft.Text(
+            value="Continue ->",
+            font_family="JetBrains Mono",
+            weight=ft.FontWeight.W_800
+        )
+    )
+
+    button_back_login = ft.FilledButton(
+      height=40,
+        content=ft.Text(
+            value="Back to login",
+            font_family="JetBrains Mono",
+            weight=ft.FontWeight.W_800
+        ),
+      color=ft.Colors.GREEN_900,
+      bgcolor=ft.Colors.GREEN_300,
+      on_click=self.push_login
     )
 
     main_layout = ft.Column(
@@ -45,10 +108,19 @@ class Signup(ft.View):
       horizontal_alignment=ft.CrossAxisAlignment.CENTER,
       controls=[
         m_anim_title,
-        input_fields_container
+        input_fields_container,
+        ft.Row(
+          spacing=40,
+          alignment=ft.MainAxisAlignment.CENTER,
+          vertical_alignment=ft.CrossAxisAlignment.CENTER,
+          controls=[
+            button_back_login,
+            button_submit,
+          ]
+        )
       ],
     )
-  
+
     super().__init__(
       route="/signup",
       vertical_alignment=ft.MainAxisAlignment.CENTER,
@@ -58,9 +130,15 @@ class Signup(ft.View):
       ]
     )
 
+  async def push_login(self, e):
+    await self.page.push_route("/login")
 
-  def create_field(self, hint_text, is_password=False) -> ft.TextField:
+  def create_field(self, hint_text, is_password=False, is_numerical=False, on_click=None, label=None, is_readonly=False) -> ft.TextField:
       return ft.TextField(
+          read_only=is_readonly,
+          value=label if label!=None else None,
+          on_click=on_click,
+          input_filter=ft.NumbersOnlyInputFilter() if is_numerical else None,
           password=is_password,
           autofill_hints=True,
           can_reveal_password=True,

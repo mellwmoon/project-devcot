@@ -14,14 +14,6 @@ class Login(ft.View):
     COL_BG = "#041015"
 
     def __init__(self):
-        
-        main_title      = ft.Text(
-            value="> Sign_In",
-            weight=ft.FontWeight.W_500,
-            font_family="JetBrains Mono",
-            size=self.TITLE_SIZE,
-        )
-
         m_anim_title = efutil.Fun("> Sign_in", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
 
         input_fields_container = ft.Container(
@@ -92,6 +84,7 @@ class Login(ft.View):
                             margin=0,
                             width=120,
                             height=30,
+                            on_click=self.push_signup
                         )
                     ]
                 )
@@ -108,6 +101,9 @@ class Login(ft.View):
 
     async def push_home(self, e):
         await self.page.push_route("/")
+    
+    async def push_signup(self, e):
+        await self.page.push_route("/signup")
 
     def create_field(self, hint_text, is_password=False) -> ft.TextField:
         return ft.TextField(

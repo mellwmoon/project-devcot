@@ -53,7 +53,7 @@ current views: {len(page.views)}
         """)
         
     # page.route = "/login"
-    page.route = "/signup"
+    # page.route = "/signup"
     page.on_route_change = change_route
 
     change_route()
