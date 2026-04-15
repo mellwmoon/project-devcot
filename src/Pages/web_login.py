@@ -22,7 +22,7 @@ class Login(ft.View):
             size=self.TITLE_SIZE,
         )
 
-        m_anim_title = efutil.Fun("> Sign in", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
+        m_anim_title = efutil.Fun("> Sign_in", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
 
         input_fields_container = ft.Container(
             width=self.INPUT_CONTAINER_WIDTH,
@@ -34,7 +34,7 @@ class Login(ft.View):
                         alignment=ft.MainAxisAlignment.CENTER,
                         margin=10,
                         controls=[
-                            ft.Text("Email or Username ", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
+                            ft.Text("Email or Username", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
                             self.create_field("Email or User"),
                             ft.Text("Password ", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
                             self.create_field("Password", True),

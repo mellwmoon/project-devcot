@@ -24,7 +24,7 @@ class Home(ft.View):
 
     def __init__(self):
         top_text = ft.Text(
-            value="> DEVCOT", 
+            value=">DEVCOT", 
             font_family="JetBrains Mono",
             style=ft.TextThemeStyle.DISPLAY_LARGE,
             height=self.TITLE_HEIGHT,
