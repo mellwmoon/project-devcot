@@ -11,7 +11,7 @@ class Signup(ft.View):
   def __init__(self):
        
     
-    m_anim_title = efutil.Fun("> Sign_up", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
+    m_anim_title = efutil.Fun("> Sign_up basic_info", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
 
     def date_changed(e) -> None:
         field_date.value = e.control.value.astimezone().strftime("%B %d, %Y")
@@ -38,6 +38,11 @@ class Signup(ft.View):
                     alignment=ft.MainAxisAlignment.CENTER,
                     margin=10,
                     controls=[
+                        ft.Text(
+                          "Basic Information", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_LARGE,
+                        ),
                         ft.Divider(),
                         ft.Text(
                           "First Name", 
@@ -57,31 +62,34 @@ class Signup(ft.View):
                           theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
                         ),
                         field_date, # This is the only exception lol
-                        ft.Divider(),
-                        ft.Text(
-                          "Phone Number", 
-                          font_family="JetBrains Mono", 
-                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
-                        ),
-                        self.create_field("+63", is_numerical=True),
-                        ft.Text(
-                          "Email", 
-                          font_family="JetBrains Mono", 
-                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
-                        ),
-                        self.create_field("Email"),
-                        ft.Text(
-                          "University Email (Optional)", 
-                          font_family="JetBrains Mono", 
-                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
-                        ),
-                        self.create_field("reichard@univeristy.org"),
                         ft.Text(
                           "Password ", 
                           font_family="JetBrains Mono", 
                           theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
                         ),
                         self.create_field("Password", True),
+
+# ============================================== Divider 
+
+                        ft.Text(
+                          "Contact and Verification", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_LARGE,
+                          margin=ft.Margin.only(top=20)
+                        ),
+                        ft.Divider(),
+                        ft.Text(
+                          "Phone Number", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
+                        self.create_field("+63 (PH)", is_numerical=True),
+                        ft.Text(
+                          "Personal Email", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
+                        self.create_field("Email"),
                     ]
                 )
             ]

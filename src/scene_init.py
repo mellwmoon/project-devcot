@@ -18,7 +18,7 @@ def web_manager(page: ft.Page):
             body_medium=ft.TextStyle(color=ft.Colors.GREEN_400),
             body_small=ft.TextStyle(color=ft.Colors.WHITE),
 
-            label_large=ft.TextStyle(color=ft.Colors.WHITE),
+            label_large=ft.TextStyle(color=ft.Colors.GREEN_200),
             label_medium=ft.TextStyle(color=ft.Colors.WHITE),
             label_small=ft.TextStyle(color=ft.Colors.WHITE),
 
