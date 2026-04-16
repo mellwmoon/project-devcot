@@ -29,7 +29,8 @@ def web_manager(page: ft.Page):
             title_large=ft.TextStyle(color=ft.Colors.GREEN_300),
             title_medium=ft.TextStyle(color=ft.Colors.GREEN_100),
             title_small=ft.TextStyle(color=ft.Colors.WHITE),
-        )
+        ),
+        font_family="JetBrains Mono"
     )
     
 
