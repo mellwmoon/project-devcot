@@ -108,7 +108,22 @@ class Signup(ft.View):
       horizontal_alignment=ft.CrossAxisAlignment.CENTER,
       controls=[
         m_anim_title,
-        input_fields_container,
+        ft.Container(
+          alignment=ft.Alignment.CENTER,
+          height=500,
+          width=500,
+          margin=15,
+          border=ft.Border.all(2, ft.Colors.GREEN_100),
+          border_radius=20,
+          padding=10,
+          content=ft.Column(
+            scroll=ft.ScrollMode.ALWAYS,
+            controls=ft.Container(
+              content=input_fields_container,
+              padding=ft.Padding.only(right=12)
+            )
+          )
+        ),
         ft.Row(
           spacing=40,
           alignment=ft.MainAxisAlignment.CENTER,
