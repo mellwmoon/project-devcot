@@ -38,12 +38,32 @@ class Signup(ft.View):
                     alignment=ft.MainAxisAlignment.CENTER,
                     margin=10,
                     controls=[
+                        ft.Divider(),
                         ft.Text(
-                          "Display Name", 
+                          "First Name", 
                           font_family="JetBrains Mono", 
                           theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
                         ),
-                        self.create_field("Username"),                        
+                        self.create_field("Username"),
+                        ft.Text(
+                          "Last Name", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
+                        self.create_field("Username"),
+                        ft.Text(
+                          "Birthday", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
+                        field_date, # This is the only exception lol
+                        ft.Divider(),
+                        ft.Text(
+                          "Phone Number", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
+                        self.create_field("+63", is_numerical=True),
                         ft.Text(
                           "Email", 
                           font_family="JetBrains Mono", 
@@ -51,29 +71,17 @@ class Signup(ft.View):
                         ),
                         self.create_field("Email"),
                         ft.Text(
-                          "Password ", 
-                          font_family="JetBrains Mono", 
-                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
-                        ),
-                        self.create_field("Password", True),
-                        ft.Text(
-                          "Age ", 
-                          font_family="JetBrains Mono", 
-                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
-                        ),
-                        self.create_field("Age", is_numerical=True),
-                        ft.Text(
-                          "Birthday", 
-                          font_family="JetBrains Mono", 
-                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
-                        ),
-                        field_date, # This is the only exception lol
-                        ft.Text(
                           "University Email (Optional)", 
                           font_family="JetBrains Mono", 
                           theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
                         ),
                         self.create_field("reichard@univeristy.org"),
+                        ft.Text(
+                          "Password ", 
+                          font_family="JetBrains Mono", 
+                          theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+                        ),
+                        self.create_field("Password", True),
                     ]
                 )
             ]
@@ -113,8 +121,8 @@ class Signup(ft.View):
           height=500,
           width=500,
           margin=15,
-          border=ft.Border.all(2, ft.Colors.GREEN_100),
-          border_radius=20,
+          border=ft.Border.all(2, ft.Colors.WHITE_38),
+          border_radius=5,
           padding=10,
           content=ft.Column(
             scroll=ft.ScrollMode.ALWAYS,
