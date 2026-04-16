@@ -18,6 +18,7 @@ class Signup(ft.View):
 
     input_date = ft.DatePicker(
         on_change=date_changed,
+        value=datetime.datetime(2005, 1, 1),
         first_date=datetime.datetime(1950, 1, 1),
         last_date=datetime.datetime(2023, 12, 31),
     )
