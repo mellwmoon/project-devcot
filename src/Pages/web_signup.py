@@ -1,5 +1,6 @@
 import flet as ft
 import datetime
+import asyncio
 from Utilities import effect_util as efutil
 from Utilities import database_util as dabil
 
@@ -9,34 +10,135 @@ class Signup(ft.View):
   INPUT_CONTAINER_WIDTH = 500
   INPUT_ROUNDED_BORDER_RAD = 5
 
+  ANIMATE_OPACITY_SWAP_DURATION = 300
+  ANIMATE_GENERAL_CONTAINER_DURATION = 500
+
+  trigger_swaps = 0
+
   def __init__(self):
     
     
-    m_anim_title = efutil.Fun("> Sign_up basic_info", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
+    m_anim_title1 = efutil.Fun("> Sign_up --stage 1 basic_info", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
+    m_anim_title2 = efutil.Fun("> Sign_up --stage 2 basic_info", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
+    m_anim_title3 = efutil.Fun("> Sign_up --stage 3 basic_info", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
 
     def date_changed(e) -> None:
-        field_date.value = e.control.value.astimezone().strftime("%B %d, %Y")
+      field_date.value = e.control.value.astimezone().strftime("%B %d, %Y")
 
-    def _update_fields(e) -> None:
-      is_complete = False
+    async def continue_button(e) -> None:
+      if self.trigger_swaps == 0:
+        await _update_fields(e)
+      elif self.trigger_swaps == 2:
+        print("** Trigger Account creation")
+
+    async def _swap_container_student(e = None) -> None:
+      self.trigger_swaps += 1
+      input_ask_type.disabled = True
+      input_ask_type.opacity = 0.0
+      input_ask_type.update()
+      input_student_type.update()
+
+      await asyncio.sleep(1)
+
+      main_layout.controls[0] = m_anim_title3
+
+      input_ask_type.visble = False
+
+      button_back_login.disabled = False
+      button_submit.disabled = False
+
+      input_student_type.visible = True
+      input_student_type.opacity = 1.0
+      input_student_type.disabled = False
+
+      base_container.height = 270
+
+      input_student_type.update()
+      button_back_login.update()
+      input_ask_type.update()
+      button_submit.update()
+      base_container.update()
+      self.page.update()
+
+    async def _swap_container_type(e = None) -> None:
+      if self.trigger_swaps != 0: return
+      else: self.trigger_swaps = 1
+
+      button_back_login.disabled = True
+      button_submit.disabled = True
+
+      input_fields_container.opacity = 0.8
+      input_fields_container.animate_opacity = None
+      input_fields_container.disabled = True
+
+      input_student_type.opacity = 0.0
+      input_student_type.disabled = True
+      input_student_type.update()
+
+      input_fields_container.update()
+      button_back_login.update()
+      button_submit.update()
+
+      await scroll_container.scroll_to(offset=0, duration=500)
+      scroll_container.scroll = None
+      
+      await asyncio.sleep(1)
+
+      scroll_container.update()
+      input_fields_container.animate_opacity = self.ANIMATE_OPACITY_SWAP_DURATION
+      input_fields_container.opacity = 0.8
+      input_fields_container.update()
+
+      await asyncio.sleep(0.1)
+
+      input_fields_container.opacity = 0.0
+      input_fields_container.update()
+
+      await asyncio.sleep(0.5)
+
+      main_layout.controls[0] = m_anim_title2
+
+      input_fields_container.visible = False
+      input_student_type.visible = False
+      input_ask_type.visible = True
+      base_container.height = 370
+      input_ask_type.opacity = 1.0
+      input_ask_type.disabled = False
+      input_ask_type.update()
+      base_container.update()
+      input_student_type.update()
+      input_fields_container.update()
+      self.page.update()
+
+
+
+    async def _update_fields(e) -> None:
+      is_complete = True
       inc = 0
       switch_label = []
       switch = [1, 1, 1, 1, 1, 1]
 
+      print("===========")
+
       for f in fields:
+        if (inc >= len(switch)): break # halting in detecting the rest of fields
+
         cur_field : ft.TextField = f
         if (cur_field.value == None):
+          print(f"Failed {cur_field.hint_text}")
           cur_field.border_color=ft.Colors.RED
           labels[f].color = ft.Colors.RED
-
-          switch_label.append(cur_field.hint_text)
           is_complete = False
           switch[inc] = 0
+        else:
+          cur_field.border_color=ft.Colors.WHITE
+          labels[f].color = ft.Colors.WHITE
+          switch_label.append(cur_field.hint_text)
         
         inc += 1
 
       if (is_complete):
-        pass # Code for next panel here
+        await _swap_container_type(e)
       else:
         self.page.show_dialog(
           ft.AlertDialog(
@@ -75,41 +177,50 @@ class Signup(ft.View):
 
     def detect_input_change(e):
       in_field : ft.TextField = e.control
-      print(in_field.value)
+      if in_field.disabled: return
+
       if in_field.value == None:
         in_field.border_color = ft.Colors.RED
+        labels[in_field].color = ft.Colors.RED
       else:
         in_field.border_color = ft.Colors.WHITE
+        labels[in_field].color = ft.Colors.WHITE
       self.page.update()
 
     def detect_input_change_user(e):
       in_field : ft.TextField = e.control
+      labels[in_field].color = ft.Colors.RED
       if in_field.value == None:
         in_field.border_color = ft.Colors.RED
       elif any(char.isdigit() for char in in_field.value):
         in_field.border_color = ft.Colors.RED
       else:
         in_field.border_color = ft.Colors.WHITE
+        labels[in_field].color = ft.Colors.WHITE
       self.page.update()
 
     def detect_input_change_pass(e):
       in_field : ft.TextField = e.control
+      labels[in_field].color = ft.Colors.RED
       if in_field.value == None:
         in_field.border_color = ft.Colors.RED
       elif len(in_field.value) < 8:
         in_field.border_color = ft.Colors.RED
       else:
         in_field.border_color = ft.Colors.WHITE
+        labels[in_field].color = ft.Colors.WHITE
       self.page.update()
 
     def detect_input_change_phone(e):
       in_field : ft.TextField = e.control
+      labels[in_field].color = ft.Colors.RED
       if in_field.value == None:
         in_field.border_color = ft.Colors.RED
       elif not in_field.value.isdigit() or len(in_field.value) < 11:
         in_field.border_color = ft.Colors.RED
       else:
         in_field.border_color = ft.Colors.WHITE
+        labels[in_field].color = ft.Colors.WHITE
       self.page.update()
 
     input_date = ft.DatePicker(
@@ -131,8 +242,94 @@ class Signup(ft.View):
       on_click_change=detect_input_change
     )
 
+    input_student_type = ft.Container(
+      visible=False,
+      disabled=True,
+      opacity=0.0,
+      alignment=ft.Alignment.CENTER,
+      animate_opacity=self.ANIMATE_OPACITY_SWAP_DURATION,
+      content=ft.Column(
+        expand=True,
+        alignment=ft.MainAxisAlignment.CENTER,
+        controls=[
+          ft.Text(
+            "School Information", 
+            font_family="JetBrains Mono", 
+            theme_style=ft.TextThemeStyle.LABEL_LARGE,
+            margin=ft.Margin.only(top=20)
+          ),
+          ft.Divider(),
+
+          label_school_email := ft.Text(
+            "University Email", 
+            font_family="JetBrains Mono", 
+            theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+          ),
+          field_school_email := self.create_field("Email", on_click_change=detect_input_change),
+          label_year_level := ft.Text(
+            "Year Level", 
+            font_family="JetBrains Mono", 
+            theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
+          ),
+          field_year_level := self.create_field("1, 2, 3, etc...", on_click_change=detect_input_change, is_numerical=True, max_length=2)
+        ]
+      )
+    )
+
+    input_ask_type = ft.Container(
+      visible=False,
+      alignment=ft.Alignment.CENTER,
+      animate_opacity=self.ANIMATE_OPACITY_SWAP_DURATION,
+      opacity=0.0,
+      disabled=True,
+      expand=True,
+      expand_loose=True,
+      content=ft.Column(
+        margin=30,
+        expand=True,
+        alignment=ft.MainAxisAlignment.CENTER,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        controls=[
+          ft.Text(
+            value="What kind of Role do you have?", 
+            size=22,
+            text_align=ft.TextAlign.CENTER,
+            font_family="JetBrains Mono", 
+            theme_style=ft.TextThemeStyle.LABEL_LARGE,
+            margin=10,
+          ),
+          ft.ElevatedButton(
+            width=320,
+            height=50,
+            content=ft.Text(
+              value="A General User"
+            ),
+            disabled=True,
+          ),
+          ft.ElevatedButton(
+            width=320,
+            height=50,
+            content=ft.Text(
+              value="A Student"
+            ),
+            on_click=_swap_container_student
+          ),
+          ft.ElevatedButton(
+            width=320,
+            height=50,
+            content=ft.Text(
+              value="An Educator",
+            ),
+            disabled=True,
+          ),
+        ]
+      )
+    )
+
     input_fields_container = ft.Container(
         width=self.INPUT_CONTAINER_WIDTH,
+        animate_opacity=self.ANIMATE_OPACITY_SWAP_DURATION,
+        opacity=1.0,
         content=ft.Row(
             alignment=ft.MainAxisAlignment.CENTER,
             controls=[
@@ -209,7 +406,9 @@ class Signup(ft.View):
       field_date,
       field_password,
       field_number,
-      field_email
+      field_email,
+      field_school_email,
+      field_year_level
     ]
 
     labels = {
@@ -218,18 +417,21 @@ class Signup(ft.View):
       field_date : label_date,
       field_password : label_password,
       field_number : label_phone_number,
-      field_email : label_personal_email
+      field_email : label_personal_email,
+      field_school_email : label_school_email,
+      field_year_level : label_year_level
     }
 
     button_submit = ft.FilledButton(
        height=40,
        width=200,
+       animate_opacity=self.ANIMATE_OPACITY_SWAP_DURATION,
         content=ft.Text(
             value="Continue ->",
             font_family="JetBrains Mono",
             weight=ft.FontWeight.W_800
         ),
-        on_click=_update_fields
+        on_click=continue_button
     )
 
     button_back_login = ft.FilledButton(
@@ -239,8 +441,7 @@ class Signup(ft.View):
             font_family="JetBrains Mono",
             weight=ft.FontWeight.W_800
         ),
-      color=ft.Colors.GREEN_900,
-      bgcolor=ft.Colors.GREEN_300,
+      animate_opacity=self.ANIMATE_OPACITY_SWAP_DURATION,
       on_click=self.push_login
     )
 
@@ -249,20 +450,28 @@ class Signup(ft.View):
       alignment=ft.MainAxisAlignment.CENTER,
       horizontal_alignment=ft.CrossAxisAlignment.CENTER,
       controls=[
-        m_anim_title,
-        ft.Container(
+        m_anim_title1,
+        base_container := ft.Container(
           alignment=ft.Alignment.CENTER,
+          animate=ft.Animation(self.ANIMATE_GENERAL_CONTAINER_DURATION, ft.AnimationCurve.EASE_IN_OUT_SINE),
           height=500,
           width=500,
           margin=15,
           border=ft.Border.all(2, ft.Colors.WHITE_38),
           border_radius=5,
           padding=10,
-          content=ft.Column(
+          content= (scroll_container:=ft.Column(
             scroll=ft.ScrollMode.ALWAYS,
             controls=ft.Container(
-              content=input_fields_container,
+              content= ft.Stack(
+                controls=[
+                  input_fields_container,
+                  input_ask_type,
+                  input_student_type,
+                ],
+              ),
               padding=ft.Padding.only(right=12)
+              ),
             )
           )
         ),
@@ -273,6 +482,10 @@ class Signup(ft.View):
           controls=[
             button_back_login,
             button_submit,
+            # ft.ElevatedButton(
+            #   content=ft.Text("Force Submit"),
+            #   on_click=_swap_container_type
+            # )
           ]
         )
       ],
