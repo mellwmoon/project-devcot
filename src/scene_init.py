@@ -19,7 +19,7 @@ def web_manager(page: ft.Page):
             body_small=ft.TextStyle(color=ft.Colors.WHITE),
 
             label_large=ft.TextStyle(color=ft.Colors.GREEN_200),
-            label_medium=ft.TextStyle(color=ft.Colors.WHITE),
+            label_medium=ft.TextStyle(color=ft.Colors.GREEN_200, size=14),
             label_small=ft.TextStyle(color=ft.Colors.WHITE),
 
             headline_large=ft.TextStyle(color=ft.Colors.WHITE),
@@ -27,7 +27,7 @@ def web_manager(page: ft.Page):
             headline_small=ft.TextStyle(color=ft.Colors.WHITE),
 
             title_large=ft.TextStyle(color=ft.Colors.GREEN_300),
-            title_medium=ft.TextStyle(color=ft.Colors.GREEN_100),
+            title_medium=ft.TextStyle(color=ft.Colors.GREEN_100, size=20),
             title_small=ft.TextStyle(color=ft.Colors.WHITE),
         ),
         font_family="JetBrains Mono"
