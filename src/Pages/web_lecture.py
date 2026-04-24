@@ -2,11 +2,14 @@ import flet as ft
 from Utilities import lecture_util as lutil
 
 class Lecture(ft.View):
-  def __init__(self):
 
+  TOPIC_SELECTED = "TOPIC PLACEHOLDER"
+
+  def __init__(self):
+    
     cur_appbar = ft.AppBar(
       title=ft.Text(
-        value="> DevCot",
+        value=f"> DevCot: {self.TOPIC_SELECTED}",
         font_family="JetBrains Mono",
         theme_style=ft.TextThemeStyle.TITLE_MEDIUM
       ),
@@ -140,44 +143,75 @@ class Lecture(ft.View):
     container_list = ft.Container(
       width=450,
       padding=ft.Padding.only(left=10, right=10, top=5, bottom=5),
+      # margin=ft.Margin.only(right=90),
       # border=ft.Border.all(1, ft.Colors.WHITE),
       border_radius=10,
       content=ft.Column(
         height=600,
-        scroll=ft.ScrollMode.AUTO,
-        controls=[
-          lutil.Item_Lecture("Heading"),
-          lutil.Item_Lecture("Sub 1", is_heading=False),
-          lutil.Item_Lecture("Sub 2", is_heading=False),
-          lutil.Item_Lecture("Sub 3", is_heading=False),
-          lutil.Item_Lecture("Heading 2"),
-          lutil.Item_Lecture("Sub 1", is_heading=False),
-          lutil.Item_Lecture("Heading 3", is_checked=True),
-          lutil.Item_Lecture("Sub 1", is_heading=False, is_checked=True),
-          lutil.Item_Lecture("Heading 4"),
-          lutil.Item_Lecture("Sub 1", is_heading=False),
-          lutil.Item_Lecture("Sub 2", is_heading=False),
-          lutil.Item_Lecture("Sub 3", is_heading=False),
-        ]
+        scroll=ft.ScrollMode.ADAPTIVE,
+        controls=ft.Container(
+          border_radius=10,
+          padding=ft.Padding.only(right=16),
+          content=ft.Column(
+            controls=[
+              lutil.ItemLecture("Heading"),
+              lutil.ItemLecture("Sub 1", is_heading=False),
+              lutil.ItemLecture("Sub 2", is_heading=False),
+              lutil.ItemLecture("Sub 3", is_heading=False),
+              lutil.ItemLecture("Sub 4", is_heading=False),
+              lutil.ItemLecture("Sub 5", is_heading=False),
+              lutil.ItemLecture("Sub 6", is_heading=False),
+              lutil.ItemLecture("Sub 7", is_heading=False),
+              lutil.ItemLecture("Sub 8", is_heading=False),
+              lutil.ItemLecture("Sub 9", is_heading=False),
+              lutil.ItemLecture("Sub 10", is_heading=False),
+              lutil.ItemLecture("Sub 11", is_heading=False),
+              lutil.ItemLecture("Sub 12", is_heading=False),
+              lutil.ItemLecture("Sub 13", is_heading=False),
+              lutil.ItemLecture("Sub 14", is_heading=False),
+              lutil.ItemLecture("Sub 15", is_heading=False),
+              lutil.ItemLecture("Sub 16", is_heading=False),
+              lutil.ItemLecture("Sub 17", is_heading=False),
+              lutil.ItemLecture("Sub 18", is_heading=False),
+            ]
+          )
+        )
       )
     )
 
     container_desc = ft.Container(
       expand=True,
-      padding=ft.Padding.only(left=10, right=10, top=5, bottom=5),
-      border=ft.Border.all(1, ft.Colors.WHITE),
+      padding=ft.Padding.only(left=20, right=20, top=15, bottom=15),
+      border_radius=10,
+      border=ft.Border.all(1.5, ft.Colors.GREEN_300),
       content=ft.Column(
-        controls=[
-
-        ]
+        controls=lutil.ContentLecture(
+          title="Test Content 1",
+          description="This is the first test Description of the modular thing",
+          topics_amount=34,
+          excercises_amount=18,
+          topics_taken=3,
+          excercises_taken=2,
+        )
       )
     )
 
     body_content = ft.Row(
+      vertical_alignment=ft.CrossAxisAlignment.CENTER,
       spacing=20,
       controls=[
         container_list,
-        container_desc
+        ft.Column(
+          horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+          expand=True, 
+          controls=[
+            container_desc,
+            ft.FilledButton(
+              height=50,
+              content=ft.Text("Study ->", font_family="JetBrains Mono")
+            ),
+          ]
+        ),
       ]
     )
 
@@ -188,7 +222,7 @@ class Lecture(ft.View):
       controls=[
         ft.SafeArea(
           content=body_content,
-          margin=30,
+          margin=5,
         )
       ],
       appbar=cur_appbar

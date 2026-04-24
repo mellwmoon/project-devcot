@@ -19,15 +19,15 @@ def web_manager(page: ft.Page):
             body_small=ft.TextStyle(color=ft.Colors.WHITE),
 
             label_large=ft.TextStyle(color=ft.Colors.GREEN_200),
-            label_medium=ft.TextStyle(color=ft.Colors.GREEN_200, size=18),
+            label_medium=ft.TextStyle(color=ft.Colors.GREEN_300, size=18),
             label_small=ft.TextStyle(color=ft.Colors.GREEN_100, size=14),
 
             headline_large=ft.TextStyle(color=ft.Colors.WHITE),
             headline_medium=ft.TextStyle(color=ft.Colors.WHITE),
             headline_small=ft.TextStyle(color=ft.Colors.WHITE),
 
-            title_large=ft.TextStyle(color=ft.Colors.GREEN_300),
-            title_medium=ft.TextStyle(color=ft.Colors.GREEN_100, size=20),
+            title_large=ft.TextStyle(color=ft.Colors.GREEN_ACCENT_100, size=45),
+            title_medium=ft.TextStyle(color=ft.Colors.GREEN_100, size=30),
             title_small=ft.TextStyle(color=ft.Colors.WHITE),
         ),
         font_family="JetBrains Mono"
