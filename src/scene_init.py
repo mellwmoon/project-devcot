@@ -9,6 +9,7 @@ def web_manager(page: ft.Page):
     # Settings and such
     page.theme = ft.Theme(
         color_scheme_seed=ft.Colors.GREEN_ACCENT,
+        font_family="JetBrains Mono",
         text_theme=ft.TextTheme(
             display_large=ft.TextStyle(weight=ft.FontWeight.BOLD, color=ft.Colors.GREEN),
             display_medium=ft.TextStyle(size=24, color=ft.Colors.GREEN_200),
@@ -30,10 +31,23 @@ def web_manager(page: ft.Page):
             title_medium=ft.TextStyle(color=ft.Colors.GREEN_100, size=30),
             title_small=ft.TextStyle(color=ft.Colors.WHITE),
         ),
-        font_family="JetBrains Mono"
+        scrollbar_theme=ft.ScrollbarTheme(
+            thickness={
+                ft.ControlState.HOVERED : 15,
+                ft.ControlState.SELECTED : 15,
+                ft.ControlState.DEFAULT : 5
+            },
+            radius=5,
+            thumb_color={
+                ft.ControlState.HOVERED : ft.Colors.GREEN_ACCENT_200,
+                ft.ControlState.DEFAULT : ft.Colors.GREEN_400
+            },
+            track_color={
+                ft.ControlState.DEFAULT : ft.Colors.GREEN_400
+            },
+            track_border_color=ft.Colors.GREEN_50
+        )
     )
-    
-
     page.theme_mode = ft.ThemeMode.DARK
 
     # Scenes Manager

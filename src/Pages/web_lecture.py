@@ -148,6 +148,7 @@ class Lecture(ft.View):
       border_radius=10,
       content=ft.Column(
         height=600,
+        
         scroll=ft.ScrollMode.ADAPTIVE,
         controls=ft.Container(
           border_radius=10,
