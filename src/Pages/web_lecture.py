@@ -11,6 +11,8 @@ class Lecture(ft.View):
         theme_style=ft.TextThemeStyle.TITLE_MEDIUM
       ),
       leading_width=20,
+      elevation=0,
+      elevation_on_scroll=0,
       bgcolor=ft.Colors.BLACK_45,
       color=ft.Colors.GREEN_300,
       actions=[
@@ -141,6 +143,8 @@ class Lecture(ft.View):
       # border=ft.Border.all(1, ft.Colors.WHITE),
       border_radius=10,
       content=ft.Column(
+        height=600,
+        scroll=ft.ScrollMode.AUTO,
         controls=[
           lutil.Item_Lecture("Heading"),
           lutil.Item_Lecture("Sub 1", is_heading=False),
@@ -148,6 +152,12 @@ class Lecture(ft.View):
           lutil.Item_Lecture("Sub 3", is_heading=False),
           lutil.Item_Lecture("Heading 2"),
           lutil.Item_Lecture("Sub 1", is_heading=False),
+          lutil.Item_Lecture("Heading 3", is_checked=True),
+          lutil.Item_Lecture("Sub 1", is_heading=False, is_checked=True),
+          lutil.Item_Lecture("Heading 4"),
+          lutil.Item_Lecture("Sub 1", is_heading=False),
+          lutil.Item_Lecture("Sub 2", is_heading=False),
+          lutil.Item_Lecture("Sub 3", is_heading=False),
         ]
       )
     )
