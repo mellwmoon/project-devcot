@@ -1,4 +1,5 @@
 import flet as ft
+from Utilities import lecture_util as lutil
 
 class Lecture(ft.View):
   def __init__(self):
@@ -21,12 +22,13 @@ class Lecture(ft.View):
             ft.PopupMenuItem(
               content=ft.Container(
                   content=ft.Row(
+                    spacing=20,
                     controls=[
                       ft.Icon(ft.Icons.ACCOUNT_CIRCLE),
                       ft.Text(
                         value="Account Settings",
                         font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_MEDIUM
+                        theme_style=ft.TextThemeStyle.LABEL_SMALL
                       )
                     ]
                   ),
@@ -37,12 +39,13 @@ class Lecture(ft.View):
             ft.PopupMenuItem(
               content=ft.Container(
                   content=ft.Row(
+                    spacing=20,
                     controls=[
                       ft.Icon(ft.Icons.SETTINGS),
                       ft.Text(
                         value="General Settings",
                         font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_MEDIUM
+                        theme_style=ft.TextThemeStyle.LABEL_SMALL
                       )
                     ]
                   ),
@@ -57,12 +60,13 @@ class Lecture(ft.View):
             ft.PopupMenuItem(
               content=ft.Container(
                   content=ft.Row(
+                    spacing=20,
                     controls=[
                       ft.Icon(ft.Icons.BOOK),
                       ft.Text(
                         value="References",
                         font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_MEDIUM
+                        theme_style=ft.TextThemeStyle.LABEL_SMALL
                       )
                     ]
                   ),
@@ -73,12 +77,13 @@ class Lecture(ft.View):
             ft.PopupMenuItem(
               content=ft.Container(
                   content=ft.Row(
+                    spacing=20,
                     controls=[
                       ft.Icon(ft.Icons.QUIZ),
                       ft.Text(
                         value="Excercises",
                         font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_MEDIUM
+                        theme_style=ft.TextThemeStyle.LABEL_SMALL
                       )
                     ]
                   ),
@@ -93,12 +98,13 @@ class Lecture(ft.View):
             ft.PopupMenuItem(
               content=ft.Container(
                   content=ft.Row(
+                    spacing=20,
                     controls=[
                       ft.Icon(ft.Icons.QUESTION_ANSWER),
                       ft.Text(
                         value="Help & Support",
                         font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_MEDIUM
+                        theme_style=ft.TextThemeStyle.LABEL_SMALL
                       )
                     ]
                   ),
@@ -109,12 +115,13 @@ class Lecture(ft.View):
             ft.PopupMenuItem(
               content=ft.Container(
                   content=ft.Row(
+                    spacing=20,
                     controls=[
                       ft.Icon(ft.Icons.PERSON),
                       ft.Text(
                         value="About us",
                         font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_MEDIUM
+                        theme_style=ft.TextThemeStyle.LABEL_SMALL
                       )
                     ]
                   ),
@@ -124,18 +131,55 @@ class Lecture(ft.View):
           ],
         )
       ],
-
     )
 
+    # BODY =============================================
 
+    container_list = ft.Container(
+      width=450,
+      padding=ft.Padding.only(left=10, right=10, top=5, bottom=5),
+      # border=ft.Border.all(1, ft.Colors.WHITE),
+      border_radius=10,
+      content=ft.Column(
+        controls=[
+          lutil.Item_Lecture("Heading"),
+          lutil.Item_Lecture("Sub 1", is_heading=False),
+          lutil.Item_Lecture("Sub 2", is_heading=False),
+          lutil.Item_Lecture("Sub 3", is_heading=False),
+          lutil.Item_Lecture("Heading 2"),
+          lutil.Item_Lecture("Sub 1", is_heading=False),
+        ]
+      )
+    )
 
+    container_desc = ft.Container(
+      expand=True,
+      padding=ft.Padding.only(left=10, right=10, top=5, bottom=5),
+      border=ft.Border.all(1, ft.Colors.WHITE),
+      content=ft.Column(
+        controls=[
+
+        ]
+      )
+    )
+
+    body_content = ft.Row(
+      spacing=20,
+      controls=[
+        container_list,
+        container_desc
+      ]
+    )
 
     super().__init__(
       route="/lecture",
       vertical_alignment=ft.MainAxisAlignment.CENTER,
       horizontal_alignment=ft.CrossAxisAlignment.CENTER,
       controls=[
-
+        ft.SafeArea(
+          content=body_content,
+          margin=30,
+        )
       ],
       appbar=cur_appbar
     )
