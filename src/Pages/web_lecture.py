@@ -191,8 +191,8 @@ class Lecture(ft.View):
           description="This is the first test Description of the modular thing",
           topics_amount=34,
           excercises_amount=18,
-          topics_taken=3,
-          excercises_taken=2,
+          topics_taken=16,
+          excercises_taken=13,
         )
       )
     )
@@ -208,8 +208,16 @@ class Lecture(ft.View):
           controls=[
             container_desc,
             ft.FilledButton(
+              margin=ft.Margin.only(top=15),
               height=50,
-              content=ft.Text("Study ->", font_family="JetBrains Mono")
+              width=230,
+              content=ft.Text("Study ->", font_family="JetBrains Mono", weight=ft.FontWeight.W_700, size=18)
+            ),
+            ft.OutlinedButton(
+              margin=ft.Margin.only(top=6),
+              height=50,
+              width=150,
+              content=ft.Text("Go Back", font_family="JetBrains Mono", weight=ft.FontWeight.W_700, size=18)
             ),
           ]
         ),

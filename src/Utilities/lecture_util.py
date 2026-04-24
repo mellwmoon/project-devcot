@@ -141,7 +141,8 @@ class ContentLecture(ft.Column):
             ft.Icon(ft.Icons.DESCRIPTION, color=ft.Colors.GREEN_100),
             ft.Text(topics_amount if has_topics else "No", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
             ft.Text("Sub-topics", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-          ]
+          ],
+          opacity=1.0 if has_topics else 0.4
         ),
 
         ft.Row(
@@ -151,7 +152,8 @@ class ContentLecture(ft.Column):
             ft.Icon(ft.Icons.EDIT_DOCUMENT, color=ft.Colors.GREEN_100),
             ft.Text(excercises_amount if has_excercises else "No", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
             ft.Text("Excercises", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-          ]
+          ],
+          opacity=1.0 if has_excercises else 0.4
         ),
 
         ft.Row(
@@ -162,7 +164,8 @@ class ContentLecture(ft.Column):
             ft.Icon(ft.Icons.VIDEO_COLLECTION, color=ft.Colors.GREEN_100),
             ft.Text(str(videos_amount if videos_amount>0 else "No"), theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
             ft.Text("Videos", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-          ]
+          ],
+          opacity=1.0 if videos_amount>0 else 0.4
         ),
 
         # ft.Text(value="Your Progress", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.TITLE_MEDIUM),
