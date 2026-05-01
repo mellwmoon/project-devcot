@@ -62,6 +62,8 @@ def web_manager(page: ft.Page):
                 page.views.append(ws.signup())
             case "/lecture":
                 page.views.append(ws.lecture())
+            case "/discuss":
+                page.views.append(ws.discuss())
             case _:
                 page.views.append(ws.home())
         print(f""" =======================
@@ -71,7 +73,7 @@ current views: {len(page.views)}
         
     # page.route = "/login"
     # page.route = "/signup"
-    page.route = "/lecture"
+    page.route = "/discuss"
     page.on_route_change = change_route
 
     change_route()
