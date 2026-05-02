@@ -85,16 +85,16 @@ class Discuss(ft.View):
         # ),
     )
 
-    markdown_area.controls.append(ft.Markdown("""
-# Computer Engineering
-## What is it?
-It is a field of study that does engineering on computers :)
-![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgVfHORQFLyUf_rNove-xUmxIskDeMJ63REz_YIMQ6S0vCyQdkBvJos4igKspvCgpqnpy8h0xM--1uckzZIxDgyoHy37-MowkF-YzvVx8&s=10)
+#     markdown_area.controls.append(ft.Markdown("""
+# # Computer Engineering
+# ## What is it?
+# It is a field of study that does engineering on computers :)
+# ![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgVfHORQFLyUf_rNove-xUmxIskDeMJ63REz_YIMQ6S0vCyQdkBvJos4igKspvCgpqnpy8h0xM--1uckzZIxDgyoHy37-MowkF-YzvVx8&s=10)
 
 
 
-""", md_style_sheet=lecture_markdown_style,
-    ))
+# """, md_style_sheet=lecture_markdown_style,
+#     ))
     
 
     super().__init__(

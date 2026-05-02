@@ -36,6 +36,11 @@ class Lecture(ft.View):
       )
     )
 
+    # content_lecture_list.controls.append(lutil.ItemLecture("Basic Logic Gates"))
+    # content_lecture_list.controls.append(lutil.ItemLecture("Introduction to logic Gates", False))
+    # content_lecture_list.controls.append(lutil.ItemLecture("Digital vs Analog Signals", False))
+    # content_lecture_list.controls.append(lutil.ItemLecture("Example 1", False))
+
     container_desc = ft.Container(
       expand=True,
       padding=ft.Padding.only(left=20, right=20, top=15, bottom=15),

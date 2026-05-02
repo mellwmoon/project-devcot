@@ -5,6 +5,7 @@ from Pages import web_signup
 from Pages import web_lecture
 from Pages import web_discuss
 from Pages import web_library
+from Pages import web_creator
 
 home    = web_home.Home
 """The main home Web page of the system."""
@@ -18,3 +19,5 @@ discuss = web_discuss.Discuss
 """The main discussion content showcase of a lecture."""
 library = web_library.Library
 """The main system Library to showcase the lectures and such"""
+creator = web_creator.Creator
+"""The main system that invokes new lectures."""

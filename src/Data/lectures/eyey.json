@@ -1,0 +1,51 @@
+{
+    "title": "eyey",
+    "description": "TREEEEEEE",
+    "icon": "MONITOR",
+    "main_topics": [
+        {
+            "topic_title": "Introduction to Speakers",
+            "sub_topics": [
+                {
+                    "sub_title": "Components",
+                    "pages": []
+                },
+                {
+                    "sub_title": "Audio and Amplification",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Minecraft is so cool dude\n"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "topic_title": "Introduction to Wireless",
+            "sub_topics": [
+                {
+                    "sub_title": "Components",
+                    "pages": []
+                },
+                {
+                    "sub_title": "Custom Pheriperals",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "This is really Cool dude"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "And better yet, it does that!"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "topics_amount": 3,
+    "exercises_amount": 0,
+    "videos_amount": 0,
+    "file_id": "eyey.json"
+}

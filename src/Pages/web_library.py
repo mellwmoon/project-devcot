@@ -43,16 +43,21 @@ class Library(ft.View):
         ]
     )
 
-    content_inner.controls.append(self.create_lecture(
-      lecture_icon=ft.Icon(ft.Icons.MONITOR, size=30),
-      lecture_text="Computer Technologies I",
-      description="This Lecture will teach you the fundamentals of Computers.",
-      amount_topics=12,
-      amount_excercise=3,
-      amount_videos=0,
-      )) # Test Dyn Content
+    # content_inner.controls.append(self.create_lecture(
+    #   lecture_icon=ft.Icon(ft.Icons.MONITOR, size=30),
+    #   lecture_text="Computer Technologies I",
+    #   description="This Lecture will teach you the fundamentals of Computers.",
+    #   amount_topics=12,
+    #   amount_excercise=3,
+    #   amount_videos=0,
+    #   )) # Test Dyn Content
     
-    content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC)))
+    content_inner.controls.append(self.create_lecture(
+      ft.Icon(ft.Icons.ABC),
+      "Basic Logic Gates",
+      "The fundamentals of Digital Electronics.",
+      0, 0, 0
+      ))
 
     super().__init__(
       appbar=cur_appbar,

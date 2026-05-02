@@ -5,7 +5,7 @@ def web_manager(page: ft.Page):
 	page.fonts = {
 		"JetBrains Mono" : "/fonts/JetBrainsMono[wght].ttf"
 	}
-
+  
 	# Settings and such
 	page.theme = ft.Theme(
 		color_scheme_seed=ft.Colors.GREEN_ACCENT,
@@ -68,6 +68,8 @@ def web_manager(page: ft.Page):
 				page.views.append(ws.discuss())
 			case "/library":
 				page.views.append(ws.library())
+			case "/creator":
+				page.views.append(ws.creator())
 			case _:
 				page.views.append(ws.home())
 		print(f""" =======================
@@ -76,11 +78,12 @@ current views: {len(page.views)}
 		""")
 		
 	# Cores 
-	# page.route = "/login" -> Login
-	# page.route = "/signup" -> Signup
-	# page.route = "/library" -> Where we can choose what lecture we like to study
-	# page.route = "/lecture" -> Where we can choose what topic we like to read
-	# page.route = "/discuss" -> Where we actually see and read content
+	# page.route = "/login" #-> Login
+	# page.route = "/signup" # -> Signup
+	# page.route = "/library" # -> Where we can choose what lecture we like to study
+	# page.route = "/lecture" # -> Where we can choose what topic we like to read
+	# page.route = "/discuss" # -> Where we actually see and read content
+	page.route = "/creator"
 	page.on_route_change = change_route
 
 	change_route()
