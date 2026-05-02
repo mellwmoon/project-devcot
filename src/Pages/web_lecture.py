@@ -3,6 +3,7 @@ from Utilities import lecture_util as lutil
 
 
 # Note 1: content_lecture_list -> Main list container
+#         use lutel.ItemLecture to create new items and stuff
 # Note 2: container_desc -> Main Description container,
 #         use lutil.ContentLecture to create details about lecture.
 
