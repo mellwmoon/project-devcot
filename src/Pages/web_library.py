@@ -10,11 +10,14 @@ class Library(ft.View):
 
     main_body = ft.Column(
       expand=True,
+      scroll=ft.ScrollMode.ADAPTIVE,
       alignment=ft.MainAxisAlignment.CENTER,
+      horizontal_alignment=ft.CrossAxisAlignment.CENTER,
       controls=[
         
         content_inner:=ft.Row(
           expand=True,
+          wrap=True,
           alignment=ft.MainAxisAlignment.CENTER,
           controls=[
             # Some Test Content here
@@ -30,39 +33,34 @@ class Library(ft.View):
         expand=True,
         # border=ft.Border.all(1, ft.Colors.WHITE),
         content=main_body,
-        padding=10
+        alignment=ft.Alignment.CENTER,
+        padding=10,
+        height=540,
       )
     )
 
     header_area = ft.Row(
       alignment=ft.MainAxisAlignment.CENTER,
       vertical_alignment=ft.CrossAxisAlignment.START,
-      margin=ft.Margin.only(top=30),
+      margin=ft.Margin.only(top=10),
       controls=[
         ft.Text("Current Library", theme_style=ft.TextThemeStyle.TITLE_LARGE, font_family="JetBrains Mono"),
         ]
     )
-
-    # content_inner.controls.append(self.create_lecture(
-    #   lecture_icon=ft.Icon(ft.Icons.MONITOR, size=30),
-    #   lecture_text="Computer Technologies I",
-    #   description="This Lecture will teach you the fundamentals of Computers.",
-    #   amount_topics=12,
-    #   amount_excercise=3,
-    #   amount_videos=0,
-    #   )) # Test Dyn Content
     
-    content_inner.controls.append(self.create_lecture(
-      ft.Icon(ft.Icons.ABC),
-      "Basic Logic Gates",
-      "The fundamentals of Digital Electronics.",
-      0, 0, 0
-      ))
+    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "1 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
+    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "2 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
+    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "3 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
+    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "4 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
+    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "5 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
+    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "6 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
+    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "7 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
+
 
     super().__init__(
       appbar=cur_appbar,
       vertical_alignment=ft.MainAxisAlignment.START,
-      spacing=30,
+      spacing=10,
       controls=[
         header_area,
         content_area
