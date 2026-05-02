@@ -20,7 +20,7 @@ class Discuss(ft.View):
     if not page.session.store.get("user_progress"):
         page.session.store.set("user_progress", {"topics_taken": 0, "excercises_taken": 0})
     self.progress_tracker = page.session.store.get("user_progress")
-    self.page_completed_flags = [False] * len(self.pages_data)
+    self.page_completed_flags = False * [self.current_page_index]
 
     cur_appbar = wel.Lecture.load_appbar("Discuss")
 
@@ -100,9 +100,8 @@ class Discuss(ft.View):
           self.dynamic_content_area.controls.append(md)
           
           if not self.page_completed_flags[self.current_page_index]:
-              self.progress_tracker["topics_taken"] += 1
               self.page_completed_flags[self.current_page_index] = True
-              self.client_page.session.store.set("user_progress", self.progress_tracker)
+            #   self.client_page.session.store.set("user_progress", self.progress_tracker)
 
       elif current_data["type"] == "quiz":
           # the Quiz UI
@@ -174,6 +173,7 @@ class Discuss(ft.View):
           self.render_current_page()
       else:
           e.page.show_dialog(self.completion_dialog)
+        #   self.progress_tracker["topics_taken"] += 1
 
   async def go_prev(self, e):
       if self.current_page_index > 0:

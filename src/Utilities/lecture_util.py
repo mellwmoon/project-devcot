@@ -163,6 +163,7 @@ class ContentLecture(ft.Column):
 
     super().__init__(
       horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+      height=400,
       controls=[
         ft.Text(value=title, font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.TITLE_MEDIUM),
         ft.Divider(),
@@ -175,23 +176,24 @@ class ContentLecture(ft.Column):
           margin=ft.Margin.only(bottom=30)
         ),
 
-        # ft.Text(value="Contents", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.TITLE_MEDIUM),
-        # ft.Divider(),
+        ft.Container(expand=True),
+        ft.Text(value="Contents", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.TITLE_MEDIUM),
+        ft.Divider(),
 
         ft.Row(
           alignment=ft.MainAxisAlignment.CENTER,
-          expand=True,
+          # expand=True,
           controls=[
             ft.Icon(ft.Icons.DESCRIPTION, color=ft.Colors.GREEN_100),
             ft.Text(topics_amount if has_topics else "No", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-            ft.Text("Sub-topics", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
+            ft.Text("Pages", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
           ],
           opacity=1.0 if has_topics else 0.4
         ),
 
         ft.Row(
           alignment=ft.MainAxisAlignment.CENTER,
-          expand=True,
+          # expand=True,
           controls=[
             ft.Icon(ft.Icons.EDIT_DOCUMENT, color=ft.Colors.GREEN_100),
             ft.Text(excercises_amount if has_excercises else "No", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
@@ -202,7 +204,7 @@ class ContentLecture(ft.Column):
 
         ft.Row(
           alignment=ft.MainAxisAlignment.CENTER,
-          expand=True,
+          # expand=True,
           margin=ft.Margin.only(bottom=30),
           controls=[
             ft.Icon(ft.Icons.VIDEO_COLLECTION, color=ft.Colors.GREEN_100),
@@ -221,8 +223,10 @@ class ContentLecture(ft.Column):
           controls=[
             ft.ProgressBar(expand=True, value=current_points_ratio, color=ft.Colors.YELLOW),
             ft.Text(value=f"Overall Progress {current_points_ratio * 100:.2f}%", color=ft.Colors.YELLOW)
-          ]
+          ],
+          visible=False,
         ),
+
 
         ft.Column(
           horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -231,8 +235,10 @@ class ContentLecture(ft.Column):
           controls=[
             ft.ProgressBar(expand=True, value=current_excercises_ratio),
             ft.Text(f"Excercise Progress {current_excercises_ratio * 100:.2f}%")
-          ]
+          ],
+          visible=False,
         ),
+
         
         ft.Column(
           horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -241,7 +247,8 @@ class ContentLecture(ft.Column):
           controls=[
             ft.ProgressBar(expand=True, value=current_topics_ratio),
             ft.Text(f"Topics Progress {current_topics_ratio * 100:.2f}%")
-          ]
+          ],
+          visible=False,
         ),
       ]
     )
