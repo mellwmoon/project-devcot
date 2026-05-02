@@ -29,7 +29,7 @@ def web_manager(page: ft.Page):
 
             title_large=ft.TextStyle(color=ft.Colors.GREEN_ACCENT_100, size=45),
             title_medium=ft.TextStyle(color=ft.Colors.GREEN_100, size=30),
-            title_small=ft.TextStyle(color=ft.Colors.WHITE),
+            title_small=ft.TextStyle(color=ft.Colors.WHITE, size=18),
         ),
         scrollbar_theme=ft.ScrollbarTheme(
             thickness={
@@ -64,6 +64,8 @@ def web_manager(page: ft.Page):
                 page.views.append(ws.lecture())
             case "/discuss":
                 page.views.append(ws.discuss())
+            case "/library":
+                page.views.append(ws.library())
             case _:
                 page.views.append(ws.home())
         print(f""" =======================
@@ -73,7 +75,8 @@ current views: {len(page.views)}
         
     # page.route = "/login"
     # page.route = "/signup"
-    page.route = "/discuss"
+    # page.route = "/discuss"
+    page.route = "/library"
     page.on_route_change = change_route
 
     change_route()

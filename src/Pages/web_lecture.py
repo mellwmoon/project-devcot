@@ -97,10 +97,10 @@ class Lecture(ft.View):
     pass
 
   @classmethod
-  def load_appbar(self, topic_selected:str) -> load_appbar:
+  def load_appbar(self, topic_selected:str="", is_appbar_only=False) -> load_appbar:
     return ft.AppBar(
       title=ft.Text(
-        value=f"> DevCot: {topic_selected}",
+        value=f"> DevCot: {topic_selected}" if not is_appbar_only else "> DevCot",
         font_family="JetBrains Mono",
         theme_style=ft.TextThemeStyle.TITLE_MEDIUM
       ),
