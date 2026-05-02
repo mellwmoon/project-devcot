@@ -1,5 +1,6 @@
 import flet as ft
 from Pages import web_lecture as wel
+from Utilities import data_util
 
 # Note 1: content_inner is where you place Libraries (Lectures)
 
@@ -19,9 +20,7 @@ class Library(ft.View):
           expand=True,
           wrap=True,
           alignment=ft.MainAxisAlignment.CENTER,
-          controls=[
-            # Some Test Content here
-          ]
+          controls=[]
         )
 
       ]
@@ -48,14 +47,34 @@ class Library(ft.View):
         ]
     )
     
-    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "1 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
-    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "2 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
-    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "3 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
-    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "4 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
-    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "5 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
-    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "6 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
-    # content_inner.controls.append(self.create_lecture(ft.Icon(ft.Icons.ABC), "7 Logic Gates", "The fundamentals of Digital Electronics.", 0, 0, 0))
+    # DYNAMIC PAYLOAD LOADING
+    saved_lectures = data_util.load_all_lectures()
 
+    for lec in saved_lectures:
+        
+        # Must be async to use await push_route!
+        async def block_clicked(e, payload=lec):
+            # 1. Stash the entire dictionary payload into the user's session backpack
+            e.page.session.store.set("current_lecture_payload", payload)
+            
+            # 2. Async routing to the lecture page
+            await e.page.push_route("/lecture")
+
+        # Safely convert the string icon name from JSON back into an ft.Icons enum
+        icon_name = lec.get("icon", "BOOK").upper()
+        icon_enum = getattr(ft.Icons, icon_name, ft.Icons.BOOK)
+
+        content_inner.controls.append(
+            self.create_lecture(
+                lecture_icon=ft.Icon(icon_enum, size=30),
+                lecture_text=lec.get("title", "Untitled Lecture"),
+                description=lec.get("description", "No description provided."),
+                amount_topics=lec.get("topics_amount", 0),
+                amount_excercise=lec.get("exercises_amount", 0),
+                amount_videos=lec.get("videos_amount", 0),
+                on_block_click=block_clicked
+            )
+        )
 
     super().__init__(
       appbar=cur_appbar,
@@ -85,10 +104,9 @@ class Library(ft.View):
       content.opacity = 0.5 if e.data else 1
       content.update()
     
-    def _on_click(e):
-
+    async def _on_click(e): # Made this async to support the async callback!
       if on_block_click != None:
-        on_block_click(e)
+        await on_block_click(e) # Await the callback execution
 
     content=ft.Container(
       width=360,
