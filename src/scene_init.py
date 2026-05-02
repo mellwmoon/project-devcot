@@ -65,7 +65,7 @@ def web_manager(page: ft.Page):
 			case "/lecture":
 				page.views.append(ws.lecture(page))
 			case "/discuss":
-				page.views.append(ws.discuss())
+				page.views.append(ws.discuss(page))
 			case "/library":
 				page.views.append(ws.library())
 			case "/creator":

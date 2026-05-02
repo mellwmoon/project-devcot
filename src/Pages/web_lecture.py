@@ -127,12 +127,24 @@ class Lecture(ft.View):
               if page["type"] == "content": topics_amt += 1
               if page["type"] == "quiz": quizzes_amt += 1
 
+      tracker = self.page.session.store.get("user_progress") or {"topics_taken": 0, "excercises_taken": 0}
+
+      # self.container_desc.content = lutil.ContentLecture(
+      #     title=parent_main_topic.get("topic_title", "Topic"),
+      #     description=sub_topic_description,
+      #     topics_amount=topics_amt,
+      #     excercises_amount=quizzes_amt,
+      #     videos_amount=0,     
+      # )
+
       self.container_desc.content = lutil.ContentLecture(
           title=parent_main_topic.get("topic_title", "Topic"),
           description=sub_topic_data.get('description'),
           topics_amount=topics_amt,
           excercises_amount=quizzes_amt,
-          videos_amount=0, topics_taken=0, excercises_taken=0
+          videos_amount=0,
+          topics_taken=tracker["topics_taken"],
+          excercises_taken=tracker["excercises_taken"]
       )
       self.container_desc.update()
 

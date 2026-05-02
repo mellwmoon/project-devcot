@@ -5,8 +5,48 @@ from Pages import web_lecture as wel
 
 class Discuss(ft.View):
 
-  def __init__(self):
-    cur_appbar = wel.Lecture.load_appbar("test")
+  def __init__(self, page: ft.Page):
+    self.client_page = page
+    
+    self.pages_data = self.client_page.session.store.get("discuss_pages")
+    
+    # Fallback
+    if not self.pages_data:
+        self.pages_data = [{"type": "content", "markdown": "# No data loaded\nPlease go back and select a topic."}]
+
+    self.current_page_index = 0
+    
+    # Tracking Progress in the Session (to feed back to web_lecture)
+    if not page.session.store.get("user_progress"):
+        page.session.store.set("user_progress", {"topics_taken": 0, "excercises_taken": 0})
+    self.progress_tracker = page.session.store.get("user_progress")
+    self.page_completed_flags = [False] * len(self.pages_data)
+
+    cur_appbar = wel.Lecture.load_appbar("Discuss")
+
+    # --- UI COMPONENTS ---
+    
+    self.dynamic_content_area = ft.Column(
+        spacing=20,
+        expand=True,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        scroll=ft.ScrollMode.AUTO,
+        width=700,
+    )
+
+    self.btn_next = ft.FilledButton("Next", width=230, on_click=self.go_next)
+    self.btn_prev = ft.Button("Previous", on_click=self.go_prev)
+    self.btn_back = ft.Button("Back to list", on_click=self.go_back)
+
+    # --- COMPLETION MODAL ---
+    self.completion_dialog = ft.AlertDialog(
+        title=ft.Text("Lesson Complete!", font_family="JetBrains Mono", color=ft.Colors.GREEN_300),
+        content=ft.Text("You have reached the end of this sub-topic. Outstanding work!"),
+        actions=[
+            ft.TextButton("Review Lesson", on_click=self.close_dialog),
+            ft.FilledButton("Return to Lecture Menu", on_click=self.go_back)
+        ]
+    )
 
     content_area = ft.SafeArea(
       margin=10,
@@ -14,90 +54,139 @@ class Discuss(ft.View):
         margin=ft.Margin.only(left=150, right=150, top=40, bottom=0),
         padding=10,
         height=540,
-        border=ft.Border.all(1, ft.Colors.WHITE),
+        border=ft.Border.all(1, ft.Colors.WHITE24), # Kept styling
         border_radius=10,
         content=ft.Column(
-          # expand=True,
           horizontal_alignment=ft.CrossAxisAlignment.CENTER,
           controls=[
-
-            markdown_area:=ft.Column(
-              spacing=0,
-              expand=True,
-              horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-              scroll=ft.ScrollMode.AUTO,
-              width=700,
-              # border=ft.Border.all(1, ft.Colors.WHITE),
-            ),
-
-            
-            ft.Divider(),
-
-            ft.FilledButton("Next", width=230),
+            self.dynamic_content_area,
+            ft.Divider(color=ft.Colors.WHITE24),
+            self.btn_next,
             ft.Row(
               alignment=ft.MainAxisAlignment.CENTER,
               vertical_alignment=ft.CrossAxisAlignment.CENTER,
-              # expand=True,
-              controls=[
-                ft.Button("Back to list"),
-                ft.Button("Previous"),
-              ]
+              controls=[self.btn_back, self.btn_prev]
             )
           ]
         )
       )
     )
 
-    lecture_markdown_style = ft.MarkdownStyleSheet(
-        # --- Base Text (Paragraphs) ---
-        p_text_style=ft.TextStyle(
-            font_family="JetBrains Mono", 
-            color=ft.Colors.WHITE70,
-            size=14
-        ),
-
-        # --- Headers ---
-        h1_text_style=ft.TextStyle(
-            font_family="JetBrains Mono", 
-            color=ft.Colors.GREEN_300,
-            size=24, 
-            weight=ft.FontWeight.BOLD
-        ),
-        h2_text_style=ft.TextStyle(
-            font_family="JetBrains Mono", 
-            color=ft.Colors.GREEN_100, 
-            size=20,
-            weight=ft.FontWeight.W_600
-        ),
-
-        # --- Headers ---
-        code_text_style=ft.TextStyle(
-            font_family="JetBrains Mono", 
-            color=ft.Colors.GREEN_100, 
-            bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.GREEN_100) # Subtle green highlight
-        ),
-        
-        # Multi-line code blocks
-        # code_text_style=ft.TextStyle(
-        #     font_family="JetBrains Mono", 
-        #     color=ft.Colors.WHITE, 
-        #     size=13
-        # ),
+    self.lecture_markdown_style = ft.MarkdownStyleSheet(
+        p_text_style=ft.TextStyle(color=ft.Colors.WHITE_70, size=14),
+        h1_text_style=ft.TextStyle(color=ft.Colors.GREEN_300, size=24, weight=ft.FontWeight.BOLD),
+        h2_text_style=ft.TextStyle(color=ft.Colors.GREEN_100, size=20, weight=ft.FontWeight.W_600),
+        code_text_style=ft.TextStyle(color=ft.Colors.GREEN_100, bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.GREEN_100))
     )
-
-#     markdown_area.controls.append(ft.Markdown("""
-# # Computer Engineering
-# ## What is it?
-# It is a field of study that does engineering on computers :)
-# ![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgVfHORQFLyUf_rNove-xUmxIskDeMJ63REz_YIMQ6S0vCyQdkBvJos4igKspvCgpqnpy8h0xM--1uckzZIxDgyoHy37-MowkF-YzvVx8&s=10)
-
-
-
-# """, md_style_sheet=lecture_markdown_style,
-#     ))
-    
 
     super().__init__(
+      route="/discuss",
       appbar=cur_appbar,
-      controls=content_area
+      controls=[content_area]
     )
+
+    self.render_current_page()
+
+
+  # --- STATE MACHINE LOGIC ---
+
+  def render_current_page(self):
+      self.dynamic_content_area.controls.clear()
+      current_data = self.pages_data[self.current_page_index]
+
+      if current_data["type"] == "content":
+          # standard markdown
+          md = ft.Markdown(current_data["markdown"], md_style_sheet=self.lecture_markdown_style, selectable=True)
+          self.dynamic_content_area.controls.append(md)
+          
+          if not self.page_completed_flags[self.current_page_index]:
+              self.progress_tracker["topics_taken"] += 1
+              self.page_completed_flags[self.current_page_index] = True
+              self.client_page.session.store.set("user_progress", self.progress_tracker)
+
+      elif current_data["type"] == "quiz":
+          # the Quiz UI
+          question_text = ft.Text(current_data["question"], theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono")
+          
+          radio_options = []
+          for i, opt in enumerate(current_data["options"]):
+              radio_options.append(ft.Radio(value=str(i), label=opt))
+          
+          self.quiz_radiogroup = ft.RadioGroup(content=ft.Column(radio_options))
+          
+          btn_check = ft.FilledButton(
+              content=ft.Text("Check Answer"), 
+              on_click=lambda e: self.check_answer(e, current_data["correct_index"])
+          )
+          
+          self.quiz_feedback = ft.Text("", font_family="JetBrains Mono")
+
+          self.dynamic_content_area.controls.extend([
+              question_text, 
+              ft.Container(height=10),
+              self.quiz_radiogroup, 
+              ft.Container(height=10),
+              btn_check, 
+              self.quiz_feedback
+          ])
+
+      # Button States
+      self.btn_prev.disabled = (self.current_page_index == 0)
+      
+      if self.current_page_index == len(self.pages_data) - 1:
+          self.btn_next.content = ft.Text("Finish Sub-Topic")
+      else:
+          self.btn_next.content = ft.Text("Next Page")
+      
+      try:
+          self.update()
+      except Exception:
+          pass
+
+  # --- QUIZ LOGIC ---
+  def check_answer(self, e, correct_index):
+      user_choice = self.quiz_radiogroup.value
+      
+      if user_choice is None:
+          self.quiz_feedback.value = "Please select an answer first."
+          self.quiz_feedback.color = ft.Colors.ORANGE_400
+      elif int(user_choice) == correct_index:
+          self.quiz_feedback.value = "Correct! Excellent job."
+          self.quiz_feedback.color = ft.Colors.GREEN_400
+          
+          # Log progress on correct answer!
+          if not self.page_completed_flags[self.current_page_index]:
+              self.progress_tracker["excercises_taken"] += 1
+              self.page_completed_flags[self.current_page_index] = True
+              e.page.session.store.set("user_progress", self.progress_tracker)
+      else:
+          self.quiz_feedback.value = "Incorrect. Take a moment to review and try again!"
+          self.quiz_feedback.color = ft.Colors.RED_400
+          
+      self.update()
+
+
+  # --- ASYNC ROUTING & NAVIGATION ---
+
+  async def go_next(self, e):
+      if self.current_page_index < len(self.pages_data) - 1:
+          self.current_page_index += 1
+          self.render_current_page()
+      else:
+          e.page.show_dialog(self.completion_dialog)
+
+  async def go_prev(self, e):
+      if self.current_page_index > 0:
+          self.current_page_index -= 1
+          self.render_current_page()
+
+  async def go_back(self, e):
+      if self.completion_dialog.open:
+          self.completion_dialog.open = False
+          e.page.update()
+          
+      await e.page.push_route("/lecture")
+
+  def close_dialog(self, e):
+      self.completion_dialog.open = False
+      e.page.update()
