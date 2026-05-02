@@ -1,0 +1,150 @@
+{
+    "title": "Geometry Dash",
+    "description": "A 2D Rhythm-Platformer adventure game to swing away from obstacles.",
+    "icon": "",
+    "main_topics": [
+        {
+            "topic_title": "Gameplay",
+            "sub_topics": [
+                {
+                    "sub_title": "Controls",
+                    "description": "The basic fundamental Controls of the game.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Geometry dash is a game"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "It contains 1 main control, and that is to jump"
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "How many Controls does it need to Jump a three spike jump?",
+                            "options": [
+                                "1",
+                                "2",
+                                "3",
+                                "4"
+                            ],
+                            "correct_index": 0
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Pad",
+                    "description": "Unique objects that automatically launches the player to a specific height.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "A pad is where the player automatically jumps over an area"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "It is visually repressented as these\n\n!()[https://preview.redd.it/did-you-guys-know-that-all-of-the-pads-are-different-sizes-v0-2hi424r7nbnd1.png?width=640&crop=smart&auto=webp&s=d2e6170435ea9cac12d84a461329b293fc0fea68]\n\n"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "If you jump on the pads, it does not do anything."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What happens if you jump over the pad?",
+                            "options": [
+                                "You die",
+                                "You live",
+                                "You get to see your grandma",
+                                "None of the above"
+                            ],
+                            "correct_index": 0
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Orb",
+                    "description": "A Unique Object that lets you gain another height while on air.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "An orb is an object that lets you double jump"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "To activate an orb, you need to click on the orb when you touch it"
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "How many spikes can you jump over with a pink orb?",
+                            "options": [
+                                "1",
+                                "2",
+                                "3",
+                                "It depends on the Speed"
+                            ],
+                            "correct_index": 3
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "topic_title": "Creation",
+            "sub_topics": [
+                {
+                    "sub_title": "The Editor",
+                    "description": "Create stuff!",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "The editor is the largest feature of this game"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "It gives you the absolute tools to create your very own level."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Why does the editor exist?",
+                            "options": [
+                                "To create and serve the community",
+                                "To enjoy and have fun",
+                                "Tlo create harder levels to play by yourself and by anyone",
+                                "To create for the creator of the game"
+                            ],
+                            "correct_index": 1
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Gameplay",
+                    "description": "Uniquness and funness.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Creating the gameplay is hard"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "You can study and learn from other online levels to create your own unique and fun level."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Why do we need to make better gameplay?",
+                            "options": [
+                                "To make it fun",
+                                "To make it playable",
+                                "To make it worthwile",
+                                "All of the Above"
+                            ],
+                            "correct_index": 3
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "topics_amount": 11,
+    "exercises_amount": 5,
+    "videos_amount": 0,
+    "file_id": "geometry_dash.json"
+}

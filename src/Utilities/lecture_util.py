@@ -1,5 +1,7 @@
 import flet as ft
 
+import flet as ft
+
 class ItemLecture(ft.Row):
 
   def __init__(
@@ -11,87 +13,129 @@ class ItemLecture(ft.Row):
               on_click=None
               ):
     
-    self.is_checked = is_checked
-    self.is_heading = is_heading
-    self.is_selected = is_selected
+    # Initialize the base Row container
+    super().__init__(vertical_alignment=ft.CrossAxisAlignment.CENTER, spacing=0, expand_loose=True)
+    
+    # Internal variables
+    self._is_checked = is_checked
+    self._is_heading = is_heading
+    self._is_selected = is_selected
+    self.on_click_callback = on_click
+    self.text_label = text_label
 
-    ON_HOVER_COLOR = ft.Colors.GREEN_400
-    OFF_HOVER_COLOR = None
-    COLOR_FADE_DURATION = 100
+    # --- MAIN TOPIC STYLE ---
+    if self._is_heading:
+        self.default_text = ft.Text(
+            value=self.text_label,
+            font_family="JetBrains Mono",
+            color=ft.Colors.WHITE,
+            weight=ft.FontWeight.W_600,
+            size=14
+        )
+        self.main_content_container = ft.Container(
+            content=self.default_text,
+            bgcolor=ft.Colors.TRANSPARENT,
+            border=ft.Border.all(1, ft.Colors.WHITE24),
+            border_radius=6,
+            padding=10,
+            expand=True
+        )
+        self.controls = [self.main_content_container]
 
-    hover_icon = ft.Icon(
-      icon=ft.Icons.CIRCLE_OUTLINED if is_checked == False else ft.Icons.CHECK_CIRCLE, 
-      color=ft.Colors.BLACK_87,
-      size=25 if is_heading else 15
-    )
-    unhover_icon = ft.Icon(
-      icon=ft.Icons.CIRCLE_OUTLINED if is_checked == False else ft.Icons.CHECK_CIRCLE, 
-      color=ft.Colors.GREEN_300 if is_heading else ft.Colors.WHITE_24,
-      size=25 if is_heading else 15
-    )
-    icon_anim = ft.AnimatedSwitcher(
-      content=unhover_icon, 
-      duration=COLOR_FADE_DURATION
-    )
+    # --- SUB-TOPIC STYLE ---
+    else:
+        # The new Web Creator Arrow!
+        self.arrow_icon = ft.Icon(ft.Icons.ARROW_RIGHT_ALT, color=ft.Colors.YELLOW, size=18, visible=False)
+        
+        # Kept the circle so students still know if they finished a topic
+        self.check_icon = ft.Icon(
+            icon=ft.Icons.CHECK_CIRCLE if self._is_checked else ft.Icons.CIRCLE_OUTLINED, 
+            color=ft.Colors.GREEN_400 if self._is_checked else ft.Colors.WHITE54,
+            size=15
+        )
 
-    hover_text = ft.Text(
-      value=text_label,
-      font_family="JetBrains Mono",
-      color=ft.Colors.BLACK_87,
-      theme_style=ft.TextThemeStyle.LABEL_MEDIUM if is_heading else ft.TextThemeStyle.LABEL_SMALL
-    )
-    unhover_text = ft.Text(
-      value=text_label,
-      font_family="JetBrains Mono",
-      color=ft.Colors.GREEN_300 if is_heading else ft.Colors.WHITE_24,
-      theme_style=ft.TextThemeStyle.LABEL_MEDIUM if is_heading else ft.TextThemeStyle.LABEL_SMALL
-    )
-    text_anim = ft.AnimatedSwitcher(
-      content=unhover_text,
-      duration=COLOR_FADE_DURATION
-    )
+        self.default_text = ft.Text(
+            value=self.text_label,
+            font_family="JetBrains Mono",
+            color=ft.Colors.WHITE,
+            size=12
+        )
 
-    def on_click_container(e):
-      main_content_container.bgcolor = ft.Colors(ft.Colors.GREEN_200) if not self.is_selected else ft.Colors(ON_HOVER_COLOR)
-      self.is_selected = not self.is_selected
+        self.row_content = ft.Row(
+            controls=[self.arrow_icon, self.check_icon, self.default_text],
+            alignment=ft.MainAxisAlignment.START
+        )
 
-      if on_click is not None:
-        on_click(e)
+        self.main_content_container = ft.Container(
+            content=self.row_content,
+            bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.WHITE),
+            border=ft.Border.all(1, ft.Colors.WHITE24),
+            border_radius=6,
+            padding=ft.Padding.only(left=10, right=10, top=5, bottom=5),
+            expand=True,
+            on_click=self.on_click_container,
+            on_hover=self.change_hover,
+            animate=ft.Animation(150, ft.AnimationCurve.EASE_IN_OUT_SINE)
+        )
 
-    def change_hover(e):
-      if not self.is_selected:
-        main_content_container.bgcolor = ft.Colors(ON_HOVER_COLOR) if e.data == True else OFF_HOVER_COLOR
-        icon_anim.content = hover_icon if e.data == True else unhover_icon
-        text_anim.content = hover_text if e.data == True else unhover_text
-      # icon.color = ON_HOVER_ICON_COLOR if e.data == True else OFF_HOVER_ICON_COLOR
-      # btn_text.color = ON_HOVER_TEXT_COLOR if e.data == True else None
+        self.controls = [
+            ft.Container(width=20, expand_loose=True), # Indent block
+            self.main_content_container
+        ]
 
-    main_content_container = ft.Container(
-      content=ft.Row(
-        controls=[icon_anim, text_anim]
-      ),
-      animate=ft.Animation(COLOR_FADE_DURATION, ft.AnimationCurve.EASE_IN_OUT_SINE),
-      height=55 if is_heading else 40,
-      padding=10,
-      border_radius=4,
-      expand=True,
-      on_hover=change_hover,
-      on_click=on_click_container
-    )
+        # Force the initial visual state
+        self.update_visual_state()
 
-    super().__init__(
-      controls=[
-        ft.Container(
-          width=0 if is_heading else 30,
-          # border=ft.Border.all(1, ft.Colors.WHITE_24),
-          expand_loose=True,
-        ),
-        main_content_container
-      ],
-      vertical_alignment=ft.CrossAxisAlignment.CENTER,
-      spacing=0,
-      expand_loose=True,
-    )
+  # --- THE MAGIC FIX: SMART PROPERTIES ---
+  @property
+  def is_selected(self):
+      return self._is_selected
+      
+  @is_selected.setter
+  def is_selected(self, value):
+      """When web_lecture changes this, update the UI automatically!"""
+      self._is_selected = value
+      self.update_visual_state()
+
+  def update_visual_state(self):
+      if self._is_heading:
+          return # Headings are static in this view
+          
+      if self._is_selected:
+          # Apply Yellow active state
+          self.main_content_container.bgcolor = ft.Colors.with_opacity(0.15, ft.Colors.YELLOW)
+          self.main_content_container.border = ft.Border.all(1, ft.Colors.YELLOW)
+          self.default_text.color = ft.Colors.YELLOW
+          self.arrow_icon.visible = True
+      else:
+          # Revert to White inactive state
+          self.main_content_container.bgcolor = ft.Colors.with_opacity(0.05, ft.Colors.WHITE)
+          self.main_content_container.border = ft.Border.all(1, ft.Colors.WHITE24)
+          self.default_text.color = ft.Colors.WHITE
+          self.arrow_icon.visible = False
+
+      try:
+          self.update()
+      except Exception:
+          pass # Prevents crashes if updated before being fully drawn
+
+  # --- EVENT HANDLERS ---
+  def on_click_container(self, e):
+    self.is_selected = True # Triggers the setter and updates the color instantly!
+    if self.on_click_callback is not None:
+        self.on_click_callback(e)
+
+  def change_hover(self, e):
+    # Only apply hover effects if it isn't currently yellow/selected
+    if not self._is_selected:
+        is_hovered = str(e.data).lower() == "true"
+        
+        if is_hovered:
+            self.main_content_container.bgcolor = ft.Colors.with_opacity(0.1, ft.Colors.WHITE)
+        else:
+            self.main_content_container.bgcolor = ft.Colors.with_opacity(0.05, ft.Colors.WHITE)
+            
+        self.main_content_container.update()
 
 class ContentLecture(ft.Column):
 

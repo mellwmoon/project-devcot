@@ -63,7 +63,7 @@ def web_manager(page: ft.Page):
 			case "/signup":
 				page.views.append(ws.signup())
 			case "/lecture":
-				page.views.append(ws.lecture())
+				page.views.append(ws.lecture(page))
 			case "/discuss":
 				page.views.append(ws.discuss())
 			case "/library":
