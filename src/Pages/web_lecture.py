@@ -1,6 +1,11 @@
 import flet as ft
 from Utilities import lecture_util as lutil
 
+
+# Note 1: content_lecture_list -> Main list container
+# Note 2: container_desc -> Main Description container,
+#         use lutil.ContentLecture to create details about lecture.
+
 class Lecture(ft.View):
 
   TOPIC_SELECTED = "TOPIC PLACEHOLDER"
@@ -24,9 +29,9 @@ class Lecture(ft.View):
         controls=ft.Container(
           border_radius=10,
           padding=ft.Padding.only(right=16),
-          content=ft.Column(
+          content=(content_lecture_list:=ft.Column(
             controls=[]
-          )
+          ))
         )
       )
     )
@@ -37,8 +42,8 @@ class Lecture(ft.View):
       border_radius=10,
       border=ft.Border.all(1.5, ft.Colors.GREEN_300),
       content=lutil.ContentLecture(
-        title="Test Content 1",
-        description="This is the first test Description of the modular thing",
+        title="No Content",
+        description="No Content",
         topics_amount=0,
         excercises_amount=0,
         topics_taken=0,

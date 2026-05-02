@@ -48,6 +48,8 @@ def web_manager(page: ft.Page):
             track_border_color=ft.Colors.GREEN_50
         )
     )
+
+    
     page.theme_mode = ft.ThemeMode.DARK
 
     # Scenes Manager
@@ -76,7 +78,8 @@ current views: {len(page.views)}
     # page.route = "/login"
     # page.route = "/signup"
     # page.route = "/discuss"
-    page.route = "/library"
+    # page.route = "/lecture"
+    # page.route = "/library"
     page.on_route_change = change_route
 
     change_route()
