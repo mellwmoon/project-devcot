@@ -73,10 +73,71 @@ class Discuss(ft.View):
     )
 
     self.lecture_markdown_style = ft.MarkdownStyleSheet(
-        p_text_style=ft.TextStyle(color=ft.Colors.WHITE_70, size=14),
-        h1_text_style=ft.TextStyle(color=ft.Colors.GREEN_300, size=24, weight=ft.FontWeight.BOLD),
-        h2_text_style=ft.TextStyle(color=ft.Colors.GREEN_100, size=20, weight=ft.FontWeight.W_600),
-        code_text_style=ft.TextStyle(color=ft.Colors.GREEN_100, bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.GREEN_100))
+        p_text_style=ft.TextStyle(
+            font_family="Inter", 
+            size=18,
+            color=ft.Colors.GREEN_50,
+            height=1.6
+        ),
+
+        h1_text_style=ft.TextStyle(
+            font_family="Inter",
+            size=32,
+            weight=ft.FontWeight.W_800,
+            color=ft.Colors.WHITE
+        ),
+        h2_text_style=ft.TextStyle(
+            font_family="Inter",
+            size=24,
+            weight=ft.FontWeight.W_700,
+            color=ft.Colors.WHITE
+        ),
+        h3_text_style=ft.TextStyle(
+            font_family="Inter",
+            size=20,
+            weight=ft.FontWeight.W_600,
+            color=ft.Colors.WHITE70
+        ),
+
+        code_text_style=ft.TextStyle(
+            font_family="JetBrains Mono",
+            size=14,
+            color=ft.Colors.BLUE_200,
+            bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.BLUE_200),
+        ),
+
+        blockquote_decoration=ft.BoxDecoration(
+            bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.WHITE),
+            border=ft.Border(
+                left=ft.BorderSide(4, ft.Colors.BLUE_400)
+            ),
+            border_radius=ft.border_radius.only(top_right=10, bottom_right=10)
+        ),
+        blockquote_padding=ft.Padding(left=16, top=10, right=16, bottom=10),
+        blockquote_text_style=ft.TextStyle(
+            font_family="Inter",
+            size=16,
+            color=ft.Colors.WHITE60,
+            italic=True,
+            height=1.5
+        ),
+
+        # --- Links ---
+        a_text_style=ft.TextStyle(
+            font_family="Inter",
+            color=ft.Colors.BLUE_400,
+            weight=ft.FontWeight.W_500,
+            decoration=ft.TextDecoration.UNDERLINE
+        ),
+
+        # --- Lists ---
+        # Ensures bullet points match the paragraph text perfectly
+        list_bullet_text_style=ft.TextStyle(
+            font_family="Inter",
+            size=16,
+            color=ft.Colors.WHITE70,
+            height=1.6
+        ),
     )
 
     super().__init__(
@@ -96,7 +157,7 @@ class Discuss(ft.View):
 
       if current_data["type"] == "content":
           # standard markdown
-          md = ft.Markdown(current_data["markdown"], md_style_sheet=self.lecture_markdown_style, selectable=True)
+          md = ft.Markdown(current_data["markdown"], md_style_sheet=self.lecture_markdown_style, selectable=True, extension_set=ft.MarkdownExtensionSet.GITHUB_WEB,)
           self.dynamic_content_area.controls.append(md)
           
         #   if not self.page_completed_flags[self.current_page_index]:

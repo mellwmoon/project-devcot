@@ -1,0 +1,152 @@
+{
+    "title": "Logic Gates I",
+    "description": "Study Logic gates cruciality in digital electronics, and how they perform Boolean logic operations.",
+    "icon": "MEMORY",
+    "main_topics": [
+        {
+            "topic_title": "Introduction to Logic Gates",
+            "sub_topics": [
+                {
+                    "sub_title": "Definition of Logic Gates",
+                    "description": "Fundamental building blocks of digital electronics, acting as physical devices (usually transistors) that perform Boolean logical operations on one or more binary inputs (0 or 1) to produce a single output",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "An electronic circuit designed to perform a specific logical operation.\n\n- Logic gates are built using transistors that act like switches.  \n- Rule: Each gate follows a specific logic to determine output."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Characteristics of Logic Gates:\n\nBinary Operation: Logic gates work exclusively with binary inputs (0) and (1), which represent \"false\" and \"true\" or \"low\" and \"high\" voltages.\n\nFundamental Building Blocks: They are used to create complex digital components like counters, processors, and memory devices.\n\nBoolean Logic: Their operation is strictly based on Boolean algebra, determining the output based on the input combination"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "A logic gate is an electronic circuit designed to perform a specific logical operation on one or more inputs to produce a single output.\n\nEach gate follows a rule (logic) that determines the output.\n\nExample:\n\u2022\tAND gate \u2192 output is 1 only when all inputs are 1\n\u2022\tIf even one input is 0 \u2192 output becomes 0\n\nKey Idea:\nLogic gates are the decision-makers of digital circuits."
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Digital vs Analog Signals",
+                    "description": "Digital is generally more reliable, while analog provides higher fidelity",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Analog signals are continuous, wave-based, and susceptible to noise, making them ideal for representing natural, real-time data like sound or temperature. Digital signals are discrete, binary (0s) and (1s), and more noise-resistant, making them ideal for high-speed computing and data transmission. Modern systems often integrate both for optimal quality and efficiency."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Digital Signals\n\nRepresentation: Discrete square waves (binary 0 and 1).\n\nData Type: Uses binary code to represent information.\n\nAdvantages: Higher immunity to noise, lower power usage, and easier to store/transfer.\n\nDisadvantages: Requires conversion (analog-to-digital) for real-world interaction.\n\nExamples: Computers, CDs, DVDs, smartphones."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Analog Signals\n\nRepresentation: Continuous waveforms usually sine waves (e.g., sound waves, temperature).\n\nData Type: Represents continuous, varying values.\n\nAdvantages: High information density and ideal for real-time processing.\n\nDisadvantages: Prone to noise, distortion, and signal degradation over long distances.\n\nExamples: Human voice, traditional radio, cassette tapes, thermometers."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Comparison\n| Feature | Analog Signals | Digital Signals || :--- | :--- | :--- || Signal Wave | Continuous Sine Wave | Discrete Square Wave || Data Range | Infinite values | Two states: 0 or 1 || Noise | Highly susceptible | Highly resistant || Bandwidth | Lower usage | Higher usage || Accuracy | Degrades over time | Maintains high quality |"
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Truth Tables",
+                    "description": "Mathematical table used in logic\u2014specifically Boolean algebra and digital electronics\u2014to show the resulting output of a logical expression for all possible input combinations",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "A truth table is a mathematical table used in logic to show the output of a logical expression for every possible combination of its input values. It serves as a systematic representation of all truth values (T or F), sometimes written as (1 or 0) that a compound statement can take based on its simpler components"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "A truth table is a systematic way of listing all possible input combinations and their outputs.\n\nWhy important:\n\u2022\tHelps in designing and analyzing circuits\n\u2022\tMakes it easy to understand gate behavior\n"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example (AND Gate):\n\nA\tB\tOutput\n0\t0\t0\n0\t1\t0\n1\t0\t0\n1\t1\t1\n\nNote:\n\u2022\tOnly 1 combination produces 1 \u2192 when both inputs are 1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "topic_title": "Types of Logic Gates",
+            "sub_topics": [
+                {
+                    "sub_title": "AND, OR, NOT",
+                    "description": "These are the three fundamental Boolean logic operators used in computing, databases, and electronics to connect or modify conditions.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Logic gates are basic building blocks of digital circuits that perform logical operations on binary inputs (1 or 0) to produce a single output. \n- AND outputs 1 if all inputs are 1\n- OR outputs 1 if at least one input is 1\n- NOT (inverter) reverses the input, outputting 1 if input is 0, and vice versa."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "AND Gate (Logical Multiplication)\n\nDescription: Produces a high output (1) only when all of its inputs are high. If any input is low (0), the output is low.\nBoolean Expression: (Y = A*B) (or AB).\nAnalogy: A series circuit with two switches. Both switches must be closed to turn on the light."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "OR Gate (Logical Addition)\n\nDescription: Produces a high output (1) if at least one input is high. It only outputs low (0) when all inputs are low.\nBoolean Expression: (Y = A + B).\nAnalogy: A parallel circuit with two switches. Closing either switch (or both) turns on the light"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "NOT Gate (Inverter)\n\nDescription: A single-input gate that reverses the logic state. It acts as an inverter, converting high (1) to low (0), and vice versa.\nBoolean Expression:  \\(Y = \\bar{A}\\) (or \\(A'\\))\nSymbol: Represented by a triangle with a bubble on the output"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Summary Truth Table\n| Inputs (A, B) | AND (\\(A \\cdot B\\)) | OR (\\(A + B\\)) | NOT (\\(A\\)) || :--- | :--- | :--- | :--- || 0, 0 | 0 | 0 | (A=0) \\(\\rightarrow \\) 1 || 0, 1 | 0 | 1 | - || 1, 0 | 0 | 1 | (A=1) \\(\\rightarrow \\) 0 || 1, 1 | 1 | 1 | - |"
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "NAND, NOR",
+                    "description": "NAND and NOR are universal logic gates essential for digital circuits, allowing the construction of any logic function.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "NAND and NOR gates are universal logic gates used to build any digital circuit or Boolean function, reducing IC design costs. NAND (NOT-AND) outputs 0 only if all inputs are 1. NOR (NOT-OR) outputs 1 only if all inputs are 0. Both act as inversions of basic AND/OR operations"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "NAND Gate (Not AND)\n\nDefinition: The inverted output of an AND gate. It produces a LOW (0) output only if all inputs are HIGH (1).\nLogic: \\(\\text{Output} = \\overline{A \\cdot B}\\)\nTruth Table: \\(00\\to1, 01\\to1, 10\\to1, 11\\to0\\).\nApplication: Commonly used in memory storage (latches/flip-flops) and alarm systems."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "NOR Gate (Not OR)\n\nDefinition: The inverted output of an OR gate. It produces a HIGH (1) output only if all inputs are LOW (0).\nLogic: \\(\\text{Output} = \\overline{A+B}\\)\nTruth Table: \\(00\\to1, 01\\to0, 10\\to0, 11\\to0\\).\nApplication: Frequently used for implementing complex logic functions in digital circuit design."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Takeaways\n\nUniversal Property: Using only NAND or only NOR gates, you can create all other gate types (NOT, AND, OR, XOR).\nFunctionally Complete: Known as \"universal\" because they can realize all possible Boolean functions.\nEfficiency: Using a single type of gate (like NAND) minimizes component count in integrated circuits."
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "XOR, XNOR",
+                    "description": "No description provided.",
+                    "pages": []
+                }
+            ]
+        },
+        {
+            "topic_title": "Gate Applications",
+            "sub_topics": [
+                {
+                    "sub_title": "Simple Circuits",
+                    "description": "No description provided.",
+                    "pages": []
+                },
+                {
+                    "sub_title": "Boolean Expressions",
+                    "description": "No description provided.",
+                    "pages": []
+                },
+                {
+                    "sub_title": "Real-Life Applications",
+                    "description": "No description provided.",
+                    "pages": []
+                }
+            ]
+        }
+    ],
+    "topics_amount": 19,
+    "exercises_amount": 0,
+    "videos_amount": 0,
+    "file_id": "logic_gates_i.json"
+}

@@ -6,7 +6,8 @@ from Utilities import database_util as dutil
 
 async def web_manager(page: ft.Page):
 	page.fonts = {
-		"JetBrains Mono" : "/fonts/JetBrainsMono[wght].ttf"
+		"JetBrains Mono" : "/fonts/JetBrainsMono[wght].ttf",
+		"Inter" : "/fonts/Inter-VariableFont_opsz,wght.ttf"
 	}
 
 
