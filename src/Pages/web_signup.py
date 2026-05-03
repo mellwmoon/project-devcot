@@ -27,7 +27,7 @@ class Signup(ft.View):
 
     async def _change_to_type(e): #'student','instructor','general'
       self.account_type = e.control.data
-      print("Processed type to be: ", e.control.data, "\nswapping...")
+      print("Processed type to be:", e.control.data, "\nswapping...")
       await _swap_to_final_signup(e)
       
     async def continue_button(e) -> None:
@@ -47,6 +47,7 @@ class Signup(ft.View):
         #   field_year_level    7
         # ]
         print("** Trigger Account creation")
+        print("Trying an account with type: ", self.account_type)
         db.connect()
         db.create_user(
           username=" ".join([fields[0].value, fields[1].value]),
@@ -73,7 +74,6 @@ class Signup(ft.View):
 
     async def _swap_to_final_signup(e = None) -> None:
       self.trigger_swaps += 1
-      self.account_type = "student"
       input_ask_type.disabled = True
       input_ask_type.opacity = 0.0
       input_ask_type.update()
