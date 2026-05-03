@@ -1,6 +1,6 @@
 import flet as ft
 from Pages import web_lecture as wel
-
+from Utilities import sysappbar_util as appbarutil
 # Note 1: markdown_area is where actual lesson's content are built in.
 
 class Discuss(ft.View):
@@ -22,7 +22,7 @@ class Discuss(ft.View):
     self.progress_tracker = page.session.store.get("user_progress")
     self.page_completed_flags = False * [self.current_page_index]
 
-    cur_appbar = wel.Lecture.load_appbar("Discuss")
+    cur_appbar = appbarutil.SysAppBar(page, "Study")
 
     # --- UI COMPONENTS ---
     
@@ -99,8 +99,8 @@ class Discuss(ft.View):
           md = ft.Markdown(current_data["markdown"], md_style_sheet=self.lecture_markdown_style, selectable=True)
           self.dynamic_content_area.controls.append(md)
           
-          if not self.page_completed_flags[self.current_page_index]:
-              self.page_completed_flags[self.current_page_index] = True
+        #   if not self.page_completed_flags[self.current_page_index]:
+        #       self.page_completed_flags[self.current_page_index] = True
             #   self.client_page.session.store.set("user_progress", self.progress_tracker)
 
       elif current_data["type"] == "quiz":

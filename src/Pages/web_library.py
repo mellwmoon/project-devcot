@@ -1,13 +1,14 @@
 import flet as ft
 from Pages import web_lecture as wel
 from Utilities import data_util
+from Utilities import sysappbar_util as appbarutil
 
 # Note 1: content_inner is where you place Libraries (Lectures)
 
 class Library(ft.View):
 
-  def __init__(self):
-    cur_appbar = wel.Lecture.load_appbar(is_appbar_only=True)
+  def __init__(self, page:ft.Page):
+    cur_appbar = appbarutil.SysAppBar(page, is_appbar_only=True)
 
     main_body = ft.Column(
       expand=True,

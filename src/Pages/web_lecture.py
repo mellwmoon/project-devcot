@@ -1,5 +1,6 @@
 import flet as ft
 from Utilities import lecture_util as lutil
+from Utilities import sysappbar_util as appbarutil
 
 # Note 1: content_lecture_list -> Main list container
 # Note 2: container_desc -> Main Description container,
@@ -15,7 +16,7 @@ class Lecture(ft.View):
 
     self.TOPIC_SELECTED = self.payload.get("title", "Unknown Lecture")
     
-    cur_appbar = self.load_appbar(self.TOPIC_SELECTED)
+    cur_appbar = appbarutil.SysAppBar(page, self.TOPIC_SELECTED)
 
     # State tracking variables for interactivity
     self.sub_topic_items = []
@@ -164,132 +165,3 @@ class Lecture(ft.View):
 
   async def go_back(self, e):
       await e.page.push_route("/library")
-
-  @classmethod
-  def load_appbar(self, topic_selected:str="", is_appbar_only=False):
-      return ft.AppBar(
-      title=ft.Text(
-        value=f"> DevCot: {topic_selected}" if not is_appbar_only else "> DevCot",
-        font_family="JetBrains Mono",
-        theme_style=ft.TextThemeStyle.TITLE_MEDIUM
-      ),
-      leading_width=20,
-      elevation=0,
-      elevation_on_scroll=0,
-      bgcolor=ft.Colors.BLACK_45,
-      color=ft.Colors.GREEN_300,
-      actions=[
-        ft.PopupMenuButton(
-          margin=ft.Margin.only(right=20),
-          menu_padding=8,
-          menu_position=ft.PopupMenuPosition.UNDER,
-          items=[
-            ft.PopupMenuItem(
-              content=ft.Container(
-                  content=ft.Row(
-                    spacing=20,
-                    controls=[
-                      ft.Icon(ft.Icons.ACCOUNT_CIRCLE),
-                      ft.Text(
-                        value="Account Settings",
-                        font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_SMALL
-                      )
-                    ]
-                  ),
-                width=170
-              )
-            ),
-
-            ft.PopupMenuItem(
-              content=ft.Container(
-                  content=ft.Row(
-                    spacing=20,
-                    controls=[
-                      ft.Icon(ft.Icons.SETTINGS),
-                      ft.Text(
-                        value="General Settings",
-                        font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_SMALL
-                      )
-                    ]
-                  ),
-                width=200
-              )
-            ),
-      
-            ft.PopupMenuItem(content=ft.Divider(), height=1, disabled=True),
-
-            ft.PopupMenuItem(
-              content=ft.Container(
-                  content=ft.Row(
-                    spacing=20,
-                    controls=[
-                      ft.Icon(ft.Icons.BOOK),
-                      ft.Text(
-                        value="References",
-                        font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_SMALL
-                      )
-                    ]
-                  ),
-                width=200
-              )
-            ),
-
-            ft.PopupMenuItem(
-              content=ft.Container(
-                  content=ft.Row(
-                    spacing=20,
-                    controls=[
-                      ft.Icon(ft.Icons.QUIZ),
-                      ft.Text(
-                        value="Excercises",
-                        font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_SMALL
-                      )
-                    ]
-                  ),
-                width=200
-              )
-            ),
-     
-            ft.PopupMenuItem(content=ft.Divider(), height=1, disabled=True),
-
-            ft.PopupMenuItem(
-              content=ft.Container(
-                  content=ft.Row(
-                    spacing=20,
-                    controls=[
-                      ft.Icon(ft.Icons.QUESTION_ANSWER),
-                      ft.Text(
-                        value="Help & Support",
-                        font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_SMALL
-                      )
-                    ]
-                  ),
-                width=170
-              )
-            ),
-
-            ft.PopupMenuItem(
-              content=ft.Container(
-                  content=ft.Row(
-                    spacing=20,
-                    controls=[
-                      ft.Icon(ft.Icons.PERSON),
-                      ft.Text(
-                        value="About us",
-                        font_family="JetBrains Mono",
-                        theme_style=ft.TextThemeStyle.LABEL_SMALL
-                      )
-                    ]
-                  ),
-                width=170
-              )
-            ),
-          ],
-        )
-      ],
-    )

@@ -1,12 +1,13 @@
-import flet as ft
 import os
+import json
+import flet as ft
 from Pages import web_lecture as wel
 from Utilities import data_util
-import json
+from Utilities import sysappbar_util
 
 class Creator(ft.View):
-    def __init__(self):
-        cur_appbar = wel.Lecture.load_appbar("Lecture Creator", is_appbar_only=True)
+    def __init__(self, page:ft.Page):
+        cur_appbar = sysappbar_util.SysAppBar(page, "Lecture Creator", is_appbar_only=True)
 
         self.current_loaded_file = None 
         self._target_edit_main = None
