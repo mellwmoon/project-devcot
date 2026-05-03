@@ -13,7 +13,7 @@ class Login(ft.View):
 
     COL_BG = "#041015"
 
-    def __init__(self):
+    def __init__(self, dbMan):
         m_anim_title = efutil.Fun("> Sign_in", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
 
         input_fields_container = ft.Container(

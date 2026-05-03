@@ -15,7 +15,7 @@ class Signup(ft.View):
 
   trigger_swaps = 0
 
-  def __init__(self):
+  def __init__(self, dbMan):
     
     
     m_anim_title1 = efutil.Fun("> Sign_up --stage 1 basic_info", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
