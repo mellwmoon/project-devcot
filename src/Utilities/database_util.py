@@ -53,6 +53,7 @@ class DatabaseManager:
                     username TEXT NOT NULL,
                     age INTEGER,
                     birthdate TEXT,
+                    password TEXT,
                     email TEXT UNIQUE NOT NULL,
                     email_univ TEXT UNIQUE,
                     phone_number TEXT UNIQUE,
@@ -98,17 +99,16 @@ class DatabaseManager:
     # ---------------------------------------------------------
     # 4. CRUD: CREATE & READ & DELETE
     # ---------------------------------------------------------
-    def create_user(self, username, birthdate, email, account_type, email_univ=None, phone_number=None):
+    def create_user(self, username, birthdate, email, account_type, password, email_univ=None, phone_number=None):
         """Creates a new user and sets up their empty website info."""
-        age = self._calculate_age(birthdate)
         
         try:
             # 1. Insert into personal_info
             self.cursor.execute("""
                 INSERT INTO personal_info 
-                (username, age, birthdate, email, email_univ, phone_number, account_type)
+                (username, birthdate, email, email_univ, phone_number, account_type, password)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, (username, age, birthdate, email, email_univ, phone_number, account_type))
+            """, (username, birthdate, email, email_univ, phone_number, account_type, password))
             
             # Grab the ID that SQLite automatically generated for this new user
             new_user_id = self.cursor.lastrowid

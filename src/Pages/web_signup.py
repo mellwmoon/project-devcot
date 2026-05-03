@@ -15,9 +15,9 @@ class Signup(ft.View):
 
   trigger_swaps = 0
 
-  def __init__(self, dbMan):
+  def __init__(self, db:dabil.DatabaseManager):
     
-    
+    self.account_type = "user"
     m_anim_title1 = efutil.Fun("> Sign_up --stage 1 basic_info", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
     m_anim_title2 = efutil.Fun("> Sign_up --stage 2 basic_info", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
     m_anim_title3 = efutil.Fun("> Sign_up --stage 3 basic_info", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
@@ -29,10 +29,40 @@ class Signup(ft.View):
       if self.trigger_swaps == 0:
         await _update_fields(e)
       elif self.trigger_swaps == 2:
+        # TO BE REFACTORED IN THE FUTURE:
+        # The inputs are stored in 'fields'
+        #     fields = [
+        #   field_firstname,    0
+        #   field_lastname,     1
+        #   field_date,         2
+        #   field_password,     3
+        #   field_number,       4
+        #   field_email,        5
+        #   field_school_email, 6
+        #   field_year_level    7
+        # ]
         print("** Trigger Account creation")
+        db.connect()
+        db.create_user(
+          username=" ".join([fields[0].value, fields[1].value]),
+          birthdate=fields[2].value,
+          password=fields[3].value,
+          phone_number=fields[4].value,
+          email=fields[5].value,
+          email_univ=fields[6].value,
+          account_type=self.account_type,
+        )
+        db.close()
+
+        print("User Tried. Check DB.")
+
+        for f in fields:
+          if f.value != None:
+            f.value = None
 
     async def _swap_container_student(e = None) -> None:
       self.trigger_swaps += 1
+      self.account_type = "student"
       input_ask_type.disabled = True
       input_ask_type.opacity = 0.0
       input_ask_type.update()

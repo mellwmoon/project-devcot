@@ -66,9 +66,9 @@ async def web_manager(page: ft.Page):
 			case "/":
 				page.views.append(ws.home())
 			case "/login":
-				page.views.append(ws.login())
+				page.views.append(ws.login(dbmssql))
 			case "/signup":
-				page.views.append(ws.signup())
+				page.views.append(ws.signup(dbmssql))
 			case "/lecture":
 				page.views.append(ws.lecture(page))
 			case "/discuss":
