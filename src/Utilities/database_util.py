@@ -57,7 +57,7 @@ class DatabaseManager:
                     email TEXT UNIQUE NOT NULL,
                     email_univ TEXT UNIQUE,
                     phone_number TEXT UNIQUE,
-                    account_type TEXT NOT NULL CHECK(account_type IN ('student', 'teacher'))
+                    account_type TEXT NOT NULL CHECK(account_type IN ('student', 'instructor', 'general'))
                 )
             """)
 

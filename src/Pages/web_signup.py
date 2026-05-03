@@ -25,6 +25,11 @@ class Signup(ft.View):
     def date_changed(e) -> None:
       field_date.value = e.control.value.astimezone().strftime("%B %d, %Y")
 
+    async def _change_to_type(e): #'student','instructor','general'
+      self.account_type = e.control.data
+      print("Processed type to be: ", e.control.data, "\nswapping...")
+      await _swap_to_final_signup(e)
+      
     async def continue_button(e) -> None:
       if self.trigger_swaps == 0:
         await _update_fields(e)
@@ -66,7 +71,7 @@ class Signup(ft.View):
         await asyncio.sleep(2)
         await self.push_login(e)
 
-    async def _swap_container_student(e = None) -> None:
+    async def _swap_to_final_signup(e = None) -> None:
       self.trigger_swaps += 1
       self.account_type = "student"
       input_ask_type.disabled = True
@@ -348,7 +353,8 @@ class Signup(ft.View):
             content=ft.Text(
               value="A Student"
             ),
-            on_click=_swap_container_student
+            on_click=_change_to_type,
+            data="student"
           ),
           ft.ElevatedButton(
             width=320,
@@ -356,7 +362,8 @@ class Signup(ft.View):
             content=ft.Text(
               value="An Educator",
             ),
-            disabled=True,
+            on_click=_change_to_type,
+            data="instructor"
           ),
         ]
       )
