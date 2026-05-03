@@ -38,11 +38,11 @@
                         },
                         {
                             "type": "content",
-                            "markdown": "Analog Signals\n\nRepresentation: Continuous waveforms usually sine waves (e.g., sound waves, temperature).\n\nData Type: Represents continuous, varying values.\n\nAdvantages: High information density and ideal for real-time processing.\n\nDisadvantages: Prone to noise, distortion, and signal degradation over long distances.\n\nExamples: Human voice, traditional radio, cassette tapes, thermometers."
+                            "markdown": "## Analog Signals\n\nThe are repressented by Continuous waveforms usually sine waves (e.g., sound waves, temperature).\n\nThey have High information density and ideal for real-time processing.\n\nHowever, they are Prone to noise, distortion, and signal degradation over long distances.\n\n### Examples\n- Human voice\n- traditional radio\n- cassette tapes \n- thermometers"
                         },
                         {
                             "type": "content",
-                            "markdown": "Key Comparison\n| Feature | Analog Signals | Digital Signals || :--- | :--- | :--- || Signal Wave | Continuous Sine Wave | Discrete Square Wave || Data Range | Infinite values | Two states: 0 or 1 || Noise | Highly susceptible | Highly resistant || Bandwidth | Lower usage | Higher usage || Accuracy | Degrades over time | Maintains high quality |"
+                            "markdown": "## Key Comparison\n| Feature | Analog Signals | Digital Signals |\n| :--- | :--- | :--- |\n| Signal Wave | Continuous Sine Wave | Discrete Square Wave |\n| Data Range | Infinite values | Two states: 0 or 1 |\n| Noise | Highly susceptible | Highly resistant |\n| Bandwidth | Lower usage | Higher usage |\n| Accuracy | Degrades over time | Maintains high quality |"
                         }
                     ]
                 },

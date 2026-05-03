@@ -3,9 +3,24 @@ import asyncio
 
 class SysAppBar(ft.AppBar):
     def __init__(self, page: ft.Page, topic_selected: str = "", is_appbar_only: bool = False):
+        
+        self.settings_dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Account Settings", font_family="JetBrains Mono"),
+            content=ft.Container(
+                width=700,
+                height=350,
+                content=ft.Text("User settings UI will go here...", font_family="JetBrains Mono", color=ft.Colors.WHITE54)
+            ),
+            actions=[
+                ft.TextButton("Close", on_click=self.close_settings_dialog)
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
 
         self.extramenu = [
             ft.PopupMenuItem(
+                on_click=self.open_settings_dialog,
                 content=ft.Container(
                     content=ft.Row(
                         spacing=20,
@@ -188,6 +203,16 @@ class SysAppBar(ft.AppBar):
         ),
       )
       self.update()
+    
+    async def open_settings_dialog(self, e):
+        # self.page.dialog = self.settings_dialog
+        # self.settings_dialog.open = True
+        self.page.show_dialog(self.settings_dialog)
+        self.page.update()
+
+    async def close_settings_dialog(self, e):
+        self.settings_dialog.open = False
+        self.page.update()
     
     async def push_creator(self, e):
 
