@@ -3,7 +3,7 @@ import os
 import json
 from datetime import datetime
 
-# GEN 2: We have like 4 days left :(
+# GEN 2: We have like 2 days left :(
 class DatabaseManager:
     def __init__(self, db_name="app_database.db", db_directory=None):
         """
@@ -18,7 +18,7 @@ class DatabaseManager:
         self.cursor = None
 
     # ---------------------------------------------------------
-    # 1. INITIALIZATION & CONNECTION
+    # INITIALIZATION & CONNECTION
     # ---------------------------------------------------------
     def connect(self):
         """Connects to the database and handles connection errors."""
@@ -38,7 +38,7 @@ class DatabaseManager:
             self.connection.close()
 
     # ---------------------------------------------------------
-    # 2. SCHEMA CREATION
+    # SCHEMA CREATION
     # ---------------------------------------------------------
     def create_tables(self):
         """Creates the required tables if they don't already exist."""
@@ -81,7 +81,7 @@ class DatabaseManager:
         self.close()
 
     # ---------------------------------------------------------
-    # 3. HELPER METHODS (Age Calculation)
+    # HELPER METHODS (Age Calculation) - kinda useless rn
     # ---------------------------------------------------------
     def _calculate_age(self, birthdate_string):
         """Calculates age based on a YYYY-MM-DD string."""
@@ -97,7 +97,7 @@ class DatabaseManager:
             return None
 
     # ---------------------------------------------------------
-    # 4. CRUD: CREATE & READ & DELETE
+    # CRUD: CREATE & READ & DELETE
     # ---------------------------------------------------------
     def create_user(self, username, birthdate, email, account_type, password, email_univ=None, phone_number=None):
         """Creates a new user and sets up their empty website info."""
@@ -147,7 +147,7 @@ class DatabaseManager:
             print(f"Error deleting user: {delete_error}")
 
     # ---------------------------------------------------------
-    # 5. CRUD: UPDATE (Convenience Methods)
+    # CRUD: UPDATE (Convenience Methods)
     # ---------------------------------------------------------
     def _update_single_field(self, table_name, column_name, new_value, user_id):
         """A private helper method to keep code DRY (Don't Repeat Yourself)."""
@@ -161,6 +161,22 @@ class DatabaseManager:
             self.connection.commit()
         except sqlite3.Error as update_error:
             print(f"Error updating {column_name}: {update_error}")
+
+    # --- Verification ---
+
+    def verify_user_logon(self, usernameOrEmail, password) -> bool:
+        self.connect()
+        found = False
+        print("Passing: ", usernameOrEmail, password)
+        self.cursor.execute("SELECT * FROM personal_info WHERE (username = ? OR email = ? OR email_univ = ?) AND password = ?", (usernameOrEmail, usernameOrEmail, usernameOrEmail, password))
+        if (len(self.cursor.fetchall())==1):
+            print("Found")
+            found = True
+        else:
+            print("ERROR: None Found or there are duplicates. Perform Manual mentainance if latter.")
+            found = False
+        self.close()
+        return found
 
     # --- Personal Info Updates ---
     def update_username(self, user_id, new_username):

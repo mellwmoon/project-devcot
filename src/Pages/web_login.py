@@ -1,6 +1,8 @@
+import asyncio
 import flet as ft
 from Utilities import container_util as cutil
 from Utilities import effect_util as efutil
+from Utilities import database_util as dabil
 
 class Login(ft.View):
 
@@ -13,7 +15,7 @@ class Login(ft.View):
 
     COL_BG = "#041015"
 
-    def __init__(self, dbMan):
+    def __init__(self, db:dabil.DatabaseManager):
         m_anim_title = efutil.Fun("> Sign_in", theme_styling=ft.TextThemeStyle.TITLE_MEDIUM)
 
         input_fields_container = ft.Container(
@@ -27,20 +29,70 @@ class Login(ft.View):
                         margin=10,
                         controls=[
                             ft.Text("Email or Username", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-                            self.create_field("Email or User"),
+                            field_user:=self.create_field("Email or User"),
                             ft.Text("Password ", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-                            self.create_field("Password", True),
+                            field_password:=self.create_field("Password", True),
                         ]
                     )
                 ]
             )
         )
 
+        async def _on_submit(e):
+            r=None
+
+            await _process_idle_wait()
+
+            if field_password.value is "" and field_user.value is "":
+                # print("ERROR: NO INPUT FIELDS - DENYING.")
+                self.page.show_dialog(ft.SnackBar(ft.Text("Input fields are Empty!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+                return
+            elif field_password.value is "":
+                # print("ERROR: NO PASSWORD - DENYING.")
+                self.page.show_dialog(ft.SnackBar(ft.Text("Password field is Empty!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+                return
+            elif field_user.value is "":
+                # print("ERROR: NO USER - DENYING.")
+                self.page.show_dialog(ft.SnackBar(ft.Text("User field is Empty!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+                return
+            else:
+                r=db.verify_user_logon(field_user.value, field_password.value)
+
+
+            await _process_idle_wait(1)
+
+# ======================= IMPORTANT ===========================
+            if not r: # Fail part
+                self.page.show_dialog(ft.SnackBar(ft.Text("Username/Email or Password is Incorrect", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+
+            else: # Success part
+                self.page.show_dialog(ft.SnackBar(ft.Text("Welcome!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+                await self.page.shared_preferences.set("current_user", field_user.value)
+                await self.push_library(e)
+# =======================     o     ===========================
+        
+        async def _process_idle_wait(dur_sec=0.6):
+            
+            main_content.opacity -= 0.4
+            button_submit.disabled = True
+            button_signup.disabled = True
+            self.page.update()
+
+            await asyncio.sleep(dur_sec)
+
+            main_content.opacity = 1
+            button_submit.disabled = False
+            button_signup.disabled = False
+            self.page.update()
+                
+                
+
         button_submit = ft.FilledButton(
             content=ft.Text(
                 value="Login",
                 font_family="JetBrains Mono"
-            )
+            ),
+            on_click=_on_submit
         )
 
 
@@ -71,7 +123,7 @@ class Login(ft.View):
                             margin=0,
                             theme_style=ft.TextThemeStyle.LABEL_MEDIUM
                         ),
-                        ft.Button(
+                        button_signup:=ft.Button(
                             content=ft.Text(
                                 value="Sign up!",
                                 font_family="JetBrains Mono",
@@ -98,6 +150,8 @@ class Login(ft.View):
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             controls=main_content
         )
+    async def push_library(self, e):
+        await self.page.push_route("/library")
 
     async def push_home(self, e):
         await self.page.push_route("/")

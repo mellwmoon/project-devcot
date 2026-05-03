@@ -60,8 +60,16 @@ async def web_manager(page: ft.Page):
 	page.theme_mode = ft.ThemeMode.DARK
 
 	# Scenes Manager
-	async def change_route():
+	async def change_route(e):
 		page.views.clear()
+
+
+		current_user_id = await page.shared_preferences.get("current_user")
+
+		if not current_user_id and page.route not in ["/login", "/signup", "/"]:
+			page.show_dialog(ft.SnackBar(ft.Text("Create an account first!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+			page.route = "/login"
+		
 		match page.route:
 			case "/":
 				page.views.append(ws.home())
@@ -80,11 +88,15 @@ async def web_manager(page: ft.Page):
 			case _:
 				page.views.append(ws.home())
 		page.update()
+		
 		print(f""" =======================
 routed to: "{page.route}" 
 current views: {len(page.views)}
 		""")
 		
+	# page.views.append(ws.home())
+	# page.update()
+	
 	# Cores 
 	# page.route = "/login" #-> Login
 	# page.route = "/signup" # -> Signup
@@ -93,8 +105,7 @@ current views: {len(page.views)}
 	# page.route = "/discuss" # -> Where we actually see and read content
 	# page.route = "/creator" # -> Where we create the actual lessons
 	page.on_route_change = change_route
-	
-	await change_route()
+	await change_route(None)
 
 if __name__ == "__main__":
 	ft.run(main=web_manager)
