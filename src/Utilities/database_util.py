@@ -135,7 +135,13 @@ class DatabaseManager:
             WHERE p.id = ?
         """, (user_id,))
         
-        return self.cursor.fetchone() # Returns a tuple of the data
+        return self.cursor.fetchone()
+
+    def get_user_info(self, user_id):
+        self.connect()
+        self.cursor.execute("SELECT * FROM personal_info WHERE id = ?", (user_id,))
+        return self.cursor.fetchone()
+
 
     def delete_user(self, user_id):
         """Deletes a user. ON DELETE CASCADE ensures website_info is also wiped."""
@@ -152,8 +158,6 @@ class DatabaseManager:
     def _update_single_field(self, table_name, column_name, new_value, user_id):
         """A private helper method to keep code DRY (Don't Repeat Yourself)."""
         try:
-            # Note: You cannot parameterize table or column names, only values.
-            # Using f-strings here is safe because we control the hardcoded column names in our methods.
             identifier_column = "id" if table_name == "personal_info" else "user_id"
             
             query = f"UPDATE {table_name} SET {column_name} = ? WHERE {identifier_column} = ?"
