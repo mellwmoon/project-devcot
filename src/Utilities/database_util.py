@@ -13,7 +13,7 @@ class DatabaseManager:
             self.db_path = os.path.join(os.getcwd(), db_name)
         else:
             self.db_path = os.path.join(db_directory, db_name)
-            
+        print("Initialized @ ", self.db_path)
         self.connection = None
         self.cursor = None
 
@@ -77,6 +77,7 @@ class DatabaseManager:
             print("Tables created or verified successfully.")
         except sqlite3.Error as table_error:
             print(f"Error creating tables: {table_error}")
+        self.close()
 
     # ---------------------------------------------------------
     # 3. HELPER METHODS (Age Calculation)
@@ -191,33 +192,3 @@ class DatabaseManager:
     def update_classrooms_joined(self, user_id, comma_separated_string):
         self._update_single_field("website_info", "classroom_joined", comma_separated_string, user_id)
 
-
-# ==========================================
-# HOW TO TEST IT:
-# ==========================================
-if __name__ == "__main__":
-    # 1. Initialize
-    db = DatabaseManager()
-    db.create_tables()
-
-    # 2. Create a test user
-    new_id = db.create_user(
-        username="JohnDoe", 
-        birthdate="2000-05-15", 
-        email="john@example.com", 
-        account_type="student"
-    )
-
-    if new_id:
-        db.update_username(new_id, "JohnDoe_Updated")
-        
-        scores = {"Math 101": 95, "History 201": 88}
-        db.update_lessons_and_scores(new_id, scores)
-        
-        db.update_birthdate(new_id, "2010-01-01")
-
-        profile = db.get_user_full_profile(new_id)
-        print(f"\nFinal Profile Data for User {new_id}:")
-        print(profile)
-
-    db.close()

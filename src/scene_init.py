@@ -1,11 +1,18 @@
+import os
+import asyncio
 import flet as ft
 from Pages import web_scenes as ws
+from Utilities import database_util as dutil
 
-def web_manager(page: ft.Page):
+async def web_manager(page: ft.Page):
 	page.fonts = {
 		"JetBrains Mono" : "/fonts/JetBrainsMono[wght].ttf"
 	}
-  
+
+
+	dbmssql = dutil.DatabaseManager(db_directory=os.path.join(os.getcwd(), "src/Data/database"), db_name="devcot.db")
+	dbmssql.create_tables()
+
 	# Settings and such
 	page.theme = ft.Theme(
 		color_scheme_seed=ft.Colors.GREEN_ACCENT,
@@ -53,7 +60,7 @@ def web_manager(page: ft.Page):
 	page.theme_mode = ft.ThemeMode.DARK
 
 	# Scenes Manager
-	def change_route():
+	async def change_route():
 		page.views.clear()
 		match page.route:
 			case "/":
@@ -72,6 +79,7 @@ def web_manager(page: ft.Page):
 				page.views.append(ws.creator())
 			case _:
 				page.views.append(ws.home())
+		page.update()
 		print(f""" =======================
 routed to: "{page.route}" 
 current views: {len(page.views)}
@@ -80,13 +88,13 @@ current views: {len(page.views)}
 	# Cores 
 	# page.route = "/login" #-> Login
 	# page.route = "/signup" # -> Signup
-	page.route = "/library" # -> Where we can choose what lecture we like to study
+	# page.route = "/library" # -> Where we can choose what lecture we like to study
 	# page.route = "/lecture" # -> Where we can choose what topic we like to read
 	# page.route = "/discuss" # -> Where we actually see and read content
 	# page.route = "/creator" # -> Where we create the actual lessons
 	page.on_route_change = change_route
-
-	change_route()
+	
+	await change_route()
 
 if __name__ == "__main__":
 	ft.run(main=web_manager)
