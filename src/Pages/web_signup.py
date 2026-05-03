@@ -59,6 +59,12 @@ class Signup(ft.View):
         for f in fields:
           if f.value != None:
             f.value = None
+        main_layout.opacity = 0.7
+        button_submit.disabled = True
+        button_back_login.disabled = True
+        self.page.update()
+        await asyncio.sleep(2)
+        await self.push_login(e)
 
     async def _swap_container_student(e = None) -> None:
       self.trigger_swaps += 1
