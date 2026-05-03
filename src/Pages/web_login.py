@@ -67,8 +67,12 @@ class Login(ft.View):
 
             else: # Success part
                 self.page.show_dialog(ft.SnackBar(ft.Text("Welcome!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
-                await self.page.shared_preferences.set("current_user", field_user.value)
-                await self.page.shared_preferences.set("")
+                await self.page.shared_preferences.set("current_user", field_user.value)                
+                db.connect()
+                uinfo = db.get_user_info(username=field_user.value)
+                print("User Accessing Type:", uinfo[-1])
+                db.close()
+                await self.page.shared_preferences.set("current_user_type", uinfo[-1])
                 await self.push_library(e)
 # =======================     o     ===========================
         
