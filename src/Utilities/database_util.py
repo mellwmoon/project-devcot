@@ -137,9 +137,9 @@ class DatabaseManager:
         
         return self.cursor.fetchone()
 
-    def get_user_info(self, user_id):
+    def get_user_info(self, user_id=-1, username="NULL"):
         self.connect()
-        self.cursor.execute("SELECT * FROM personal_info WHERE id = ?", (user_id,))
+        self.cursor.execute("SELECT * FROM personal_info WHERE id = ? OR email = ? OR email_univ = ?", (user_id, username, username, username))
         return self.cursor.fetchone()
 
 

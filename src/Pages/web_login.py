@@ -65,11 +65,10 @@ class Login(ft.View):
             if not r: # Fail part
                 self.page.show_dialog(ft.SnackBar(ft.Text("Username/Email or Password is Incorrect", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
 
-
             else: # Success part
                 self.page.show_dialog(ft.SnackBar(ft.Text("Welcome!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
                 await self.page.shared_preferences.set("current_user", field_user.value)
-                await self.page.shared_preferences.set()
+                await self.page.shared_preferences.set("")
                 await self.push_library(e)
 # =======================     o     ===========================
         
