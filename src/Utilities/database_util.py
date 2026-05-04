@@ -1,6 +1,7 @@
 import sqlite3
 import os
 import json
+import warnings
 from datetime import datetime
 
 # GEN 2: We have like 2 days left :(
@@ -128,6 +129,12 @@ class DatabaseManager:
 
     def get_user_full_profile(self, user_id):
         """Fetches all data across both tables for a specific user."""
+
+        warnings.deprecated(
+            "A better and less convoluted option exist. Use get_user_info() instead.",
+            DeprecationWarning,
+            )
+        
         self.cursor.execute("""
             SELECT p.*, w.lessons_and_scores, w.lesson_completed, w.classroom_hosted, w.classroom_joined
             FROM personal_info p
@@ -141,7 +148,6 @@ class DatabaseManager:
         print("trying to find", user_id, "or", username)
         self.cursor.execute("SELECT id, username, birthdate, email, email_univ, account_type FROM personal_info WHERE id = ? OR username = ? OR email = ? OR email_univ = ?", (user_id, username, username, username))
         return self.cursor.fetchone()
-
 
     def delete_user(self, user_id):
         """Deletes a user. ON DELETE CASCADE ensures website_info is also wiped."""
@@ -214,5 +220,103 @@ class DatabaseManager:
         self._update_single_field("website_info", "lesson_completed", comma_separated_string, user_id)
 
     def update_classrooms_joined(self, user_id, comma_separated_string):
-        self._update_single_field("website_info", "classroom_joined", comma_separated_string, user_id)
+        self._update_single_field("website_info", "classroom_joined", comma_separated_string, user_id)    
 
+    # ---------------------------------------------------------
+    # WEBSITE INFO: LESSONS & SCORES MANAGEMENT
+    # ---------------------------------------------------------
+
+    def _resolve_user_id(self, identifier):
+        """Internal helper to find a user_id whether they pass an ID, email, or username."""
+        if isinstance(identifier, int):
+            return identifier
+            
+        user_data = self.get_user_info(username=identifier)
+        if user_data:
+            return user_data[0] # Returns the user's ID
+        return None
+
+    def _get_lessons_dict(self, user_id):
+        """Internal helper to fetch and parse the JSON dictionary of lessons."""
+        self.cursor.execute("SELECT lessons_and_scores FROM website_info WHERE user_id = ?", (user_id,))
+        result = self.cursor.fetchone()
+        if result and result[0]:
+            try:
+                return json.loads(result[0])
+            except json.JSONDecodeError:
+                return {}
+        return {}
+
+    def add_lesson(self, identifier, lesson_title):
+        """Appends a new lesson to the user's progress with a baseline score of 0."""
+        self.connect()
+        user_id = self._resolve_user_id(identifier)
+        if not user_id:
+            print("Failed to add lesson: User not found.")
+            self.close()
+            return False
+
+        lessons_dict = self._get_lessons_dict(user_id)
+        
+        if lesson_title not in lessons_dict:
+            lessons_dict[lesson_title] = 0
+            
+            json_string = json.dumps(lessons_dict)
+            self.cursor.execute("UPDATE website_info SET lessons_and_scores = ? WHERE user_id = ?", (json_string, user_id))
+            self.connection.commit()
+            print(f"Added lesson '{lesson_title}' to user ID {user_id}.")
+        
+        self.close()
+        return True
+
+    def add_lesson_score(self, identifier, lesson_title, score_to_add):
+        """Adds points to the accumulative score of a specific lesson block."""
+        self.connect()
+        user_id = self._resolve_user_id(identifier)
+        if not user_id:
+            print("Failed to add score: User not found.")
+            self.close()
+            return False
+
+        lessons_dict = self._get_lessons_dict(user_id)
+        
+        if lesson_title not in lessons_dict:
+            lessons_dict[lesson_title] = 0
+            
+        lessons_dict[lesson_title] += score_to_add
+        
+        json_string = json.dumps(lessons_dict)
+        self.cursor.execute("UPDATE website_info SET lessons_and_scores = ? WHERE user_id = ?", (json_string, user_id))
+        self.connection.commit()
+        print(f"Added {score_to_add} pts to '{lesson_title}'. New total: {lessons_dict[lesson_title]}")
+        
+        self.close()
+        return True
+
+    def get_user_lessons(self, identifier):
+        """Returns a list of all lesson titles the user has interacted with."""
+        self.connect()
+        user_id = self._resolve_user_id(identifier)
+        if not user_id:
+            self.close()
+            return []
+            
+        lessons_dict = self._get_lessons_dict(user_id)
+        self.close()
+        
+        # Return just the keys (e.g., ["Intro to Logic Gates", "Boolean Algebra"])
+        return list(lessons_dict.keys())
+
+    def get_user_scores(self, identifier):
+        """Returns the full dictionary mapping lesson titles to their accumulative scores."""
+        self.connect()
+        user_id = self._resolve_user_id(identifier)
+        if not user_id:
+            self.close()
+            return {}
+            
+        lessons_dict = self._get_lessons_dict(user_id)
+        self.close()
+        
+        # Return the whole mapping (e.g., {"Intro to Logic Gates": 85, "Boolean Algebra": 100})
+        return lessons_dict
