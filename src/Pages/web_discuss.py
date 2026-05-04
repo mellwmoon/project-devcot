@@ -24,7 +24,7 @@ class Discuss(ft.View):
         page.session.store.set("user_progress", {"topics_taken": 0, "excercises_taken": 0})
     self.progress_tracker = page.session.store.get("user_progress")
     self.selected_topic = page.session.store.get("lecture_title")
-    self.page_completed_flags = False * [self.current_page_index]
+    self.page_completed_flags = [False] * len(self.pages_data)
 
     cur_appbar = appbarutil.SysAppBar(page, self.selected_topic, db=db)
 
@@ -219,6 +219,10 @@ class Discuss(ft.View):
           self.quiz_feedback.value = "Correct! Excellent job."
           self.quiz_feedback.color = ft.Colors.GREEN_400
           
+          print(len(self.pages_data))
+          print(len(self.page_completed_flags))
+          print(self.page_completed_flags)
+
           # Log progress on correct answer!
           if not self.page_completed_flags[self.current_page_index]:
               self.progress_tracker["excercises_taken"] += 1

@@ -37,6 +37,39 @@
                         {
                             "type": "content",
                             "markdown": "Key Takeaways \n\n    - The ALU is the \"doer\" (calculates and compares).\n    - The CU is the \"thinker\" (coordinates and commands).\n    -  Registers (small, fast storage) act as the workspace where the CU places data for the ALU to grab quickly."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Which part of the CPU is responsible for coordinating the timing and synchronization of all operations?",
+                            "options": [
+                                "Arithmetic Logic Unit (ALU)",
+                                "Control Unit (CU)",
+                                "Accumulator",
+                                "Data Bus"
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "If a CPU needs to determine if one number is greater than another, which specific functional block performs this comparison?",
+                            "options": [
+                                "Control Unit",
+                                "Registers",
+                                "Logic Unit (inside the ALU)",
+                                "RAM"
+                            ],
+                            "correct_index": 2
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "The Control Unit acts as the \"manager\" of the CPU. What is its primary role during the \"Decode\" phase?",
+                            "options": [
+                                "Performing mathematical addition",
+                                "Writing results back to the hard drive",
+                                "Translating instructions into micro-signals for the hardware",
+                                "Incrementing the clock speed"
+                            ],
+                            "correct_index": 2
                         }
                     ]
                 },
@@ -173,6 +206,39 @@
                         {
                             "type": "content",
                             "markdown": "Key Takeaways\n\n    Von Neumann: One memory, one bus. Simple and flexible, but prone to bottlenecks. Best for general-purpose PCs."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What is the primary cause of the \"Von Neumann Bottleneck\"?",
+                            "options": [
+                                "Having too much RAM in the system",
+                                "The use of separate buses for instructions and data",
+                                "The CPU being slower than the I/O devices",
+                                "Instructions and data sharing the same physical bus and memory"
+                            ],
+                            "correct_index": 3
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Which architecture is commonly used in microcontrollers (like the ESP32) because it allows the CPU to fetch an instruction and access data simultaneously?",
+                            "options": [
+                                "Von Neumann Architecture",
+                                "Harvard Architecture",
+                                "Modified Bus Architecture",
+                                "Serial Architecture"
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "How does a \"Modified Harvard Architecture\" typically handle memory?",
+                            "options": [
+                                "It uses pure Von Neumann for everything",
+                                "It stores everything in ROM and nothing in RAM",
+                                "It removes the need for buses entirely",
+                                "It uses Harvard logic for internal L1 caches but behaves like Von Neumann for main RAM"
+                            ],
+                            "correct_index": 3
                         }
                     ]
                 },
@@ -216,7 +282,7 @@
         }
     ],
     "topics_amount": 37,
-    "exercises_amount": 0,
+    "exercises_amount": 6,
     "videos_amount": 0,
     "file_id": "computer_architecture_i.json"
 }

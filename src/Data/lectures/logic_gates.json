@@ -148,6 +148,39 @@
                         {
                             "type": "content",
                             "markdown": "Functional Breakdown\n\n\u2022 ALU Integration: Both gates are fundamental components in CPU Arithmetic Logic Units (ALUs) for parity generation and binary addition.\n\u2022 XOR Role: Functions as a \u201cdifferent detector\u201d (Outputs 1 when inputs vary).\n\u2022 XNOR Role: Functions as a \u201csame detector\u201d (Outputs 1 when inputs match)."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Which logic gate is known as an \"Inequality Detector\" because it outputs a 1 only when its two inputs are different?",
+                            "options": [
+                                "AND gate",
+                                "XOR gate",
+                                "XNOR gate",
+                                "OR gate"
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What is the output of an XNOR gate if the inputs are A=1 and B=1?",
+                            "options": [
+                                "1",
+                                "Undefined",
+                                "High Impedance",
+                                "0"
+                            ],
+                            "correct_index": 0
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "If you need to check if two bits are identical in a digital comparator, which single gate is the most efficient choice?",
+                            "options": [
+                                "NAND",
+                                "XOR",
+                                "OR",
+                                "XNOR"
+                            ],
+                            "correct_index": 3
                         }
                     ]
                 }
@@ -181,6 +214,39 @@
                         {
                             "type": "content",
                             "markdown": "Examples:\n\n    Standard Expression: Y=(A\u22c5B)+C\n\n        Interpretation: The output Y is true if (A AND B are true) OR if C is NOT true.\n\n    Simplified Expression: A+(A\u22c5B) simplifies to just A (Absorption Law).\n\n        Practicality: Instead of buying an AND gate and an OR gate, you can just run a wire from input A directly to the output."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "According to Boolean algebra laws, what does the expression A+(A\u22c5B) simplify to?",
+                            "options": [
+                                "B",
+                                "A",
+                                "A\u22c5B",
+                                "1"
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "In the Boolean expression Y=(A\u22c5B)+C, under which condition will the output Y be 1?",
+                            "options": [
+                                "When A and B are both 1, OR when C is 0",
+                                "Only when C is 1",
+                                "Only when A,B, and C are all 1",
+                                "When A is 1 and B is 0"
+                            ],
+                            "correct_index": 0
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Why do computer engineers prioritize simplifying Boolean expressions before building a physical circuit?",
+                            "options": [
+                                "To increase the number of components used.",
+                                "To make the circuit harder to debug.",
+                                "To reduce power consumption, heat, and manufacturing costs.",
+                                "To change the logic of the final output."
+                            ],
+                            "correct_index": 2
                         }
                     ]
                 },
@@ -453,7 +519,7 @@
         }
     ],
     "topics_amount": 79,
-    "exercises_amount": 0,
+    "exercises_amount": 6,
     "videos_amount": 0,
     "file_id": "logic_gates.json"
 }
