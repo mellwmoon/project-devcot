@@ -1,5 +1,5 @@
 {
-    "title": "Logic Gates I",
+    "title": "Logic Gates",
     "description": "Study Logic gates cruciality in digital electronics, and how they perform Boolean logic operations.",
     "icon": "MEMORY",
     "main_topics": [
@@ -148,5 +148,5 @@
     "topics_amount": 19,
     "exercises_amount": 0,
     "videos_amount": 0,
-    "file_id": "logic_gates_i.json"
+    "file_id": "binary_logic_and_number_system.json"
 }
