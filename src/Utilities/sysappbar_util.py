@@ -48,6 +48,19 @@ class SysAppBar(ft.AppBar):
             ),
         )
 
+        # The Delete Account Confirmation Dialog
+        self.delete_confirm_dialog = ft.AlertDialog(
+            modal=True,
+            
+            title=ft.Text("Delete Account?", font_family="JetBrains Mono", color=ft.Colors.RED_400, text_align=ft.TextAlign.CENTER),
+            content=ft.Text("Are you absolutely sure \nyou want to delete your account?\n\nThis action cannot be undone.", font_family="JetBrains Mono", size=14, color=ft.Colors.WHITE, text_align=ft.TextAlign.CENTER),
+            actions=[
+                ft.FilledButton("Yes, Delete Everything", style=ft.ButtonStyle(bgcolor=ft.Colors.RED_700), on_click=self.execute_delete_account, color=ft.Colors.WHITE),
+                ft.FilledButton("No, It was a missclick", on_click=self.close_delete_confirm),
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
+
         # ---------------------------------------------------
         # ORIGINAL APPBAR SETUP
         # ---------------------------------------------------
@@ -131,6 +144,20 @@ class SysAppBar(ft.AppBar):
                     width=170, opacity=0.4,
                 ), disabled=True
             ),
+            ft.PopupMenuItem(content=ft.Divider(), height=1),
+            ft.PopupMenuItem(
+                on_click=self.handle_sign_out,
+                content=ft.Container(
+                    content=ft.Row(
+                        spacing=20,
+                        controls=[
+                            ft.Icon(ft.Icons.LOGOUT, color=ft.Colors.RED_400),
+                            ft.Text("Sign Out", font_family="JetBrains Mono", theme_style=ft.TextThemeStyle.LABEL_SMALL, color=ft.Colors.RED_400)
+                        ]
+                    ),
+                    width=170
+                )
+            ),
         ]
         
         page.update()
@@ -188,6 +215,22 @@ class SysAppBar(ft.AppBar):
     # ---------------------------------------------------
     # DIALOG HANDLERS & ROUTING
     # ---------------------------------------------------
+    async def handle_sign_out(self, e):
+        await asyncio.sleep(0.5)
+
+        if len(self.page.session.store.get_keys()) > 0:
+            self.page.session.store.clear()
+        if self.page.shared_preferences is not None:
+            await self.page.shared_preferences.clear()
+        
+        await asyncio.sleep(0.5)
+
+
+        await self.page.push_route("/login")
+
+        self.page.show_dialog(ft.SnackBar(ft.Text("Logged Out", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+        self.update()
+
     async def open_settings_dialog(self, e):
         await self.load_account_view()
         self.page.show_dialog(self.settings_dialog)
@@ -195,6 +238,42 @@ class SysAppBar(ft.AppBar):
 
     async def close_settings_dialog(self, e):
         self.settings_dialog.open = False
+        self.page.update()
+
+    async def open_delete_confirm(self, e):
+        self.page.show_dialog(self.delete_confirm_dialog)
+        self.page.update()
+
+    async def close_delete_confirm(self, e):
+        self.delete_confirm_dialog.open = False
+        self.page.update()
+
+    async def execute_delete_account(self, e):
+        if not self.current_user_data or not self.db:
+            return
+        
+        self.delete_confirm_dialog.open = False
+        self.settings_dialog.open = False
+
+        self.page.pop_dialog()
+        self.page.pop_dialog()
+            
+        u_id = self.current_user_data[0]
+        
+        self.db.connect()
+        self.db.delete_user(u_id)
+        self.db.close()
+        
+        
+        if len(self.page.session.store.get_keys()) > 0:
+            self.page.session.store.clear()
+        if self.page.shared_preferences is not None:
+            await self.page.shared_preferences.clear()
+        
+        await asyncio.sleep(0.5)
+
+        self.page.show_dialog(ft.SnackBar(ft.Text("Account deleted forever.", color=ft.Colors.WHITE), bgcolor=ft.Colors.RED_800))
+        await self.page.push_route("/")
         self.page.update()
 
     def get_sidebar_style(self, is_selected: bool):
@@ -253,11 +332,9 @@ class SysAppBar(ft.AppBar):
         f_name = name_parts[0]
         l_name = name_parts[1] if len(name_parts) > 1 else ""
         
-        # 4. Rebuild the UI Fields dynamically
         self.field_fname = ft.TextField(label="First Name", value=f_name, expand=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14), border_color=ft.Colors.WHITE24)
         self.field_lname = ft.TextField(label="Last Name", value=l_name, expand=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14), border_color=ft.Colors.WHITE24)
         
-        # Read-only Email fields
         self.field_email = ft.TextField(expand=True, label="Personal Email", value=email, read_only=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14, color=ft.Colors.WHITE54), border_color=ft.Colors.WHITE24)
         self.field_univ_email = ft.TextField(expand=True, label="University Email", value=email_univ if email_univ else "N/A", read_only=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14, color=ft.Colors.WHITE54), border_color=ft.Colors.WHITE24)
 
@@ -293,10 +370,15 @@ class SysAppBar(ft.AppBar):
                 ft.Container(expand=True, margin=0, padding=0),
 
                 ft.Row(
-                    alignment=ft.MainAxisAlignment.END,
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                     controls=[
-                        ft.TextButton("Discard", on_click=self.close_settings_dialog),
-                        ft.FilledButton("Save Changes", on_click=self.save_account_changes, style=ft.ButtonStyle(bgcolor=ft.Colors.GREEN_700))
+                        ft.OutlinedButton("Delete Account", icon=ft.Icons.WARNING_ROUNDED, icon_color=ft.Colors.RED_400, style=ft.ButtonStyle(color=ft.Colors.RED_400), on_click=self.open_delete_confirm),
+                        ft.Row(
+                            controls=[
+                                ft.TextButton("Discard", on_click=self.close_settings_dialog),
+                                ft.FilledButton("Save Changes", on_click=self.save_account_changes, style=ft.ButtonStyle(bgcolor=ft.Colors.GREEN_400))
+                            ]
+                        )
                     ]
                 )
 
