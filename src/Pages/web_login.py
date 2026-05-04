@@ -1,5 +1,6 @@
 import asyncio
 import flet as ft
+from rich import print
 from Utilities import container_util as cutil
 from Utilities import effect_util as efutil
 from Utilities import database_util as dabil
@@ -43,17 +44,22 @@ class Login(ft.View):
 
             await _process_idle_wait()
 
+            print(f"[gray][ACCOUNT LOGIN] Trying ...[/gray]")
+
             if field_password.value is "" and field_user.value is "":
                 # print("ERROR: NO INPUT FIELDS - DENYING.")
                 self.page.show_dialog(ft.SnackBar(ft.Text("Input fields are Empty!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+                print(f"[gray][ACCOUNT LOGIN] No field Error[/gray]")
                 return
             elif field_password.value is "":
                 # print("ERROR: NO PASSWORD - DENYING.")
                 self.page.show_dialog(ft.SnackBar(ft.Text("Password field is Empty!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+                print(f"[gray][ACCOUNT LOGIN] No Password Error[/gray]")
                 return
             elif field_user.value is "":
                 # print("ERROR: NO USER - DENYING.")
                 self.page.show_dialog(ft.SnackBar(ft.Text("User field is Empty!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
+                print(f"[gray][ACCOUNT LOGIN] No User Error[/gray]")
                 return
             else:
                 r=db.verify_user_logon(field_user.value, field_password.value)
@@ -64,13 +70,14 @@ class Login(ft.View):
 # ======================= IMPORTANT ===========================
             if not r: # Fail part
                 self.page.show_dialog(ft.SnackBar(ft.Text("Username/Email or Password is Incorrect", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
-
+                print(f"[gray][ACCOUNT LOGIN] Incorrect Sign in[/gray]")
             else: # Success part
                 self.page.show_dialog(ft.SnackBar(ft.Text("Welcome!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
                 await self.page.shared_preferences.set("current_user", field_user.value)                
                 db.connect()
                 uinfo = db.get_user_info(username=field_user.value)
-                print("User Accessing Type:", uinfo[-1])
+                print(f"[ACCOUNT LOGIN] User Accessing Type: [bold cyan]{uinfo[-1]}[/bold cyan]", )
+                print(f"[ACCOUNT LOGIN] User [bold yellow]{field_user.value}[/bold yellow] logged in.")
                 db.close()
                 await self.page.shared_preferences.set("current_user_type", uinfo[-1])
                 await self.push_library(e)

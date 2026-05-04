@@ -1,6 +1,7 @@
 import os
 import asyncio
 import flet as ft
+from rich import print
 from Pages import web_scenes as ws
 from Utilities import database_util as dutil
 
@@ -71,7 +72,7 @@ async def web_manager(page: ft.Page):
 			page.show_dialog(ft.SnackBar(ft.Text("Create an account first!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
 			page.route = "/login"
 		
-		print(f"[USER ACTION] logged in as {current_user_id} -> trying to -> {page.route}")
+		print(f"[bold][USER ACTION][/bold] [bold yellow]{current_user_id}[/bold yellow] routing to [bold cyan]{page.route}[/bold cyan]")
 
 		match page.route:
 			case "/":

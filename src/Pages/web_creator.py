@@ -105,12 +105,12 @@ class Creator(ft.View):
                 content=ft.Row([
                     # Left Sidebar for Page List
                     ft.Container(
-                        width=220, border=ft.Border.all(1, ft.Colors.WHITE24), border_radius=8, 
+                        width=220, border=ft.Border.all(1, ft.Colors.WHITE_24), border_radius=8, 
                         padding=10, content=self.editor_sidebar
                     ),
                     # Right Workspace for Editing
                     ft.Container(
-                        expand=True, border=ft.Border.all(1, ft.Colors.WHITE24), border_radius=8, 
+                        expand=True, border=ft.Border.all(1, ft.Colors.WHITE_24), border_radius=8, 
                         padding=15, content=self.editor_workspace
                     )
                 ])
@@ -141,7 +141,7 @@ class Creator(ft.View):
             ft.Text("Curriculum Structure", theme_style=ft.TextThemeStyle.TITLE_MEDIUM, font_family="JetBrains Mono"),
             ft.Row([self.tf_main_topic, ft.FilledButton(content=ft.Text("Add Main Topic"), on_click=self.add_main_topic)]),
             self.dd_main_topics,
-            ft.Divider(color=ft.Colors.WHITE24),
+            ft.Divider(color=ft.Colors.WHITE_24),
             ft.Column([
                 ft.Row([self.tf_sub_topic, ft.FilledButton(content=ft.Text("Add Sub-Topic"), on_click=self.add_sub_topic)]),
                 self.tf_sub_topic_desc 
@@ -157,7 +157,7 @@ class Creator(ft.View):
             ft.Text("Add Content Page", theme_style=ft.TextThemeStyle.LABEL_LARGE, color=ft.Colors.GREEN_300),
             self.tf_markdown,
             ft.FilledButton(content=ft.Text("Inject Markdown Page"), on_click=self.add_content_page),
-            ft.Divider(color=ft.Colors.WHITE24),
+            ft.Divider(color=ft.Colors.WHITE_24),
             ft.Text("Add Quiz Page", theme_style=ft.TextThemeStyle.LABEL_LARGE, color=ft.Colors.GREEN_300),
             self.tf_question,
             ft.Row([self.quiz_options[0], self.quiz_options[1]]),
@@ -166,7 +166,7 @@ class Creator(ft.View):
         ])
 
         block_save = ft.Column([
-            ft.Divider(color=ft.Colors.WHITE24),
+            ft.Divider(color=ft.Colors.WHITE_24),
             txt_status := ft.Text("Ready.", color=ft.Colors.GREEN_300),
             ft.FilledButton(content=ft.Text("SAVE LECTURE TO DISK"), width=400, height=40, on_click=self.save_lecture, bgcolor=ft.Colors.YELLOW_300)
         ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
@@ -177,17 +177,17 @@ class Creator(ft.View):
         self.refresh_sidebar()
 
         sidebar_area = ft.Container(
-            width=320, padding=15, border=ft.Border.all(1, ft.Colors.WHITE24),
+            width=320, padding=15, border=ft.Border.all(1, ft.Colors.WHITE_24),
             border_radius=10, height=500, content=self.sidebar_column
         )
 
         main_body = ft.Column(
             scroll=ft.ScrollMode.AUTO, spacing=30, height=500, 
-            controls=[block_header, ft.Divider(color=ft.Colors.WHITE24), block_meta, ft.Divider(color=ft.Colors.WHITE24), block_topics, ft.Divider(color=ft.Colors.WHITE24), block_pages, block_save]
+            controls=[block_header, ft.Divider(color=ft.Colors.WHITE_24), block_meta, ft.Divider(color=ft.Colors.WHITE_24), block_topics, ft.Divider(color=ft.Colors.WHITE24), block_pages, block_save]
         )
 
         main_creation_area = ft.Container(
-            padding=20, expand=True, border=ft.Border.all(1, ft.Colors.WHITE24), 
+            padding=20, expand=True, border=ft.Border.all(1, ft.Colors.WHITE_24), 
             border_radius=10, margin=ft.Margin.only(left=80, right=80), content=main_body
         )
 
@@ -215,7 +215,7 @@ class Creator(ft.View):
             
         self.refresh_page_editor_sidebar()
         self.editor_workspace.controls.clear()
-        self.editor_workspace.controls.append(ft.Text("Select a page from the left to edit.", color=ft.Colors.WHITE54))
+        self.editor_workspace.controls.append(ft.Text("Select a page from the left to edit.", color=ft.Colors.WHITE_54))
         
         self.page.show_dialog(self.page_editor_dialog)
 
@@ -229,7 +229,7 @@ class Creator(ft.View):
         target_pages = self.get_targeted_sub_topic()
         
         if not target_pages:
-            self.editor_sidebar.controls.append(ft.Text("No pages yet.", color=ft.Colors.WHITE54))
+            self.editor_sidebar.controls.append(ft.Text("No pages yet.", color=ft.Colors.WHITE_54))
             return
             
         for i, page_data in enumerate(target_pages):
@@ -239,7 +239,7 @@ class Creator(ft.View):
             self.editor_sidebar.controls.append(
                 ft.Container(
                     content=ft.Row([ft.Icon(icon, color=color, size=16), ft.Text(f"Page {i+1}", size=12)]),
-                    padding=10, border_radius=5, border=ft.Border.all(1, ft.Colors.WHITE24),
+                    padding=10, border_radius=5, border=ft.Border.all(1, ft.Colors.WHITE_24),
                     bgcolor=ft.Colors.with_opacity(0.1, color) if self._editing_page_index == i else ft.Colors.TRANSPARENT,
                     on_click=lambda e, index=i: self.load_page_into_workspace(index)
                 )
@@ -315,7 +315,7 @@ class Creator(ft.View):
         
         self._editing_page_index = None
         self.editor_workspace.controls.clear()
-        self.editor_workspace.controls.append(ft.Text("Page deleted. Select another page.", color=ft.Colors.WHITE54))
+        self.editor_workspace.controls.append(ft.Text("Page deleted. Select another page.", color=ft.Colors.WHITE_54))
         
         self.refresh_page_editor_sidebar()
         self.show_snack(e, "Page removed from Sub-Topic.")
@@ -433,7 +433,7 @@ class Creator(ft.View):
         lectures = data_util.load_all_lectures()
         
         if not lectures:
-            self.browser_content.controls.append(ft.Text("No saved lectures found in Data/lectures.", color=ft.Colors.WHITE54))
+            self.browser_content.controls.append(ft.Text("No saved lectures found in Data/lectures.", color=ft.Colors.WHITE_54))
         else:
             for lec in lectures:
                 self.browser_content.controls.append(
@@ -490,13 +490,13 @@ class Creator(ft.View):
         )
         
         if not self.lecture_data.get("main_topics"):
-            self.sidebar_column.controls.append(ft.Text("No topics added yet.", color=ft.Colors.WHITE54))
+            self.sidebar_column.controls.append(ft.Text("No topics added yet.", color=ft.Colors.WHITE_54))
             return
 
         for mt in self.lecture_data["main_topics"]:
             is_active_main = (self.dd_main_topics.value == mt['topic_title'])
             main_bg = ft.Colors.GREEN_800 if is_active_main else ft.Colors.TRANSPARENT
-            main_border = ft.Colors.GREEN_400 if is_active_main else ft.Colors.WHITE24
+            main_border = ft.Colors.GREEN_400 if is_active_main else ft.Colors.WHITE_24
 
             self.sidebar_column.controls.append(
                 ft.Container(
@@ -511,7 +511,7 @@ class Creator(ft.View):
                 
                 sub_bg_normal = ft.Colors.with_opacity(0.15, ft.Colors.YELLOW) if is_active_sub else ft.Colors.with_opacity(0.05, ft.Colors.WHITE)
                 sub_bg_hover = ft.Colors.with_opacity(0.25, ft.Colors.YELLOW) if is_active_sub else ft.Colors.with_opacity(0.1, ft.Colors.WHITE)
-                sub_border = ft.Colors.YELLOW if is_active_sub else ft.Colors.WHITE24
+                sub_border = ft.Colors.YELLOW if is_active_sub else ft.Colors.WHITE_24
 
                 pages_count = sum(1 for p in st.get("pages", []) if p["type"] == "content")
                 quiz_count = sum(1 for p in st.get("pages", []) if p["type"] == "quiz")
