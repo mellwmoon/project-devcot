@@ -281,6 +281,36 @@
                         {
                             "type": "content",
                             "markdown": "Hexadecimal to Decimal: Use the Sum-of-Weights method with powers of 16.\n\nExample: $$\n\\begin{aligned}\n(1\\text{A})_{16} &= (1 \\times 16^1) + (10 \\times 16^0) \\\\\n&= 16 + 10 \\\\\n&= (26)_{10}\n\\end{aligned}\n$$"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Hexadecimal to Decimal (Base 16 to Base 10)\n\nTo convert, multiply each hex digit by its corresponding power of 16 and sum the results.\n   \n  - **Step 1:** Assign decimal values to any letters ($\\text{A}=10, \\text{B}=11, \\text{C}=12, \\text{D}=13, \\text{E}=14, \\text{F}=15$).\n- **Step 2:** Starting from the right ($16^0$), multiply each digit by $16^n$.\n- **Step 3:** Sum the products."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example: \n\n$$\n\\begin{aligned}\n(1\\text{A}3)_{16} &= (1 \\times 16^2) + (10 \\times 16^1) + (3 \\times 16^0) \\\\\n&= 256 + 160 + 3 \\\\\n&= \\mathbf{419} \\\\\n\\text{Result: } &(1\\text{A}3)_{16} = (419)_{10}\n\\end{aligned}\n$$"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Conversion Table\n\n| Decimal | Hex | Decimal | Hex | \n|:-----:| |:-----:| |:-----:| |:-----:|\n| 10 | A | 13 | D |\n| 11 | B | 14 | E |\n| 12 | C | 15 | F |"
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Shorcut Methods",
+                    "description": "Instant conversion between Binary, Octal, and Hex by grouping bits, bypassing the need for decimal calculations",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Shortcuts allow for near-instant conversion between Binary, Octal, and Hex by grouping bits, bypassing the need for decimal calculations. Since $2^3 = 8$ and $2^4 = 16$, we can simply group binary digits."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Binary to Hex: \n\nGroup the binary bits into sets of four (starting from the right). Replace each group with its hex equivalent.\n\n    Example: $(10101111)_2$\n\n$$\n\\begin{aligned}\n&\\underbrace{1010}_{\\text{A}} \\ \\underbrace{1111}_{\\text{F}} \\\\\n\\text{Result: } &(\\text{AF})_{16}\n\\end{aligned}\n$$"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Hex to Binary:\n\nReplace each hex digit with its 4-bit binary equivalent.\n\n    Example: 3C16\u200b.\n\n        3 = 0011, C = 1100 \u2192 Result: 001111002\u200b."
                         }
                     ]
                 }
@@ -291,7 +321,7 @@
             "sub_topics": []
         }
     ],
-    "topics_amount": 46,
+    "topics_amount": 52,
     "exercises_amount": 0,
     "videos_amount": 0,
     "file_id": "logic_gates.json"

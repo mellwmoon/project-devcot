@@ -20,14 +20,14 @@ class SysAppBar(ft.AppBar):
         self.settings_content_area = ft.Container(expand=True)
 
         self.sidebar_buttons = [
-            ft.TextButton("Account Info", data="account", on_click=self.handle_sidebar_click, style=self.get_sidebar_style(True)),
-            ft.TextButton("Details & Scores", data="scores", on_click=self.handle_sidebar_click, style=self.get_sidebar_style(False)),
-            ft.TextButton("Topics", data="topics", on_click=self.handle_sidebar_click, style=self.get_sidebar_style(False)),
+            ft.TextButton("Account Info", data="account", on_click=self.handle_sidebar_click, style=self.get_sidebar_style(True), width=200),
+            ft.TextButton("Details & Scores", data="scores", on_click=self.handle_sidebar_click, style=self.get_sidebar_style(False), width=200),
+            ft.TextButton("Topics", data="topics", on_click=self.handle_sidebar_click, style=self.get_sidebar_style(False), width=200),
         ]
 
         self.settings_dialog = ft.AlertDialog(
             modal=True,
-            title=ft.Text("User Settings", font_family="JetBrains Mono"),
+            title=ft.Text("Account Settings", font_family="JetBrains Mono"),
             content_padding=0,
             content=ft.Container(
                 width=700,
@@ -46,12 +46,14 @@ class SysAppBar(ft.AppBar):
                     ]
                 )
             ),
+            actions=[
+                ft.OutlinedButton("Close", on_click=self.close_settings_dialog)
+            ]
         )
 
         # The Delete Account Confirmation Dialog
         self.delete_confirm_dialog = ft.AlertDialog(
             modal=True,
-            
             title=ft.Text("Delete Account?", font_family="JetBrains Mono", color=ft.Colors.RED_400, text_align=ft.TextAlign.CENTER),
             content=ft.Text("Are you absolutely sure \nyou want to delete your account?\n\nThis action cannot be undone.", font_family="JetBrains Mono", size=14, color=ft.Colors.WHITE, text_align=ft.TextAlign.CENTER),
             actions=[
@@ -225,7 +227,6 @@ class SysAppBar(ft.AppBar):
         
         await asyncio.sleep(0.5)
 
-
         await self.page.push_route("/login")
 
         self.page.show_dialog(ft.SnackBar(ft.Text("Logged Out", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
@@ -264,7 +265,6 @@ class SysAppBar(ft.AppBar):
         self.db.delete_user(u_id)
         self.db.close()
         
-        
         if len(self.page.session.store.get_keys()) > 0:
             self.page.session.store.clear()
         if self.page.shared_preferences is not None:
@@ -279,8 +279,8 @@ class SysAppBar(ft.AppBar):
     def get_sidebar_style(self, is_selected: bool):
         return ft.ButtonStyle(
             shape=ft.RoundedRectangleBorder(radius=5),
-            color=ft.Colors.GREEN_300 if is_selected else ft.Colors.WHITE_54,
-            bgcolor=ft.Colors.WHITE_10 if is_selected else ft.Colors.TRANSPARENT,
+            color=ft.Colors.GREEN_300 if is_selected else ft.Colors.WHITE54,
+            bgcolor=ft.Colors.WHITE10 if is_selected else ft.Colors.TRANSPARENT,
             padding=ft.Padding.symmetric(horizontal=15, vertical=15),
             alignment=ft.Alignment.CENTER_LEFT
         )
@@ -292,9 +292,9 @@ class SysAppBar(ft.AppBar):
         if e.control.data == "account":
             await self.load_account_view() 
         elif e.control.data == "scores":
-            self.load_placeholder_view("Details & Scores", "Score history will appear here.")
+            await self.load_scores_view()
         elif e.control.data == "topics":
-            self.load_placeholder_view("Topics", "Topic preferences will appear here.")
+            await self.load_topics_view()
             
         self.page.update()
 
@@ -310,7 +310,6 @@ class SysAppBar(ft.AppBar):
                 ft.Text(description, font_family="JetBrains Mono", color=ft.Colors.WHITE54)
             ]
         )
-    
 
     async def load_account_view(self):
         """Fetches data from DB and builds the Account Information form."""
@@ -350,7 +349,6 @@ class SysAppBar(ft.AppBar):
             border_color=ft.Colors.WHITE24
         )
 
-
         self.settings_content_area.content = ft.Column(
             scroll=ft.ScrollMode.AUTO,
             expand=True,
@@ -372,7 +370,7 @@ class SysAppBar(ft.AppBar):
                 ft.Divider(color=ft.Colors.TRANSPARENT, height=10),
                 ft.Text("Danger Zone", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.RED_300),
                 ft.Divider(color=ft.Colors.WHITE24),
-                ft.OutlinedButton("Delete Account", icon=ft.Icons.WARNING_ROUNDED, icon_color=ft.Colors.RED_400, style=ft.ButtonStyle(color=ft.Colors.RED_400), on_click=self.open_delete_confirm),
+                ft.OutlinedButton("Delete Account", icon=ft.Icons.WARNING_ROUNDED, icon_color=ft.Colors.RED_400, style=ft.ButtonStyle(color=ft.Colors.RED_400, side=ft.BorderSide(1, ft.Colors.RED_400)), on_click=self.open_delete_confirm),
                 ft.OutlinedButton("Reset Progress", icon=ft.Icons.WARNING_ROUNDED, icon_color=ft.Colors.RED_400, style=ft.ButtonStyle(color=ft.Colors.RED_400), disabled=True),
                 
                 ft.Divider(color=ft.Colors.TRANSPARENT, height=10),
@@ -386,13 +384,114 @@ class SysAppBar(ft.AppBar):
                             expand=True,
                             alignment=ft.MainAxisAlignment.END,
                             controls=[
-                                ft.TextButton("Discard/Cancel", on_click=self.close_settings_dialog),
+                                # ft.TextButton("Discard/Cancel", on_click=self.close_settings_dialog),
                                 ft.FilledButton("Save Changes", on_click=self.save_account_changes, style=ft.ButtonStyle(bgcolor=ft.Colors.GREEN_400))
                             ]
                         )
                     ]
                 )
+            ]
+        )
 
+    async def load_scores_view(self):
+        """Fetches and displays the user's accumulative scores per lesson."""
+        if not self.db: return
+        
+        current_identifier = await self.page.shared_preferences.get("current_user")
+        scores_dict = self.db.get_user_scores(current_identifier)
+        
+        score_rows = []
+        if not scores_dict:
+            score_rows.append(
+                ft.Text("No scores recorded yet. Go study some lectures!", color=ft.Colors.WHITE54, font_family="JetBrains Mono")
+            )
+        else:
+            for lesson_title, score in scores_dict.items():
+                score_rows.append(
+                    ft.Container(
+                        padding=15,
+                        border=ft.Border.all(1, ft.Colors.WHITE24),
+                        border_radius=8,
+                        bgcolor=ft.Colors.with_opacity(0.02, ft.Colors.WHITE),
+                        content=ft.Row(
+                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                            controls=[
+                                ft.Text(lesson_title, font_family="JetBrains Mono", size=15),
+                                ft.Row(
+                                    spacing=5,
+                                    controls=[
+                                        ft.Icon(ft.Icons.STAR, color=ft.Colors.AMBER_400, size=18),
+                                        ft.Text(f"{score} pts", font_family="JetBrains Mono", size=16, color=ft.Colors.GREEN_300, weight=ft.FontWeight.BOLD)
+                                    ]
+                                )
+                            ]
+                        )
+                    )
+                )
+
+        self.settings_content_area.content = ft.Column(
+            expand=True,
+            spacing=10,
+            controls=[
+                ft.Text("Details & Scores", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.GREEN_300),
+                ft.Divider(color=ft.Colors.WHITE24),
+                ft.Container(
+                    height=250,
+                    width=500,
+                    # border=ft.Border.all(1, "#FFFFFF"),
+                    content=ft.Column(
+                        scroll=ft.ScrollMode.AUTO,
+                        controls=[*score_rows]
+                    )
+                ),
+            ]
+        )
+
+    async def load_topics_view(self):
+        """Fetches and displays the list of topics the user has interacted with."""
+        if not self.db: return
+        
+        current_identifier = await self.page.shared_preferences.get("current_user")
+        lessons_list = self.db.get_user_lessons(current_identifier)
+        
+        topic_chips = []
+        if not lessons_list:
+            topic_chips.append(
+                ft.Text("You haven't started any topics yet.", color=ft.Colors.WHITE54, font_family="JetBrains Mono")
+            )
+        else:
+            for lesson in lessons_list:
+                topic_chips.append(
+                    ft.Container(
+                        padding=ft.padding.symmetric(horizontal=12, vertical=8),
+                        border=ft.Border.all(1, ft.Colors.BLUE_400),
+                        border_radius=20,
+                        bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.BLUE_400),
+                        content=ft.Text(lesson, font_family="JetBrains Mono", size=13, color=ft.Colors.BLUE_100)
+                    )
+                )
+
+        self.settings_content_area.content = ft.Column(
+            scroll=ft.ScrollMode.AUTO,
+            expand=True,
+            spacing=10,
+            controls=[
+                ft.Column([
+                    ft.Text("Topics Studied", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.GREEN_300),
+                    ft.Divider(color=ft.Colors.WHITE24),
+                ]),
+                ft.Container(
+                    height=250,
+                    width=500,
+                    # border=ft.Border.all(1, "#FFFFFF"),
+                    content=ft.Row(
+                        scroll=ft.ScrollMode.AUTO,
+                        wrap=True, 
+                        spacing=10,
+                        run_spacing=10,
+                        controls=topic_chips
+                    )
+                )
             ]
         )
 
@@ -412,7 +511,6 @@ class SysAppBar(ft.AppBar):
         new_username = f"{self.field_fname.value} {self.field_lname.value}".strip()
         new_bdate = self.field_bdate.value
         new_password = self.field_pass.value
-
 
         self.db.connect()
         self.db.update_username(u_id, new_username)
