@@ -104,7 +104,7 @@ async def web_manager(page: ft.Page):
 	# Cores 
 	# page.route = "/login" #-> Login
 	# page.route = "/signup" # -> Signup
-	page.route = "/library" # -> Where we can choose what lecture we like to study
+	# page.route = "/library" # -> Where we can choose what lecture we like to study
 	# page.route = "/lecture" # -> Where we can choose what topic we like to read
 	# page.route = "/discuss" # -> Where we actually see and read content
 	# page.route = "/creator" # -> Where we create the actual lessons

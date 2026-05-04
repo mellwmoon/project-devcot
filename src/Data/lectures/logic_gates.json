@@ -119,8 +119,37 @@
                 },
                 {
                     "sub_title": "XOR, XNOR",
-                    "description": "No description provided.",
-                    "pages": []
+                    "description": "XOR (Exclusive OR) and XNOR (Exclusive NOR) are digital logic gates used in computing for parity checks, arithmetic, and comparison",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "XOR (Exclusive OR) and NOR (Negated OR) are fundamental digital logic gates. XOR outputs true (1) only when inputs differ (one true, one false). NOR outputs true (1) only when all inputs are false (0), functioning as an inverted OR gate. XOR is used for parity checks, while NOR is a universal gate"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "XOR Gate (Exclusive OR)\n\n\u2022 Description: The output is High (1) only if the inputs are different. If the inputs are the same, the output is Low (0). Because it outputs a 1 when there is an odd number of high inputs, it is frequently called an \u201codd detector\u201d.\n\u2022 Boolean Expression:\no Y = A \\oplus B\no Y = \\overline{A}B + A\\overline{B}"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Truth Table\n\n| nput A | |\tInput B\t| | Output Y|\n|:-----:| |:-----:| |:-----:|\n| 0 |\t0\t| 0 |\n| 0\t| 1\t| 1 |\n| 1\t| 0\t| 1 |\n"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Applications\n\n\u2022 Adder Circuits: It is the core component of Half Adders and Full Adders, used to calculate the \u201cSum\u201d bit.\n\u2022 Error Detection: Used in parity bit generation and cyclic redundancy checks (CRC).\n\u2022 Cryptography: Often used in ciphers (like the One-Time Pad) because the operation is easily reversible."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "XNOR (Exclusive NOR) Gate\n\n\u2022 Description: Outputs 1 only when inputs are the same $(0,0\\text{ or } 1,1)$\n\u2022 Boolean Expression: Y = A \\odot B = AB + \\bar{A}\\bar{B}\n\u2022 Key Function: Equality detector / equivalence gate.\n\u2022 Use Cases: Digital comparators, complementors, error detection."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Table \n\n\\begin{array}{|c|c|c|c|}\n\\hline\n\\text{Input A} & \\text{Input B} & \\text{XOR } (A \\oplus B) & \\text{XNOR } (A \\odot B) \\\\\n\\hline\n0 & 0 & 0 & 1 \\\\\n0 & 1 & 1 & 0 \\\\\n1 & 0 & 1 & 0 \\\\\n1 & 1 & 0 & 1 \\\\\n\\hline\n\\end{array}"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Functional Breakdown\n\n\u2022 ALU Integration: Both gates are fundamental components in CPU Arithmetic Logic Units (ALUs) for parity generation and binary addition.\n\u2022 XOR Role: Functions as a \u201cdifferent detector\u201d (Outputs 1 when inputs vary).\n\u2022 XNOR Role: Functions as a \u201csame detector\u201d (Outputs 1 when inputs match)."
+                        }
+                    ]
                 }
             ]
         },
@@ -129,18 +158,45 @@
             "sub_topics": [
                 {
                     "sub_title": "Simple Circuits",
-                    "description": "No description provided.",
-                    "pages": []
+                    "description": "A simple circuit in digital logic is a basic combination of logic gates designed to perform a specific, localized task.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Simple circuits are the building blocks of more complex architectures like CPUs. They usually take a set of binary inputs and produce a single output based on a specific logic condition. In these circuits, we focus on combinational logic, meaning the output is strictly dependent on the current inputs. These are often used for \"decision-making\" at the hardware level, such as enabling a component only when specific safety conditions are met."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Examples:\n\n    The Enable Switch: Using an AND gate where Input A is the data signal and Input B is a \"Control\" switch. If the Control is 0, the data cannot pass through.\n\n    The Warning Light: Using an OR gate in a car to trigger a \"Door Ajar\" light. If Door A, Door B, OR Door C is open (1), the output light turns on (1).\n\n    The Basic Comparator: Using an XNOR gate to check if two bits are identical. If A=1 and B=1, the output is 1. If they differ, the output is 0."
+                        }
+                    ]
                 },
                 {
                     "sub_title": "Boolean Expressions",
-                    "description": "No description provided.",
-                    "pages": []
+                    "description": "Boolean expressions are mathematical representations of logic circuits using variables and operators (like \u22c5 for AND, + for OR, and A for NOT).",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Boolean algebra is the \"language\" used to simplify complex digital designs. Just as you simplify 2x+3x to 5x in standard algebra, engineers use Boolean laws (like De Morgan's Theorem or the Distributive Law) to reduce the number of gates required in a circuit. This is essential in computer engineering because fewer gates mean less power consumption, less heat, and lower manufacturing costs. Every digital circuit can be summarized by a Boolean equation, which serves as the blueprint for the physical wiring."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Examples:\n\n    Standard Expression: Y=(A\u22c5B)+C\n\n        Interpretation: The output Y is true if (A AND B are true) OR if C is NOT true.\n\n    Simplified Expression: A+(A\u22c5B) simplifies to just A (Absorption Law).\n\n        Practicality: Instead of buying an AND gate and an OR gate, you can just run a wire from input A directly to the output."
+                        }
+                    ]
                 },
                 {
                     "sub_title": "Real-Life Applications",
-                    "description": "No description provided.",
-                    "pages": []
+                    "description": "Real-life applications involve the integration of logic gates into consumer products, industrial systems, and infrastructure to provide automated control.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "In the real world, logic gates aren't just symbols on paper; they are embedded in microcontrollers and integrated circuits (ICs). They handle everything from simple household appliances to complex safety-critical systems. For instance, in environmental monitoring, logic gates process sensor data to determine if an emergency protocol should be triggered. They allow systems to operate autonomously, reacting to inputs (like temperature, pressure, or signals) faster and more reliably than a human could."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Examples:\n\n    Smart Thermostat: An AND gate logic is used where the system turns on the heater only if (Temperature < Threshold) AND (System is set to \"ON\").\n\n    ATM Security: A logic circuit ensures the machine dispenses cash only if (Valid Card) AND (Correct PIN) AND (Sufficient Balance).\n\n    Flood Alarm (ResiliNet Context): An OR gate could be used to trigger a siren if (Ultrasonic Sensor A detects high water) OR (Manual Emergency Button is pressed).\n\n    Automatic Stairwell Lights: A NOT gate connected to a light sensor (LDR). When the sensor detects light (1), the NOT gate outputs 0 (light off). When it\u2019s dark (0), the NOT gate outputs 1 (light on)."
+                        }
+                    ]
                 }
             ]
         },
@@ -318,10 +374,85 @@
         },
         {
             "topic_title": "Binary Arithmetic",
-            "sub_topics": []
+            "sub_topics": [
+                {
+                    "sub_title": "Addition",
+                    "description": "Binary Addition Arithmetic",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Binary addition is a foundational digital arithmetic process, operating similarly to decimal addition but restricted to base -2 (0 and 1). It adds numbers from right to left, using only four rules$$\n\\begin{array}{r@{\\quad}l}\n0 + 0 = & 0 \\\\\n0 + 1 = & 1 \\\\\n1 + 0 = & 1 \\\\\n1 + 1 = & 10 \\text{ (0 carry 1)}\n\\end{array}\n$$\nwhere a sum greater than 1 generates a carry."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example:\n\n$$\n\\begin{array}{r@{\\quad}l}\n  & \\small\\color{red}{111} & \\text{(carries)} \\\\\n  & 1011_2 \\\\\n+ & 0011_2 \\\\\n\\hline\n  & 1110_2 & \\text{(Result: 14)}\n\\end{array}\n$$"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Procedure:\n\n- Align the binary numbers by their least significant bit (rightmost)\n- Add columns from right to left.\n- If the sum of a column is 2 (10 in binary), write 0 and carry 1 to the next column.\n- If the sum is 3 (11 in binary), write 1 and carry 1."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example: \n\n                          111 (Carries)\n                          1011 (11 in decimal)\n                       + 1101 (13 in decimal)\n                       --------\n                         11000 (24 in decimal) [8]"
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Subtraction",
+                    "description": "Binary Subtraction Arithmetic",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Direct binary subtraction uses \"borrowing\" from the next higher column, similar to decimal. However, in modern computers, subtraction is usually performed by adding the Two's Complement of the subtrahend.\n\n    0\u22120=0\n\n    1\u22121=0\n\n    1\u22120=1\n\n    0\u22121=1 (borrow 1 from next column)\n\n    Example: 1102 \u200b\u2212 0112\u200b\n\n        Right column: 0\u22121 (borrow) \u2192 102\u200b \u2212 1 = 1\n\n        Middle column: (Was 1, now 0) 0\u22121 (borrow) \u2192 102\u200b\u22121=1.\n\n        Left column: (Was 1, now 0) 0\u22120=0 \u2192 Result: 0112\u200b (Decimal 6\u22123=3)"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Concepts and Methods:\n\nBorrowing: When a 1 is borrowed from the next higher bit (a 1), the 0 becomes 102\u200b (which is 2 in decimal). Thus, 102\u200b\u22121=1.\n\nMethodology: Align numbers by the rightmost digit (least significant bit) and subtract column-by-column, accounting for borrowed values.\n\n1\u2019s Complement: A method to subtract by inverting bits (0 to 1, 1 to 0) of the subtrahend and adding it to the minuend, then handling the carry.\n\n2\u2019s Complement: The standard technique in computing, allowing subtraction to be performed using only addition hardware by representing negative numbers in 2\u2019s complement form."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Step-by-Step Example\n\n* **Right column:** $0 - 1 = 1$ (Borrow $1$ from middle column).\n* **Middle column:** $0$ (now $10_2$ after borrowing) $- 1 = 1$. Then, $1 - 1 = 0$. (Requires borrow from left column).\n* **Left column:** $1$ (now $0$ after borrowing) $- 0 = 0$.\n* **Result:** $011_2$ (or $3$ in decimal)."
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Overflow Concept",
+                    "description": "Overflow Concept of Binary Arithmetic",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Overflow occurs when the result of an arithmetic operation is too large to fit within the fixed number of bits allocated to the system (the register size). In digital logic, this essentially means a \"carry\" has leaked out of the most significant bit, or the sign of the result is mathematically impossible."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Overflow occurs when the result of an arithmetic operation exceeds the storage capacity (number of bits) of the register. In signed arithmetic, if you add two positive numbers and get a negative result (or vice versa), an overflow has occurred, indicating the answer is mathematically incorrect within that bit-limit.\n\n\n    Example: In a 4-bit system, the maximum value is 11112\u200b (15).\n\n        If you calculate 10002\u200b(8)+10002\u200b(8), the result is 100002\u200b (16).\n\n        Since the system only holds 4 bits, the \"1\" on the left is lost. The system sees 00002\u200b (0). This error is Overflow."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "The Hardware Perspective\n\nIn a computer, a register has a fixed width (e.g., 4-bit, 8-bit, 16-bit). When you perform addition, if the result requires n+1 bits to represent, the (n+1)th bit is often discarded or stored in a special \"Carry Flag,\" but the main register will show an incorrect value."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Overflow in Unsigned vs. Signed Numbers\n\nThe way you detect overflow depends on how the computer interprets the bits:\n\n   1.  Unsigned Overflow: Occurs when there is a carry out of the Most Significant Bit (MSB).\n\n        Example: In a 4-bit system (0 to 15), 11112\u200b(15)+00012\u200b(1)=100002\u200b(16). The 4-bit register only sees 00002\u200b.\n\n    2. Signed Overflow (2\u2019s Complement): This is trickier. It occurs when:\n\n       - Positive + Positive = Negative result.\n       - Negative + Negative = Positive result.\n\n        (Note: Adding a positive and a negative number can never cause overflow.)"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Long Discussion: Detection & Examples\n\nThe V-Flag Rule\n\nIn digital design, overflow (V) in signed arithmetic is detected by looking at the carries.\nOverflow (V)=Cin\u200b\u2295Cout\u200b\n\nWhere Cin\u200b is the carry into the sign bit and Cout\u200b is the carry out of the sign bit. If they are different, an overflow has occurred.\n\nExample 1: Unsigned Overflow (4-bit)\n\nLet's try to add 12 and 5 in a 4-bit system.\n\n    1210\u200b=11002\u200b\n\n    510\u200b=01012\u200b\n\n\\begin{array}{r@{\\quad}l}\n  1100 & (12) \\\\\n+ 0101 & (5) \\\\\n\\hline\n10001 & (17)\n\\end{array}\n\nThe Result: The system only stores 00012\u200b (1). Since 17>15, the result is wrong."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example 2: Signed Overflow (4-bit 2's Complement)\n\nIn 4-bit signed, the range is \u22128 to +7. Let's add 5 and 4.\n\n    +510\u200b=01012\u200b\n\n    +410\u200b=01002\u200b\n\n\\begin{array}{r@{\\quad}l}\n  0101 & (+5) \\\\\n+ 0100 & (+4) \\\\\n\\hline\n  1001 & (-7 \\text{ in 2's complement})\n\\end{array}\n\nThe Result: We added two positive numbers and got a result starting with 1 (which means negative). This is a Signed Overflow. The hardware thinks 5+4=\u22127."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Takeaways\n\n    Registers are Finite: Computers cannot handle infinitely large numbers.\n\n    The \"Wraparound\" Effect: When overflow occurs, the value \"wraps around\" to zero (for unsigned) or flips the sign (for signed).\n\n    Logic Gates: Overflow is usually handled by checking the carry-in and carry-out of the last bit using an XOR gate."
+                        }
+                    ]
+                }
+            ]
         }
     ],
-    "topics_amount": 52,
+    "topics_amount": 79,
     "exercises_amount": 0,
     "videos_amount": 0,
     "file_id": "logic_gates.json"
