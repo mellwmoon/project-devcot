@@ -74,6 +74,11 @@ class Signup(ft.View):
 
     async def _swap_to_final_signup(e = None) -> None:
       self.trigger_swaps += 1
+
+      field_year_level.visible = False
+      field_year_level.value = "-1"
+      label_year_level.visible = False
+
       input_ask_type.disabled = True
       input_ask_type.opacity = 0.0
       input_ask_type.update()
@@ -92,7 +97,7 @@ class Signup(ft.View):
       input_student_type.opacity = 1.0
       input_student_type.disabled = False
 
-      base_container.height = 270
+      base_container.height = 200
 
       input_student_type.update()
       button_back_login.update()
@@ -312,7 +317,7 @@ class Signup(ft.View):
             font_family="JetBrains Mono", 
             theme_style=ft.TextThemeStyle.LABEL_MEDIUM,
           ),
-          field_year_level := self.create_field("1, 2, 3, etc...", on_click_change=detect_input_change, is_numerical=True, max_length=2)
+          field_year_level := self.create_field("1, 2, 3, etc...", on_click_change=detect_input_change, is_numerical=True, max_length=2,)
         ]
       )
     )

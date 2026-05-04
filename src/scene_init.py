@@ -75,19 +75,19 @@ async def web_manager(page: ft.Page):
 		print(f"[bold][USER ACTION][/bold] [bold yellow]{current_user_id}[/bold yellow] routing to [bold cyan]{page.route}[/bold cyan]")
 
 		match page.route:
-			case "/":
+			case "/":					# to home
 				page.views.append(ws.home())
-			case "/login":
+			case "/login": 		# to login webpage
 				page.views.append(ws.login(dbmssql))
-			case "/signup":
+			case "/signup": 	# to signup webpage
 				page.views.append(ws.signup(dbmssql))
-			case "/lecture":
+			case "/lecture": 	# to lecture webpage
 				page.views.append(ws.lecture(page, dbmssql))
-			case "/discuss":
+			case "/discuss": 	# to discuss webpage
 				page.views.append(ws.discuss(page, dbmssql))
-			case "/library":
+			case "/library":	# to library webpage
 				page.views.append(ws.library(page, dbmssql))
-			case "/creator":
+			case "/creator":	# to editor webpage
 				page.views.append(ws.creator(page, dbmssql))
 			case _:
 				page.views.append(ws.home())
