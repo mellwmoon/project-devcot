@@ -100,6 +100,39 @@
                         {
                             "type": "content",
                             "markdown": "Comparison\n\nRAM (Random Access Memory)\n\nVolatility: It is 'volatile' memory, meaning all stored data is lost immediately when the power is turned off.\nUsage: Acts as a 'temporary workspace' for the operating system and active applications (like your Verilog simulators or browser tabs).\nSpeed: Operates at 'very high speeds', allowing the CPU to access data almost instantaneously.\nCapacity:  Typically has 'high capacity'in modern systems, often ranging from 8GB to 64GB.\nWriteability: Supports 'easy reading and writing', as data is constantly being changed and updated by the CPU.\n\n\n\nROM (Read-Only Memory)\n\nVolatility: It is 'non-volatile' memory; it retains its data permanently even without a power source.\nUsage: Stores'permanent instruction' required to start the computer, such as the BIOS or firmware.\n*   **Speed:** Generally **slower** than RAM, which is why BIOS instructions are often \"shadowed\" or copied into RAM during the boot process for faster execution.\nCapacity: Usually has 'low capacity', typically only a few megabytes (4MB to 16MB) since it only needs to store small boot scripts.\nWriteability: It is 'primarily read-only'; while modern versions like EEPROM can be \"flashed,\" it is not designed for frequent writing during normal operation."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Which type of memory is used to store the BIOS/Firmware because it must retain data even when your laptop's battery is removed?",
+                            "options": [
+                                "SRAM",
+                                "ROM",
+                                "DRAM",
+                                "L1 Cache"
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "If you are running a simulation in system, the active data is stored in RAM. What happens to that data if the system loses power?",
+                            "options": [
+                                "It is lost because RAM is volatile.",
+                                "It remains in RAM until the next boot.",
+                                "It is automatically moved to ROM.",
+                                "It is saved in the Instruction Register."
+                            ],
+                            "correct_index": 0
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What is a key advantage of SRAM over DRAM?",
+                            "options": [
+                                "It is much cheaper to manufacture.",
+                                "It has a higher storage density.",
+                                "It is faster and does not require constant refreshing.",
+                                "It is non-volatile."
+                            ],
+                            "correct_index": 2
                         }
                     ]
                 },
@@ -134,6 +167,39 @@
                         {
                             "type": "content",
                             "markdown": "Key Takeaway \n\nWhen designing a system, the choice of I/O depends on the bandwidth required. A keyboard needs very little bandwidth, whereas a high-definition monitor requires massive amounts of data to be sent every second. As you work on your DEVCOT system, the keyboard/mouse are your primary inputs, while the screen is your primary output for displaying interactive quiz content."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "In the context of an embedded system, which component acts as an Output device?",
+                            "options": [
+                                "An Ultrasonic Sensor",
+                                "A Keyboard",
+                                "A Relay controlling a pump",
+                                "A GPS Module"
+                            ],
+                            "correct_index": 2
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What is the role of an I/O Controller?",
+                            "options": [
+                                "To perform mathematical calculations.",
+                                "To act as a bridge between the high-speed CPU and slower peripheral devices.",
+                                "To store the operating system permanently.",
+                                "To increase the clock speed of the processor."
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Which of these is considered a Human Interface input device?",
+                            "options": [
+                                "Monitor",
+                                "Touchscreen",
+                                "LED",
+                                "Motor"
+                            ],
+                            "correct_index": 1
                         }
                     ]
                 }
@@ -179,6 +245,39 @@
                         {
                             "type": "content",
                             "markdown": "Key Takeaways: Buses and Data Transfer\n\nThis is the physical architecture\u2014the actual wiring and communication protocols that move data.\n\n    The Three-Bus Architecture:\n\n       - Data Bus: The only bidirectional bus; it carries the actual payload.\n       - Address Bus: Unidirectional; it defines the \"location\" and determines how much total memory (RAM) the CPU can actually \"see.\"\n       - Control Bus: Carries the timing and command signals (like \"Read\" or \"Write\") that synchronize the components.\n    \n    Bus Width = Performance: A 64-bit data bus can move twice as much data in one clock cycle as a 32-bit bus. This is why 64-bit operating systems are faster for data-heavy tasks.\n\n    The Von Neumann Bottleneck: This occurs when the CPU is significantly faster than the bus. Because the CPU must wait for data to travel from memory across the bus, the system's overall speed is limited by the bus speed, not the CPU's processing power.\n\n    Synchronization: Data transfer only happens when the System Clock sends a pulse, ensuring that all components are \"speaking\" and \"listening\" at the exact same time to prevent data corruption."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Which bus is responsible for carrying the specific memory address that the CPU wants to read from or write to?",
+                            "options": [
+                                "Data Bus",
+                                "Control Bus",
+                                "Address Bus",
+                                "System Clock"
+                            ],
+                            "correct_index": 2
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Why is the Data Bus described as bidirectional?",
+                            "options": [
+                                "It can carry both instructions and addresses.",
+                                "It must allow data to flow both into the CPU (read) and out of the CPU (write).",
+                                "It connects to both the input and output devices at the same time.",
+                                "It carries signals for both the rising and falling edges of the clock."
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "If a processor has a 32-bit Address Bus, what is the maximum theoretical amount of RAM it can support?",
+                            "options": [
+                                "32 $4 \\text{ GB} = 4 \\times 2^{30} \\text{ bytes}",
+                                "2 GB",
+                                "32 GB",
+                                "16 MB"
+                            ],
+                            "correct_index": 0
                         }
                     ]
                 }
@@ -282,7 +381,7 @@
         }
     ],
     "topics_amount": 37,
-    "exercises_amount": 6,
+    "exercises_amount": 15,
     "videos_amount": 0,
     "file_id": "computer_architecture_i.json"
 }

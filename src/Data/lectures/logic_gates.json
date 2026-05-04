@@ -43,6 +43,28 @@
                         {
                             "type": "content",
                             "markdown": "## Key Comparison\n| Feature | Analog Signals | Digital Signals |\n| :--- | :--- | :--- |\n| Signal Wave | Continuous Sine Wave | Discrete Square Wave |\n| Data Range | Infinite values | Two states: 0 or 1 |\n| Noise | Highly susceptible | Highly resistant |\n| Bandwidth | Lower usage | Higher usage |\n| Accuracy | Degrades over time | Maintains high quality |"
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What is the primary characteristic of a Digital signal compared to an Analog signal?",
+                            "options": [
+                                "It varies continuously over a range of values.",
+                                "It is only used for high-voltage power lines.",
+                                "It cannot be processed by a CPU.",
+                                "It is represented by discrete states, typically 0 and 1."
+                            ],
+                            "correct_index": 3
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What device is required to allow a microcontroller to \"read\" an analog sensor value?",
+                            "options": [
+                                "Analog-to-Digital Converter (ADC)",
+                                "XOR Gate",
+                                "Step-up Transformer",
+                                "Digital-to-Analog Converter (DAC)"
+                            ],
+                            "correct_index": 0
                         }
                     ]
                 },
@@ -217,11 +239,11 @@
                         },
                         {
                             "type": "quiz",
-                            "question": "According to Boolean algebra laws, what does the expression A+(A\u22c5B) simplify to?",
+                            "question": "According to Boolean algebra laws, what does the expression A + ( A \u22c5 B ) simplify to?",
                             "options": [
                                 "B",
                                 "A",
-                                "A\u22c5B",
+                                "A \u22c5 B",
                                 "1"
                             ],
                             "correct_index": 1
@@ -334,6 +356,39 @@
                         {
                             "type": "content",
                             "markdown": "Key Differences\n\nBase: Octal is base - 8; Hexadecimal is base - 16.\nBinary Mapping: Octal is 3 bits; Hexadecimal is 4 bits.\nDensity: Hexadecimal is more compact than octal, making it preferred for modern 16, 32, or 64-bit systems"
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Why is Hexadecimal (Base-16) frequently used in computer engineering instead of Decimal?",
+                            "options": [
+                                "It is easier for humans to perform mental multiplication.",
+                                "One Hex digit perfectly represents exactly 4 bits of binary data.",
+                                "It allows for the storage of negative numbers without a sign bit.",
+                                "Computers naturally process base-16 internally before base-2."
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What is the Decimal equivalent of the Octal number $10_8$\u200b?",
+                            "options": [
+                                "10",
+                                "16",
+                                "8",
+                                "2"
+                            ],
+                            "correct_index": 2
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "Which character represents the value $13_10\u200b$ in the Hexadecimal system?",
+                            "options": [
+                                "D",
+                                "C",
+                                "B",
+                                "E"
+                            ],
+                            "correct_index": 0
                         }
                     ]
                 }
@@ -377,6 +432,39 @@
                         {
                             "type": "content",
                             "markdown": "Key Conversions Table\n| Decimal | Binary | Decimal | Binary |\n|:-----:| |:-----:| |:-----:| |:-----:|\n| 0 | 0000 | 6 | 0110 |\n| 1 | 0001 | 7 | 0111 |\n| 2 | 0010 | 8 | 1000 |\n| 3 |  0011 | 9 | 1001 |\n| 4 | 0100 | 10 | 1010 |\n| 5 | 0101 | 15 | 1111|"
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What is the decimal value of the binary number $11011_2$\u200b?",
+                            "options": [
+                                "25",
+                                "27",
+                                "11",
+                                "31"
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "To convert the decimal number 12 into binary using the \"Sum of Powers of Two\" method, which bits must be set to 1?",
+                            "options": [
+                                "\\(2^3 \\text{ and } 2^2 (8+4)\\)",
+                                "\\(2^3 \\text{ and } 2^1 (8+2)\\)",
+                                "\\(2^2 \\text{ and } 2^0 (4+1)\\)",
+                                "\\(2^3, 2^1, \\text{ and } 2^0 (8+2+1)\\)"
+                            ],
+                            "correct_index": 0
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "When converting a fractional decimal (e.g., 0.625) to binary, what mathematical operation is repeatedly performed on the fractional part?",
+                            "options": [
+                                "Division by 2",
+                                "Subtraction by 2",
+                                "Multiplication by 2",
+                                "Addition of 2"
+                            ],
+                            "correct_index": 2
                         }
                     ]
                 },
@@ -478,6 +566,39 @@
                         {
                             "type": "content",
                             "markdown": "Step-by-Step Example\n\n* **Right column:** $0 - 1 = 1$ (Borrow $1$ from middle column).\n* **Middle column:** $0$ (now $10_2$ after borrowing) $- 1 = 1$. Then, $1 - 1 = 0$. (Requires borrow from left column).\n* **Left column:** $1$ (now $0$ after borrowing) $- 0 = 0$.\n* **Result:** $011_2$ (or $3$ in decimal)."
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "In digital systems, how is the operation A\u2212B typically performed using logic gates?",
+                            "options": [
+                                "Direct subtraction using a Half-Subtractor.",
+                                "Converting B to its 2\u2019s complement and adding it to A.",
+                                "Converting both A and B to Hexadecimal first.",
+                                "Using a series of NOT gates on the output of an Adder."
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "What is the 2\u2019s complement of the binary number $0110_2\u200b$ ?",
+                            "options": [
+                                "\\(1001_2\\)",
+                                "\\(1010_2\\)",
+                                "\\(1110_2\\)",
+                                "\\(0011_2\\)"
+                            ],
+                            "correct_index": 1
+                        },
+                        {
+                            "type": "quiz",
+                            "question": "When performing binary subtraction \\((1010_2 - 0001_2)\\), what is the correct result?",
+                            "options": [
+                                "\\(1011_2\\)",
+                                "\\(0111_2\\)",
+                                "\\(1001_2\\)",
+                                "\\(1111_2\\)"
+                            ],
+                            "correct_index": 2
                         }
                     ]
                 },
@@ -519,7 +640,7 @@
         }
     ],
     "topics_amount": 79,
-    "exercises_amount": 6,
+    "exercises_amount": 17,
     "videos_amount": 0,
     "file_id": "logic_gates.json"
 }
