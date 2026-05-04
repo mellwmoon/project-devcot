@@ -1,4 +1,5 @@
 import flet as ft
+from rich import print
 from Pages import web_lecture as wel
 from Utilities import sysappbar_util as appbarutil
 from Utilities import database_util as dubil
@@ -8,7 +9,7 @@ class Discuss(ft.View):
 
   def __init__(self, page: ft.Page, db:dubil.DatabaseManager):
     self.client_page = page
-    
+    self.gdb = db
     self.pages_data = self.client_page.session.store.get("discuss_pages")
     
     # Fallback
@@ -16,14 +17,16 @@ class Discuss(ft.View):
         self.pages_data = [{"type": "content", "markdown": "# No data loaded\nPlease go back and select a topic."}]
 
     self.current_page_index = 0
-    
+    self.current_score = 0
     # Tracking Progress in the Session (to feed back to web_lecture)
+    # Currently almost useless ever since the progress bars have been removed
     if not page.session.store.get("user_progress"):
         page.session.store.set("user_progress", {"topics_taken": 0, "excercises_taken": 0})
     self.progress_tracker = page.session.store.get("user_progress")
+    self.selected_topic = page.session.store.get("lecture_title")
     self.page_completed_flags = False * [self.current_page_index]
 
-    cur_appbar = appbarutil.SysAppBar(page, "Study", db=db)
+    cur_appbar = appbarutil.SysAppBar(page, self.selected_topic, db=db)
 
     # --- UI COMPONENTS ---
     
@@ -212,6 +215,7 @@ class Discuss(ft.View):
           self.quiz_feedback.value = "Please select an answer first."
           self.quiz_feedback.color = ft.Colors.ORANGE_400
       elif int(user_choice) == correct_index:
+          self.current_score += 1
           self.quiz_feedback.value = "Correct! Excellent job."
           self.quiz_feedback.color = ft.Colors.GREEN_400
           
@@ -234,7 +238,19 @@ class Discuss(ft.View):
           self.current_page_index += 1
           self.render_current_page()
       else:
+          usr=await self.client_page.shared_preferences.get("current_user")
           e.page.show_dialog(self.completion_dialog)
+          print(f"[bold][USER EVENT][/bold] [bold yellow]{usr}[/bold yellow] finished a part of [bold cyan]{self.selected_topic}[/bold cyan]")
+          print(f"[bold][USER EVENT][/bold] [bold yellow]{usr}[/bold yellow] attained score of [bold cyan]{self.current_score}[/bold cyan]")
+          print(f"[bold][SYS DATABASE][/bold] trying to save to database...")
+          print("\n================================")
+          self.gdb.connect()
+          self.gdb.add_lesson(usr, self.selected_topic)
+          self.gdb.add_lesson_score(usr, self.selected_topic, self.current_score)
+          n=self.gdb.get_user_scores(usr)[self.selected_topic]
+          self.gdb.close()
+          print("=================================\n")
+          print(f"[bold][SYS DATABASE][/bold] Stored as [bold yellow]{self.selected_topic} : {n}[/bold yellow]")
         #   self.progress_tracker["topics_taken"] += 1
 
   async def go_prev(self, e):

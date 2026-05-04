@@ -157,6 +157,7 @@ class Lecture(ft.View):
       if self.target_discuss_pages is not None:
           
           e.page.session.store.set("discuss_pages", self.target_discuss_pages)
+          e.page.session.store.set("lecture_title", self.TOPIC_SELECTED)
           await self.page.push_route("/discuss")
 
       else:

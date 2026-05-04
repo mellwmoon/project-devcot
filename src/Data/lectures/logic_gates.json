@@ -143,10 +143,102 @@
                     "pages": []
                 }
             ]
+        },
+        {
+            "topic_title": "Number Systems",
+            "sub_topics": [
+                {
+                    "sub_title": "Binary and Decimal",
+                    "description": "Decimal is a base-10 system utilizing digits 0\u20139, while binary is a base-2 system with only 0 and 1, essential for digital computing.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Binary is a base-2 numbering system that uses only two digits\u20140 and 1\u2014to represent data, acting as the foundation for all modern computer operations. It represents information through two-state electronic components (on/off, high/low voltage), where each digit is a \"bit\" and eight bits form a byte"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Binary is the fundamental \"language\" of digital electronics. It uses only two symbols: 0 and 1. In hardware, these represent two distinct states, such as \"off\" and \"on\" or \"low voltage\" and \"high voltage.\" Each digit in a binary number is called a bit (binary digit). Because it is a positional system, each column represents a power of 2, starting from 20 on the far right."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example: The binary number 10112\u200b.\n\nCalculation: (1 \u00d7 23) + (0 \u00d7 22) + (1 \u00d7 21) + (1 \u00d7 20) \n                     = 8 + 0 + 2 + 1\n                     = 1110\u200b"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Binary Number Examples:\n               (0000 = 0)\n               (0001 = 1)\n               (0010 = 2)\n               (0011 = 3)\n               (0100 = 4)\n               (0101 = 5)\n               (0110 = 6)\n               (0111 = 7)\n               (1000 = 8)"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Decimal (Base-10)\n\nThe decimal system is the standard system used by humans for daily calculations. It uses ten symbols: 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9. It is a base-10 system because it likely originated from humans counting on ten fingers. Each position represents a power of 10. While intuitive for us, it is inefficient for direct implementation in digital logic gates, which prefer the \"either/or\" nature of binary."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "A decimal is a way of writing numbers that are not whole, representing values between integers using a base-10 system. It consists of a whole number part and a fractional part separated by a decimal point (e.g., 2.5), representing \"in-between\" values used frequently for precise measurements like money and weight."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example: The decimal number 45310\u200b.\n\n    Calculation: (4 \u00d7 102) + (5 \u00d7 101)  +(3 \u00d7 100) \n                        = 400 + 50 + 3 \n                        =453"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Understanding Place Value\n\nEach position to the right of the decimal point is 10 times smaller than the previous one:\n                         1st place: Tenths (1/10) or (0.1)\n                         2nd place: Hundredths (1/100) or (0.01)\n                         3rd place: Thousandths (1/1000) or (0.001)"
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Octal and Hexadecimal",
+                    "description": "Octal (base-8) and hexadecimal (base-16) are positional numeral systems used in computing to simplify binary code",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Octal is a base-8 numeral system that uses digits 0 through 7 to represent numerical values. It simplifies binary code by grouping bits into sets of three, making it easier for humans to read machine code. It is commonly used in computing for Unix file permissions, digital electronics, and older computer architectures."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Octal (Base-8)\n\nOctal uses eight symbols: 0, 1, 2, 3, 4, 5, 6, and 7. In the early days of computing, octal was popular because it provided a shorthand for binary; one octal digit represents exactly three binary bits (23 = 8). While less common now than Hexadecimal, it is still seen in certain programming environments (like Unix file permissions)."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example: The octal number 178\u200b\n\n    Calculation: (1 \u00d7 81) + (7 \u00d7 80)\n                         = 8 + 7 \n                         =1510\u200b"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Hexadecimal (Base-16)\n\nHexadecimal (or \"Hex\") is the most common shorthand for binary in modern computing. It uses sixteen symbols: 0 \u2013 9 and A \u2013 F (where A = 10, B = 11, C = 12, D = 13, E = 14, and F = 15). It is highly efficient because one hex digit represents exactly four binary bits (one \"nibble\"), and two hex digits represent one 8-bit byte. This makes long strings of binary much easier for engineers to read and debug."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example: The hex number 2B16\u200b\n\n    Calculation: (2 \u00d7 161) + (11 \u00d7 160)\n                        = 32 + 11\n                        = 4310\u200b"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Differences\n\nBase: Octal is base - 8; Hexadecimal is base - 16.\nBinary Mapping: Octal is 3 bits; Hexadecimal is 4 bits.\nDensity: Hexadecimal is more compact than octal, making it preferred for modern 16, 32, or 64-bit systems"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "topic_title": "Conversions",
+            "sub_topics": [
+                {
+                    "sub_title": "Binary \u2194 Decimal",
+                    "description": "No description provided.",
+                    "pages": []
+                },
+                {
+                    "sub_title": "Decimal \u2194 Hex (Hexadecimal)",
+                    "description": "No description provided.",
+                    "pages": []
+                }
+            ]
+        },
+        {
+            "topic_title": "Binary Arithmetic",
+            "sub_topics": []
         }
     ],
-    "topics_amount": 19,
+    "topics_amount": 33,
     "exercises_amount": 0,
     "videos_amount": 0,
-    "file_id": "binary_logic_and_number_system.json"
+    "file_id": "logic_gates.json"
 }
