@@ -219,9 +219,9 @@ class Discuss(ft.View):
           self.quiz_feedback.value = "Correct! Excellent job."
           self.quiz_feedback.color = ft.Colors.GREEN_400
           
-          print(len(self.pages_data))
-          print(len(self.page_completed_flags))
-          print(self.page_completed_flags)
+        #   print(len(self.pages_data))
+        #   print(len(self.page_completed_flags))
+        #   print(self.page_completed_flags)
 
           # Log progress on correct answer!
           if not self.page_completed_flags[self.current_page_index]:
@@ -229,6 +229,7 @@ class Discuss(ft.View):
               self.page_completed_flags[self.current_page_index] = True
               e.page.session.store.set("user_progress", self.progress_tracker)
       else:
+          self.current_score -= 1
           self.quiz_feedback.value = "Incorrect. Take a moment to review and try again!"
           self.quiz_feedback.color = ft.Colors.RED_400
           
