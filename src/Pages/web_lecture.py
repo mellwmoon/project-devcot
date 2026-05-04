@@ -1,13 +1,14 @@
 import flet as ft
 from Utilities import lecture_util as lutil
 from Utilities import sysappbar_util as appbarutil
+from Utilities import database_util as dubil
 
 # Note 1: content_lecture_list -> Main list container
 # Note 2: container_desc -> Main Description container,
 #         use lutil.ContentLecture to create details about lecture.
 
 class Lecture(ft.View):
-  def __init__(self, page: ft.Page):
+  def __init__(self, page: ft.Page, db:dubil.DatabaseManager):
     
     self.payload = page.session.store.get("current_lecture_payload")
     
@@ -16,7 +17,7 @@ class Lecture(ft.View):
 
     self.TOPIC_SELECTED = self.payload.get("title", "Unknown Lecture")
     
-    cur_appbar = appbarutil.SysAppBar(page, self.TOPIC_SELECTED)
+    cur_appbar = appbarutil.SysAppBar(page, self.TOPIC_SELECTED, db=db)
 
     # State tracking variables for interactivity
     self.sub_topic_items = []

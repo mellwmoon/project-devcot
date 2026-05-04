@@ -1,11 +1,12 @@
 import flet as ft
 from Pages import web_lecture as wel
 from Utilities import sysappbar_util as appbarutil
+from Utilities import database_util as dubil
 # Note 1: markdown_area is where actual lesson's content are built in.
 
 class Discuss(ft.View):
 
-  def __init__(self, page: ft.Page):
+  def __init__(self, page: ft.Page, db:dubil.DatabaseManager):
     self.client_page = page
     
     self.pages_data = self.client_page.session.store.get("discuss_pages")
@@ -22,7 +23,7 @@ class Discuss(ft.View):
     self.progress_tracker = page.session.store.get("user_progress")
     self.page_completed_flags = False * [self.current_page_index]
 
-    cur_appbar = appbarutil.SysAppBar(page, "Study")
+    cur_appbar = appbarutil.SysAppBar(page, "Study", db=db)
 
     # --- UI COMPONENTS ---
     
