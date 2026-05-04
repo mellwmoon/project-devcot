@@ -183,6 +183,10 @@ class DatabaseManager:
         return found
 
     # --- Personal Info Updates ---
+    def update_password(self, user_id, new_password):
+        """Updates the user's password securely."""
+        self._update_single_field("personal_info", "password", new_password, user_id)
+
     def update_username(self, user_id, new_username):
         self._update_single_field("personal_info", "username", new_username, user_id)
 
