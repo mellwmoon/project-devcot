@@ -71,6 +71,8 @@ async def web_manager(page: ft.Page):
 			page.show_dialog(ft.SnackBar(ft.Text("Create an account first!", color=ft.Colors.WHITE), bgcolor=ft.Colors.BLACK_26))
 			page.route = "/login"
 		
+		print(f"[USER ACTION] logged in as {current_user_id} -> trying to -> {page.route}")
+
 		match page.route:
 			case "/":
 				page.views.append(ws.home())
@@ -90,10 +92,10 @@ async def web_manager(page: ft.Page):
 				page.views.append(ws.home())
 		page.update()
 		
-		print(f""" =======================
-routed to: "{page.route}" 
-current views: {len(page.views)}
-		""")
+# 		print(f""" =======================
+# routed to: "{page.route}" 
+# current views: {len(page.views)}
+# 		""")
 		
 	# page.views.append(ws.home())
 	# page.update()

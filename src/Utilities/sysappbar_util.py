@@ -279,8 +279,8 @@ class SysAppBar(ft.AppBar):
     def get_sidebar_style(self, is_selected: bool):
         return ft.ButtonStyle(
             shape=ft.RoundedRectangleBorder(radius=5),
-            color=ft.Colors.GREEN_300 if is_selected else ft.Colors.WHITE54,
-            bgcolor=ft.Colors.WHITE10 if is_selected else ft.Colors.TRANSPARENT,
+            color=ft.Colors.GREEN_300 if is_selected else ft.Colors.WHITE_54,
+            bgcolor=ft.Colors.WHITE_10 if is_selected else ft.Colors.TRANSPARENT,
             padding=ft.Padding.symmetric(horizontal=15, vertical=15),
             alignment=ft.Alignment.CENTER_LEFT
         )
@@ -363,19 +363,29 @@ class SysAppBar(ft.AppBar):
                 self.field_bdate,
                 
                 ft.Divider(color=ft.Colors.TRANSPARENT, height=10),
+
                 ft.Text("Security", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.GREEN_300),
                 ft.Divider(color=ft.Colors.WHITE24),
                 self.field_pass,
+
+                ft.Divider(color=ft.Colors.TRANSPARENT, height=10),
+                ft.Text("Danger Zone", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.RED_300),
+                ft.Divider(color=ft.Colors.WHITE24),
+                ft.OutlinedButton("Delete Account", icon=ft.Icons.WARNING_ROUNDED, icon_color=ft.Colors.RED_400, style=ft.ButtonStyle(color=ft.Colors.RED_400), on_click=self.open_delete_confirm),
+                ft.OutlinedButton("Reset Progress", icon=ft.Icons.WARNING_ROUNDED, icon_color=ft.Colors.RED_400, style=ft.ButtonStyle(color=ft.Colors.RED_400), disabled=True),
                 
+                ft.Divider(color=ft.Colors.TRANSPARENT, height=10),
+
                 ft.Container(expand=True, margin=0, padding=0),
 
                 ft.Row(
                     alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                     controls=[
-                        ft.OutlinedButton("Delete Account", icon=ft.Icons.WARNING_ROUNDED, icon_color=ft.Colors.RED_400, style=ft.ButtonStyle(color=ft.Colors.RED_400), on_click=self.open_delete_confirm),
                         ft.Row(
+                            expand=True,
+                            alignment=ft.MainAxisAlignment.END,
                             controls=[
-                                ft.TextButton("Discard", on_click=self.close_settings_dialog),
+                                ft.TextButton("Discard/Cancel", on_click=self.close_settings_dialog),
                                 ft.FilledButton("Save Changes", on_click=self.save_account_changes, style=ft.ButtonStyle(bgcolor=ft.Colors.GREEN_400))
                             ]
                         )
