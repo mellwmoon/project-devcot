@@ -4,10 +4,11 @@ import flet as ft
 from Pages import web_lecture as wel
 from Utilities import data_util
 from Utilities import sysappbar_util
+from Utilities import database_util
 
 class Creator(ft.View):
-    def __init__(self, page:ft.Page):
-        cur_appbar = sysappbar_util.SysAppBar(page, "Lecture Creator", is_appbar_only=True)
+    def __init__(self, page:ft.Pag, db:database_util.DatabaseManager):
+        cur_appbar = sysappbar_util.SysAppBar(page, "Lecture Creator", is_appbar_only=True, db=db)
 
         self.current_loaded_file = None 
         self._target_edit_main = None
