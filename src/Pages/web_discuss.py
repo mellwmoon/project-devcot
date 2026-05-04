@@ -58,13 +58,13 @@ class Discuss(ft.View):
         margin=ft.Margin.only(left=150, right=150, top=40, bottom=0),
         padding=10,
         height=540,
-        border=ft.Border.all(1, ft.Colors.WHITE24), # Kept styling
+        border=ft.Border.all(1, ft.Colors.WHITE_24), # Kept styling
         border_radius=10,
         content=ft.Column(
           horizontal_alignment=ft.CrossAxisAlignment.CENTER,
           controls=[
             self.dynamic_content_area,
-            ft.Divider(color=ft.Colors.WHITE24),
+            ft.Divider(color=ft.Colors.WHITE_24),
             self.btn_next,
             ft.Row(
               alignment=ft.MainAxisAlignment.CENTER,
@@ -100,7 +100,7 @@ class Discuss(ft.View):
             font_family="Inter",
             size=20,
             weight=ft.FontWeight.W_600,
-            color=ft.Colors.WHITE70
+            color=ft.Colors.WHITE_70
         ),
 
         code_text_style=ft.TextStyle(
@@ -121,7 +121,7 @@ class Discuss(ft.View):
         blockquote_text_style=ft.TextStyle(
             font_family="Inter",
             size=16,
-            color=ft.Colors.WHITE60,
+            color=ft.Colors.WHITE_60,
             italic=True,
             height=1.5
         ),
@@ -139,7 +139,7 @@ class Discuss(ft.View):
         list_bullet_text_style=ft.TextStyle(
             font_family="Inter",
             size=16,
-            color=ft.Colors.WHITE70,
+            color=ft.Colors.WHITE_70,
             height=1.6
         ),
     )
