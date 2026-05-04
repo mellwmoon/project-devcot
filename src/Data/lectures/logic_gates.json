@@ -8,7 +8,7 @@
             "sub_topics": [
                 {
                     "sub_title": "Definition of Logic Gates",
-                    "description": "Fundamental building blocks of digital electronics, acting as physical devices (usually transistors) that perform Boolean logical operations on one or more binary inputs (0 or 1) to produce a single output",
+                    "description": "Fundamental building blocks of digital electronics, acting as physical devices that perform Boolean logical operations on one or more binary inputs to produce a single output.",
                     "pages": [
                         {
                             "type": "content",

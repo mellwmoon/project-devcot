@@ -2,8 +2,220 @@
     "title": "Computer Architecture I",
     "description": "Learn how Computer Architecture defines how a computer is designed and organized.",
     "icon": "MONITOR",
-    "main_topics": [],
-    "topics_amount": 0,
+    "main_topics": [
+        {
+            "topic_title": "Basic Components",
+            "sub_topics": [
+                {
+                    "sub_title": "CPU (ALU + Control Unit)",
+                    "description": "No description provided.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "The Central Processing Unit (CPU) is the \"brain\" of the computer, responsible for executing instructions and managing the flow of data. It is primarily composed of two critical functional blocks: the Arithmetic Logic Unit (ALU) and the Control Unit (CU). Together, they perform the fetch-decode-execute cycle that powers every software application."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Arithmetic Logic Unit (ALU)\n\nThe ALU is the part of the CPU that performs all mathematical calculations (addition, subtraction, etc.) and logical comparisons (AND, OR, NOT)."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "The ALU is the \"engine\" where data processing actually happens. It is divided into two sub-components:\n\n    Arithmetic Unit: This handles numerical operations. While we think in complex math, the ALU primarily uses Binary Addition at high speeds to perform multiplication (repeated addition) and subtraction (addition via 2's complement).\n\n    Logic Unit: This performs bitwise operations and comparisons. It evaluates conditions such as \"Is A=B?\" or \"Is A>B?\". These logic gates are fundamental for decision-making in programming (like if-else statements)."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Control Unit (CU)\n\nThe Control Unit acts as the \"manager\" or \"conductor\" of the CPU. It does not process data itself; instead, it directs the rest of the system on how to carry out instructions."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "The CU is responsible for the timing and synchronization of the processor. It performs several vital tasks:\n\n    Instruction Fetching: It retrieves the next instruction from the system memory (RAM).\n\n    Decoding: It translates that instruction into a series of micro-signals. For example, if the instruction is \"ADD,\" the CU sends a signal to the ALU to \"open\" the addition pathway.\n\n    Directing Data Flow: It manages the movement of data between the ALU, the registers (temporary storage), and the input/output devices.\n\nWithout the Control Unit, the ALU would be like a calculator with no one to press the buttons. The CU ensures that the right data reaches the ALU at exactly the right nanosecond."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "The Relationship: How They Work Together\n\nThe CU and ALU work in a continuous loop known as the Instruction Cycle:\n\n    Fetch: The Control Unit gets an instruction from memory.\n    Decode: The Control Unit figures out what the instruction means (e.g., \"Add these two numbers\").\n    Execute: The Control Unit tells the ALU which gates to activate, and the ALU performs the actual math.\n    Store: The result is saved back into a register or memory, coordinated by the Control Unit."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Takeaways \n\n    - The ALU is the \"doer\" (calculates and compares).\n    - The CU is the \"thinker\" (coordinates and commands).\n    -  Registers (small, fast storage) act as the workspace where the CU places data for the ALU to grab quickly."
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Memory (RAM, ROM)",
+                    "description": "No description provided.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Computer memory is the physical hardware used to store data, instructions, or information on a temporary or permanent basis. It is categorized based on its volatility (whether it needs power to keep data) and its accessibility."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Random Access Memory (RAM)\n\nRAM is the system's \"short-term memory.\" It is volatile, meaning it loses all stored information as soon as the power is turned off. It allows the CPU to read and write data quickly to support active processes."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "RAM is called \"Random Access\" because the CPU can access any byte of memory directly without following a sequential order, making it incredibly fast compared to storage like hard drives."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Read-Only Memory (ROM)\n\nROM is the system's \"permanent memory.\" It is non-volatile, meaning it retains its data even when the power is cut. As the name suggests, it is primarily used for reading data that should not be changed under normal operation."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "ROM contains the \"bootstrap\" instructions\u2014the very first code the computer runs when you press the power button. This is often called the BIOS (Basic Input/Output System) or Firmware. It performs a POST (Power-On Self-Test) to make sure your hardware is working before handing control over to the Operating System.\n\nModern ROM has evolved from its \"read-only\" roots:\n\n    - PROM: Programmable ROM (written once).\n    - EPROM: Erasable Programmable ROM (erased using UV light).\n    - EEPROM: Electrically Erasable Programmable ROM (can be rewritten using electrical signals). This is what modern BIOS and \"Flash\" memory are based on."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Comparison\n\nRAM (Random Access Memory)\n\nVolatility: It is 'volatile' memory, meaning all stored data is lost immediately when the power is turned off.\nUsage: Acts as a 'temporary workspace' for the operating system and active applications (like your Verilog simulators or browser tabs).\nSpeed: Operates at 'very high speeds', allowing the CPU to access data almost instantaneously.\nCapacity:  Typically has 'high capacity'in modern systems, often ranging from 8GB to 64GB.\nWriteability: Supports 'easy reading and writing', as data is constantly being changed and updated by the CPU.\n\n\n\nROM (Read-Only Memory)\n\nVolatility: It is 'non-volatile' memory; it retains its data permanently even without a power source.\nUsage: Stores'permanent instruction' required to start the computer, such as the BIOS or firmware.\n*   **Speed:** Generally **slower** than RAM, which is why BIOS instructions are often \"shadowed\" or copied into RAM during the boot process for faster execution.\nCapacity: Usually has 'low capacity', typically only a few megabytes (4MB to 16MB) since it only needs to store small boot scripts.\nWriteability: It is 'primarily read-only'; while modern versions like EEPROM can be \"flashed,\" it is not designed for frequent writing during normal operation."
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Input/Output Devices",
+                    "description": "No description provided.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Input and Output devices are the peripheral hardware components that allow a computer system to communicate with the outside world. Without these devices, a CPU would be a \"black box\" with no way to receive data or share its results."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Input Devices\n\nInput devices are hardware used to send data and control signals to the computer. They translate human actions (like typing or moving a mouse) or physical environment changes (like temperature or light) into binary data (0s and 1s) that the CPU can process."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Input devices serve as the \"senses\" of a computer. In a standard setup, these include the keyboard and mouse, but in the field of computer engineering, input devices extend significantly into sensors.\n\nFor example, when you press a key on a keyboard, a specific circuit is completed, which a controller converts into a \"scan code\" (binary). The CPU then interprets this code to display a character. In embedded systems\u2014like your ResiliNet project\u2014input devices are often sensors. An ultrasonic sensor acts as an input device by converting the time it takes for a sound wave to bounce back into a digital signal that represents distance.\n\nCommon Examples:\n\n    Human Interface: Keyboard, Mouse, Touchscreen, Microphone.\n    Sensors: Ultrasonic sensors, GPS modules, Accelerometers, Light Dependent Resistors (LDR).\n    Scanners: Barcode readers, Biometric (fingerprint) scanners."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Output Devices\n\nOutput devices are hardware that translate the processed binary data from the CPU into a form that is understandable to humans or can act upon the physical world."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Output devices are the \"voice\" or \"actions\" of the computer. Once the ALU and Control Unit have finished processing data, the result is sent to an output device. This could be visual (pixels on a monitor), auditory (sound from a speaker), or mechanical (movement of a motor).\n\nFor engineers, understanding the interface between the CPU and output devices is key. For instance, a monitor requires a Graphics Processing Unit (GPU) to translate binary into a video signal, while a simple LED requires only a high or low voltage from a GPIO (General Purpose Input/Output) pin. In automation, an output device might be an actuator, such as a relay that turns on a water pump or a motor that moves a robotic arm.\n\nCommon Examples:\n\n    Visual: Monitors, OLED displays, Projectors.\n    Auditory: Speakers, Headphones, Buzzers.\n    Physical/Mechanical: Printers, 3D Printers, Motors, Relays, LEDs."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "The Concept of I/O Controllers\n\nData doesn't just flow directly from a sensor to the CPU. There is an I/O Controller in between. This controller manages the communication, ensuring that the slow speed of an input device (like a person typing) doesn't \"clog up\" the incredibly fast speed of the CPU.\n\n    Input: Physical World \u2192 Binary Data \u2192 CPU.\n    Output: CPU \u2192 Binary Data \u2192 Physical Action/Display."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Takeaway \n\nWhen designing a system, the choice of I/O depends on the bandwidth required. A keyboard needs very little bandwidth, whereas a high-definition monitor requires massive amounts of data to be sent every second. As you work on your DEVCOT system, the keyboard/mouse are your primary inputs, while the screen is your primary output for displaying interactive quiz content."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "topic_title": "Data Flow",
+            "sub_topics": [
+                {
+                    "sub_title": "Instruction Cycle",
+                    "description": "No description provided.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "The CPU processes instructions in a continuous loop called the instruction cycle.\n\n                 Steps:\n                           1.\tFetch \u2192 get instruction\n                           2.\tDecode \u2192 interpret instruction\n                           3.\tExecute \u2192 perform action"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Instruction Cycle (Fetch\u2013Decode\u2013Execute)\n\nThe Instruction Cycle, also known as the Fetch-Decode-Execute (FDE) cycle, is the continuous process by which a computer retrieves a program instruction from its memory, determines what the instruction is, and carries out those actions."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "This cycle is the heartbeat of the CPU. Every single action your computer performs\u2014from a simple addition to rendering a 3D model in Fusion 360\u2014is broken down into millions of these cycles per second.\n\n    Fetch: The Control Unit (CU) looks at the Program Counter (PC) to find the address of the next instruction in RAM. The instruction is copied from memory and placed into the Instruction Register (IR).\n\n    Decode: The CU interprets the binary code in the Instruction Register. It breaks the code down into an Opcode (what to do, like \"ADD\") and Operands (what data to do it to).\n\n    Execute: The CU sends signals to the relevant parts of the CPU (like the ALU) to perform the task. If it's a math problem, the ALU completes it; if it's a data move, the buses move the data to a new register.\n\n    Store (Write-back): The result of the execution is written back to memory or a register so it can be used by the next instruction."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Takeaways: Instruction Cycle (Fetch\u2013Decode\u2013Execute)\n\nThis is the logical sequence of events that happens inside the CPU to process an instruction.\n\n    - The Heartbeat of Computing: Every single action a computer takes is broken down into these three repeating steps.\n   -  Role of the Program Counter (PC): The cycle cannot start without the PC, which acts as a pointer to the next instruction's address in memory.\n   - Opcode vs. Operands: During the Decode phase, the CPU separates the \"command\" (Opcode) from the \"data\" (Operand) to know exactly which electrical pathways to activate.\n   - Hardware Implementation: The Control Unit manages the Fetch and Decode, while the ALU typically handles the Execute phase for math and logic operations."
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Buses and Data Transfer",
+                    "description": "No description provided.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Buses and Data Transfer\n\nBuses are the physical \"highways\" or sets of parallel wires that connect the different components of a computer. They are the medium through which the Instruction Cycle actually moves data from one location to another."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "In engineering, we categorize these \"highways\" based on what they carry. A standard system utilizes a System Bus, which is divided into three functional groups:\n\n    Data Bus: Carries the actual data (the numbers, text, or instructions). It is bidirectional, meaning data can flow both to and from the CPU. The \"width\" of this bus (e.g., 32-bit or 64-bit) determines how much data the CPU can move at once.\n\n    Address Bus: Carries information about where the data needs to go or come from in the memory. It is unidirectional (CPU to Memory/IO). The width of this bus determines the maximum amount of RAM the system can support (2n addresses).\n\n    Control Bus: Carries signals from the Control Unit to keep everything synchronized. It transmits \"read\" or \"write\" commands and handles interrupts or clock pulses to ensure the timing of the Data Flow is perfect."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Takeaways: Buses and Data Transfer\n\nThis is the physical architecture\u2014the actual wiring and communication protocols that move data.\n\n    The Three-Bus Architecture:\n\n       - Data Bus: The only bidirectional bus; it carries the actual payload.\n       - Address Bus: Unidirectional; it defines the \"location\" and determines how much total memory (RAM) the CPU can actually \"see.\"\n       - Control Bus: Carries the timing and command signals (like \"Read\" or \"Write\") that synchronize the components.\n    \n    Bus Width = Performance: A 64-bit data bus can move twice as much data in one clock cycle as a 32-bit bus. This is why 64-bit operating systems are faster for data-heavy tasks.\n\n    The Von Neumann Bottleneck: This occurs when the CPU is significantly faster than the bus. Because the CPU must wait for data to travel from memory across the bus, the system's overall speed is limited by the bus speed, not the CPU's processing power.\n\n    Synchronization: Data transfer only happens when the System Clock sends a pulse, ensuring that all components are \"speaking\" and \"listening\" at the exact same time to prevent data corruption."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "topic_title": "Types of Architecture",
+            "sub_topics": [
+                {
+                    "sub_title": "Von Neumann Architecture",
+                    "description": "No description provided.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Computer architecture defines the conceptual design and fundamental operational structure of a computer system. It determines how the CPU, memory, and I/O components are interconnected and how instructions are processed."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Von Neumann Architecture\n\nProposed in 1945, this is the most common foundation for general-purpose computers. Its defining characteristic is a unified memory system, where both program instructions and data are stored in the same physical memory space and share the same bus."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "The Von Neumann model consists of a Central Processing Unit (CPU), a single Memory unit, and Input/Output mechanisms. Because instructions and data share the same communication path (the bus), the CPU cannot perform both tasks simultaneously. This leads to the Von Neumann Bottleneck: the CPU often sits idle because it is significantly faster than the rate at which data can be fetched from the shared memory.\n\nDespite this limitation, its simplicity makes it highly versatile. Most modern PCs and laptops still follow this \"stored-program\" concept because it allows for flexible memory allocation\u2014you can use your RAM for a massive program or for a small program with massive amounts of data without needing different physical hardware."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Takeaways\n\n    Von Neumann: One memory, one bus. Simple and flexible, but prone to bottlenecks. Best for general-purpose PCs."
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Harvard Architecture",
+                    "description": "No description provided.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Harvard Architecture\n\nUnlike Von Neumann, the Harvard Architecture uses physically separate memory and buses for instructions (code) and data."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "In a Harvard system, the CPU can read an instruction and perform a data memory access at the exact same time. This parallelism eliminates the bottleneck found in Von Neumann designs, leading to much faster execution for specific tasks.\n\nHowever, this comes at the cost of increased hardware complexity. You need two sets of buses and two separate memory controllers. Because of this efficiency, Harvard Architecture is the standard for Digital Signal Processors (DSPs) and Microcontrollers (like the ESP32 or Arduino). In these systems, the program is usually fixed in Flash memory while the data is handled in SRAM, making it perfect for real-time applications where speed and timing are critical."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Takeaways\n\n    Harvard: Separate memory, separate buses. Fast and efficient. Best for embedded systems and real-time processing."
+                        }
+                    ]
+                },
+                {
+                    "sub_title": "Modern Variations",
+                    "description": "No description provided.",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Modern Variations\n\nModern computing rarely uses a \"pure\" version of either. Instead, designers use hybrid approaches like the Modified Harvard Architecture to get the flexibility of Von Neumann with the speed of Harvard."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Today\u2019s high-performance processors, primarily use a hybrid model. At the Level 1 (L1) Cache level, they behave like Harvard Architecture\u2014having separate caches for instructions and data to ensure the CPU core isn't slowed down. However, as you move further out to the Main Memory (RAM), they behave like Von Neumann, using a unified space for everything.\n\nOther key modern variations include:\n\n    Reduced Instruction Set Computer (RISC): Focuses on simple instructions that can be executed in a single clock cycle (found in ARM processors and many modern microcontrollers).\n\n    Complex Instruction Set Computer (CISC): Focuses on multi-clock, complex instructions to reduce the number of lines of code (found in Intel and AMD x86-based CPUs).\n\n    Parallel Computing: Utilizing multiple cores or processors to handle different threads of data simultaneously, moving away from the single-threaded \"sequential\" nature of early architectures."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Takeaways\n\n    Modern Hybrid: Uses Harvard logic inside the CPU (caches) and Von Neumann logic for external memory (RAM)."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "topics_amount": 37,
     "exercises_amount": 0,
     "videos_amount": 0,
     "file_id": "computer_architecture_i.json"

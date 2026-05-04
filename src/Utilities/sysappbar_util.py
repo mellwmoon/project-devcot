@@ -32,7 +32,7 @@ class SysAppBar(ft.AppBar):
             content=ft.Container(
                 width=700,
                 height=350,
-                padding=ft.padding.only(left=20, top=20, right=20, bottom=10),
+                padding=ft.Padding.only(left=20, top=20, right=20, bottom=10),
                 content=ft.Row(
                     expand=True,
                     spacing=20,
@@ -41,7 +41,7 @@ class SysAppBar(ft.AppBar):
                             width=160,
                             controls=self.sidebar_buttons
                         ),
-                        ft.VerticalDivider(width=1, color=ft.Colors.WHITE24),
+                        ft.VerticalDivider(width=1, color=ft.Colors.WHITE_24),
                         self.settings_content_area
                     ]
                 )
@@ -279,8 +279,8 @@ class SysAppBar(ft.AppBar):
     def get_sidebar_style(self, is_selected: bool):
         return ft.ButtonStyle(
             shape=ft.RoundedRectangleBorder(radius=5),
-            color=ft.Colors.GREEN_300 if is_selected else ft.Colors.WHITE54,
-            bgcolor=ft.Colors.WHITE10 if is_selected else ft.Colors.TRANSPARENT,
+            color=ft.Colors.GREEN_300 if is_selected else ft.Colors.WHITE_54,
+            bgcolor=ft.Colors.WHITE_10 if is_selected else ft.Colors.TRANSPARENT,
             padding=ft.Padding.symmetric(horizontal=15, vertical=15),
             alignment=ft.Alignment.CENTER_LEFT
         )
@@ -306,8 +306,8 @@ class SysAppBar(ft.AppBar):
             expand=True,
             controls=[
                 ft.Text(title, theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.GREEN_300),
-                ft.Divider(color=ft.Colors.WHITE24),
-                ft.Text(description, font_family="JetBrains Mono", color=ft.Colors.WHITE54)
+                ft.Divider(color=ft.Colors.WHITE_24),
+                ft.Text(description, font_family="JetBrains Mono", color=ft.Colors.WHITE_54)
             ]
         )
 
@@ -332,13 +332,13 @@ class SysAppBar(ft.AppBar):
         f_name = name_parts[0]
         l_name = name_parts[1] if len(name_parts) > 1 else ""
         
-        self.field_fname = ft.TextField(label="First Name", value=f_name, expand=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14), border_color=ft.Colors.WHITE24)
-        self.field_lname = ft.TextField(label="Last Name", value=l_name, expand=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14), border_color=ft.Colors.WHITE24)
+        self.field_fname = ft.TextField(label="First Name", value=f_name, expand=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14), border_color=ft.Colors.WHITE_24)
+        self.field_lname = ft.TextField(label="Last Name", value=l_name, expand=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14), border_color=ft.Colors.WHITE_24)
         
-        self.field_email = ft.TextField(expand=True, label="Personal Email", value=email, read_only=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14, color=ft.Colors.WHITE54), border_color=ft.Colors.WHITE24)
-        self.field_univ_email = ft.TextField(expand=True, label="University Email", value=email_univ if email_univ else "N/A", read_only=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14, color=ft.Colors.WHITE54), border_color=ft.Colors.WHITE24)
+        self.field_email = ft.TextField(expand=True, label="Personal Email", value=email, read_only=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14, color=ft.Colors.WHITE_54), border_color=ft.Colors.WHITE_24)
+        self.field_univ_email = ft.TextField(expand=True, label="University Email", value=email_univ if email_univ else "N/A", read_only=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14, color=ft.Colors.WHITE_54), border_color=ft.Colors.WHITE_24)
 
-        self.field_pass = ft.TextField(expand=True, label="New Password (Leave blank to keep)", password=True, can_reveal_password=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14), border_color=ft.Colors.WHITE24)
+        self.field_pass = ft.TextField(expand=True, label="New Password (Leave blank to keep)", password=True, can_reveal_password=True, text_style=ft.TextStyle(font_family="JetBrains Mono", size=14), border_color=ft.Colors.WHITE_24)
         self.field_bdate = ft.TextField(
             expand=True,
             label="Birthdate", 
@@ -346,7 +346,7 @@ class SysAppBar(ft.AppBar):
             read_only=True, 
             on_click=lambda _: self.page.show_dialog(self.settings_date_picker),
             text_style=ft.TextStyle(font_family="JetBrains Mono", size=14),
-            border_color=ft.Colors.WHITE24
+            border_color=ft.Colors.WHITE_24
         )
 
         self.settings_content_area.content = ft.Column(
@@ -354,7 +354,7 @@ class SysAppBar(ft.AppBar):
             expand=True,
             controls=[
                 ft.Text("Personal Information", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.GREEN_300),
-                ft.Divider(color=ft.Colors.WHITE24),
+                ft.Divider(color=ft.Colors.WHITE_24),
                 
                 ft.Row([self.field_fname, self.field_lname]),
                 self.field_email,
@@ -364,12 +364,12 @@ class SysAppBar(ft.AppBar):
                 ft.Divider(color=ft.Colors.TRANSPARENT, height=10),
 
                 ft.Text("Security", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.GREEN_300),
-                ft.Divider(color=ft.Colors.WHITE24),
+                ft.Divider(color=ft.Colors.WHITE_24),
                 self.field_pass,
 
                 ft.Divider(color=ft.Colors.TRANSPARENT, height=10),
                 ft.Text("Danger Zone", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.RED_300),
-                ft.Divider(color=ft.Colors.WHITE24),
+                ft.Divider(color=ft.Colors.WHITE_24),
                 ft.OutlinedButton("Delete Account", icon=ft.Icons.WARNING_ROUNDED, icon_color=ft.Colors.RED_400, style=ft.ButtonStyle(color=ft.Colors.RED_400, side=ft.BorderSide(1, ft.Colors.RED_400)), on_click=self.open_delete_confirm),
                 ft.OutlinedButton("Reset Progress", icon=ft.Icons.WARNING_ROUNDED, icon_color=ft.Colors.RED_400, style=ft.ButtonStyle(color=ft.Colors.RED_400), disabled=True),
                 
@@ -403,14 +403,14 @@ class SysAppBar(ft.AppBar):
         score_rows = []
         if not scores_dict:
             score_rows.append(
-                ft.Text("No scores recorded yet. Go study some lectures!", color=ft.Colors.WHITE54, font_family="JetBrains Mono")
+                ft.Text("No scores recorded yet. Go study some lectures!", color=ft.Colors.WHITE_54, font_family="JetBrains Mono")
             )
         else:
             for lesson_title, score in scores_dict.items():
                 score_rows.append(
                     ft.Container(
                         padding=15,
-                        border=ft.Border.all(1, ft.Colors.WHITE24),
+                        border=ft.Border.all(1, ft.Colors.WHITE_24),
                         border_radius=8,
                         bgcolor=ft.Colors.with_opacity(0.02, ft.Colors.WHITE),
                         content=ft.Row(
@@ -434,7 +434,7 @@ class SysAppBar(ft.AppBar):
             spacing=10,
             controls=[
                 ft.Text("Details & Scores", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.GREEN_300),
-                ft.Divider(color=ft.Colors.WHITE24),
+                ft.Divider(color=ft.Colors.WHITE_24),
                 ft.Container(
                     height=250,
                     width=500,
@@ -457,7 +457,7 @@ class SysAppBar(ft.AppBar):
         topic_chips = []
         if not lessons_list:
             topic_chips.append(
-                ft.Text("You haven't started any topics yet.", color=ft.Colors.WHITE54, font_family="JetBrains Mono")
+                ft.Text("You haven't started any topics yet.", color=ft.Colors.WHITE_54, font_family="JetBrains Mono")
             )
         else:
             for lesson in lessons_list:
@@ -478,7 +478,7 @@ class SysAppBar(ft.AppBar):
             controls=[
                 ft.Column([
                     ft.Text("Topics Studied", theme_style=ft.TextThemeStyle.TITLE_SMALL, font_family="JetBrains Mono", color=ft.Colors.GREEN_300),
-                    ft.Divider(color=ft.Colors.WHITE24),
+                    ft.Divider(color=ft.Colors.WHITE_24),
                 ]),
                 ft.Container(
                     height=250,
