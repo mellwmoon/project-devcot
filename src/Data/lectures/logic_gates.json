@@ -222,13 +222,67 @@
             "sub_topics": [
                 {
                     "sub_title": "Binary \u2194 Decimal",
-                    "description": "No description provided.",
-                    "pages": []
+                    "description": "Converting Binary to Decimal",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Binary - to - decimal conversion maps base -2 (0,1) numbers to base -10 by summing products of digits and their position-based powers of two $(2^n)$. Binary to decimal uses expansion (right - to - left $(2^0, 2^1, \\dots)$, while decimal to binary uses repeated division by 2, tracking remainders in reverse order"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Binary to Decimal\n\n This involves the Sum-of-Weights method. You multiply each bit by its corresponding power of 2 and sum the results.\n\n    Example: 11012 \u200b= (1 \u00d7 8) + (1 \u00d7 4) + (0 \u00d7 2) + (1 \u00d7 1)\n                                = 1310\u200b"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Binary to Decimal Conversion (Base 2 to Base 10)\n\nThis method expands binary digits by multiplying each bit by the power of 2 corresponding to its position (starting at $(2^0)$ on the right).\n\n                         Step 1: Write the binary number.\n                         Step 2: Assign a power of 2 to each digit, starting from $2^{0}$ on the far right and increasing by 1   moving left $(2^0, 2^1, 2^2, \\dots)$.                        \n                        Step 3: Multiply each binary digit (0 or 1) by its corresponding power of 2.\n                        Step 4: Sum all the products to obtain the decimal number."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example: \n\nConvert $(1011)_2$ to Decimal\n                    - $(1 \\times 2^3) + (0 \\times 2^2) + (1 \\times 2^1) + (1 \\times 2^0)$\n                    - (8 + 0 + 2 + 1) = 11\n                    - $(1011)_2 = (11)_{10}$"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Decimal to Binary:\n\nThis usually uses the Repeated Division-by-2 method. Divide the decimal number by 2 and record the remainder. Continue until the quotient is 0. The remainders, read from bottom to top, form the binary number.\n\n    Example: Convert 13 to binary.\n\n                           13 \u00f7 2 = 6 r 1\n                           6 \u00f7 2 = 3 r 0\n                           3 \u00f7 2 = 1 r 1\n                          1 \u00f7 2 = 0 r 1 \u2192 Result: 11012\u200b"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Decimal to Binary Conversion (Base 10 to Base 2)\n\nThis method converts decimal numbers by repeatedly dividing by 2 and recording the remainders.\n\n                               Step 1: Divide the decimal number by 2.\n                               Step 2: Record the remainder (0 or 1).\n                               Step 3: Use the integer quotient from step 1 and divide by 2 again.\n                               Step 4: Repeat until the quotient is 0.\n                              Step 5: The binary number is the sequence of remainders read from bottom to top (last remainder to first)."
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example: \n\nConvert $(13)_{10}$ to Binary\n\n$$ \\begin{aligned} 13 \\div 2 &= 6 \\text{ rem } \\mathbf{1} \\text{ (LSB)} \\\\ 6 \\div 2 &= 3 \\text{ rem } \\mathbf{0} \\\\ 3 \\div 2 &= 1 \\text{ rem } \\mathbf{1} \\\\ 1 \\div 2 &= 0 \\text{ rem } \\mathbf{1} \\text{ (MSB)} \\\\ \\text{Result: } &(1101)_2 \\end{aligned} $$"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Key Conversions Table\n| Decimal | Binary | Decimal | Binary |\n|:-----:| |:-----:| |:-----:| |:-----:|\n| 0 | 0000 | 6 | 0110 |\n| 1 | 0001 | 7 | 0111 |\n| 2 | 0010 | 8 | 1000 |\n| 3 |  0011 | 9 | 1001 |\n| 4 | 0100 | 10 | 1010 |\n| 5 | 0101 | 15 | 1111|"
+                        }
+                    ]
                 },
                 {
                     "sub_title": "Decimal \u2194 Hex (Hexadecimal)",
-                    "description": "No description provided.",
-                    "pages": []
+                    "description": "Converting Decimal to Hexadecimal",
+                    "pages": [
+                        {
+                            "type": "content",
+                            "markdown": "Decimal-to-hexadecimal conversion maps base-10 numbers to base-16 by using the digits $0$--$9$ and letters $A$--$F$ (where $A=10$ through $F=15$ (F=15\\)). Like binary, it uses positional weight based on powers of 16 $16^n$"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Decimal to Hexadecimal:\n\nSimilar to the binary method, use Repeated Division-by-16. Record the remainders, converting any values from 10\u201315 to letters A\u2013F.\n\n    Example: Convert - $(250)_{10}$ to Hex.\n- $(250 \\div 16 = 15)$ remainder $10$ ($\\text{A}$)\n- $(15 \\div 16 = 0)$ remainder $15$ ($\\text{F}$) $\\rightarrow$ Result: $(\\text{FA})_{16}$"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Decimal to Hexadecimal (Base 10 to Base 16)\n\nUse the repeated division method, dividing the decimal number by 16 and recording remainders.\n\n       Step 1: Divide the decimal number by 16.\n       Step 2: Note the remainder; if it is 10\u201315, convert it to the letters $A$--$F$.\n      Step 3: Use the quotient for the next division.\n      Step 4: Stop when the quotient is 0.\n     Step 5: Read remainders from bottom to top"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Example: Convert $(960)_{10}$ to Hexadecimal\n\n- $(960 \\div 16 = 60)$ remainder $\\mathbf{0}$\n- $(60 \\div 16 = 3)$ remainder $\\mathbf{12}$ (which is $\\mathbf{C}$)\n- $(3 \\div 16 = 0)$ remainder $\\mathbf{3}$\n- Reading bottom-up: $\\mathbf{3C0}$\n- $(960)_{10} = (3\\text{C}0)_{16}$"
+                        },
+                        {
+                            "type": "content",
+                            "markdown": "Hexadecimal to Decimal: Use the Sum-of-Weights method with powers of 16.\n\nExample: $$\n\\begin{aligned}\n(1\\text{A})_{16} &= (1 \\times 16^1) + (10 \\times 16^0) \\\\\n&= 16 + 10 \\\\\n&= (26)_{10}\n\\end{aligned}\n$$"
+                        }
+                    ]
                 }
             ]
         },
@@ -237,7 +291,7 @@
             "sub_topics": []
         }
     ],
-    "topics_amount": 33,
+    "topics_amount": 46,
     "exercises_amount": 0,
     "videos_amount": 0,
     "file_id": "logic_gates.json"

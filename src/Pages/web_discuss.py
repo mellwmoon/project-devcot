@@ -239,18 +239,8 @@ class Discuss(ft.View):
           self.render_current_page()
       else:
           usr=await self.client_page.shared_preferences.get("current_user")
+          print(f"[bold][USER EVENT][/bold] [bold yellow]{usr}[/bold yellow] hit the end of a sub-topic")
           e.page.show_dialog(self.completion_dialog)
-          print(f"[bold][USER EVENT][/bold] [bold yellow]{usr}[/bold yellow] finished a part of [bold cyan]{self.selected_topic}[/bold cyan]")
-          print(f"[bold][USER EVENT][/bold] [bold yellow]{usr}[/bold yellow] attained score of [bold cyan]{self.current_score}[/bold cyan]")
-          print(f"[bold][SYS DATABASE][/bold] trying to save to database...")
-          print("\n================================")
-          self.gdb.connect()
-          self.gdb.add_lesson(usr, self.selected_topic)
-          self.gdb.add_lesson_score(usr, self.selected_topic, self.current_score)
-          n=self.gdb.get_user_scores(usr)[self.selected_topic]
-          self.gdb.close()
-          print("=================================\n")
-          print(f"[bold][SYS DATABASE][/bold] Stored as [bold yellow]{self.selected_topic} : {n}[/bold yellow]")
         #   self.progress_tracker["topics_taken"] += 1
 
   async def go_prev(self, e):
@@ -262,7 +252,20 @@ class Discuss(ft.View):
       if self.completion_dialog.open:
           self.completion_dialog.open = False
           e.page.update()
-          
+
+      usr=await self.client_page.shared_preferences.get("current_user")
+      print(f"[bold][USER EVENT][/bold] [bold yellow]{usr}[/bold yellow] finished a part of [bold cyan]{self.selected_topic}[/bold cyan]")
+      print(f"[bold][USER EVENT][/bold] [bold yellow]{usr}[/bold yellow] attained score of [bold cyan]{self.current_score}[/bold cyan]")
+      print(f"[bold][SYS DATABASE][/bold] trying to save to database...")
+      print("\n================================")
+      self.gdb.connect()
+      self.gdb.add_lesson(usr, self.selected_topic)
+      self.gdb.add_lesson_score(usr, self.selected_topic, self.current_score)
+      n=self.gdb.get_user_scores(usr)[self.selected_topic]
+      self.gdb.close()
+      print("=================================\n")
+      print(f"[bold][SYS DATABASE][/bold] Stored as [bold yellow]{self.selected_topic} : {n}[/bold yellow]")
+
       await e.page.push_route("/lecture")
 
   def close_dialog(self, e):

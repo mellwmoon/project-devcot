@@ -310,6 +310,7 @@ class SysAppBar(ft.AppBar):
                 ft.Text(description, font_family="JetBrains Mono", color=ft.Colors.WHITE54)
             ]
         )
+    
 
     async def load_account_view(self):
         """Fetches data from DB and builds the Account Information form."""
